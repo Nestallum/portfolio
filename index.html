@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,10 +25,6 @@
       --fz-md:  16px;
       --fz-lg:  18px;
       --fz-xl:  20px;
-    }
-
-    /* ─── Themes ─────────────────────────────────────────── */
-    [data-theme="dark"] {
       --bg:       #0f0f11;
       --bg-2:     #161619;
       --bg-3:     #1e1e22;
@@ -40,30 +36,21 @@
       --tag-bg:   rgba(255, 255, 255, 0.05);
       --tag-color: #9898a5;
     }
-    [data-theme="light"] {
-      --bg:       #f5f5f7;
-      --bg-2:     #ffffff;
-      --bg-3:     #f0f0f2;
-      --border:   rgba(0, 0, 0, 0.07);
-      --border-2: rgba(0, 0, 0, 0.12);
-      --text-1:   #1d1d1f;
-      --text-2:   #6e6e73;
-      --text-3:   #aeaeb2;
-      --tag-bg:   rgba(0, 0, 0, 0.05);
-      --tag-color: #6e6e73;
-    }
 
+    ::selection {
+      background: var(--accent-dim);
+      color: var(--text-1);
+    }
+    
     /* ─── Reset ──────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
       background: var(--bg);
-      background-size: 80px 80px;
       font-family: var(--font-sans);
       color: var(--text-1);
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
-      transition: background 0.3s, color 0.3s;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -78,7 +65,7 @@
       padding: 0 clamp(1.5rem, 5vw, 4rem);
       background: var(--bg);
       border-bottom: 1px solid var(--border);
-      transition: background 0.3s, transform 0.5s ease;
+      transition: transform 0.5s ease;
     }
     /* Use .nav-scrolled-up / .nav-scrolled-down to avoid clash with HTML [hidden] */
     nav.nav-hidden { transform: translateY(-100%); }
@@ -90,22 +77,7 @@
     .nav-links a { font-size: var(--fz-sm); font-weight: 400; color: var(--text-2); transition: color 0.2s; }
     .nav-links a:hover { color: var(--text-1); }
 
-    .nav-right { display: flex; align-items: center; gap: 1rem; }
-    .theme-toggle {
-      width: 36px; height: 36px;
-      border: 1px solid var(--border-2);
-      border-radius: var(--radius-sm);
-      background: transparent; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-2);
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .theme-toggle:hover { color: var(--text-1); border-color: var(--accent-border); }
-    .theme-toggle svg { width: 16px; height: 16px; }
-    .icon-sun { display: none; }
-    .icon-moon { display: block; }
-    [data-theme="light"] .icon-sun  { display: block; }
-    [data-theme="light"] .icon-moon { display: none; }
+    .nav-right { display: flex; align-items: center; }
 
     .nav-cta {
       font-size: var(--fz-sm); font-weight: 500;
@@ -128,7 +100,7 @@
     }
 
     /* ─── Hero ───────────────────────────────────────────── */
-    #hero { padding-top: calc(var(--nav-h) + 6rem); padding-bottom: 6rem; border-bottom: 1px solid var(--border); }
+    #hero { padding-top: calc(var(--nav-h) + 6rem); padding-bottom: 6rem; }
     .hero-eyebrow { font-size: var(--fz-sm); font-weight: 400; color: var(--accent); font-family: var(--font-mono); margin-bottom: 1.5rem; }
     .hero-name { font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 800; letter-spacing: 0.02em; line-height: 1.0; margin-bottom: 1.5rem; }
     .hero-name-sub { color: var(--text-3); font-weight: 800; letter-spacing: 0.01em;}
@@ -153,10 +125,11 @@
       padding: 2rem 0; border-top: 1px solid var(--border);
     }
     .exp-item:first-of-type { border-top: none; padding-top: 0; }
-    .exp-meta { padding-top: 2px; }
-    .exp-date    { font-size: var(--fz-xs); font-weight: 400; color: var(--text-3); font-family: var(--font-mono); line-height: 1.5; }
-    .exp-company { font-size: var(--fz-xs); font-weight: 400; color: var(--text-3); margin-top: 4px; line-height: 1.5; }
+    .exp-meta     { padding-top: 2px; }
+    .exp-date     { font-size: var(--fz-xs); font-weight: 400; color: var(--text-3); font-family: var(--font-mono); line-height: 1.5; }
+    .exp-company  { font-size: var(--fz-xs); font-weight: 400; color: var(--text-3); margin-top: 4px; line-height: 1.5; }
     .exp-title    { font-size: var(--fz-lg); font-weight: 500; color: var(--text-1); margin-bottom: 0.4rem; }
+    .exp-at       { color: var(--text-3); }
     .exp-subtitle { font-size: var(--fz-sm); font-weight: 400; color: var(--accent); margin-bottom: 0.9rem; font-family: var(--font-mono); }
     .exp-desc     { font-size: var(--fz-md); font-weight: 300; color: var(--text-2); line-height: 1.75; margin-bottom: 1rem; }
     .exp-bullets  { padding-left: 0; }
@@ -167,11 +140,7 @@
     .exp-bullets li::before { content: '–'; position: absolute; left: 0; color: var(--text-3); }
     .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; position: relative; z-index: 1; }
 
-    .sodern-logo {
-      width: 120px; margin-top: 20px;
-      filter: brightness(0) invert(1) opacity(0.87);
-    }
-    [data-theme="light"] .sodern-logo { filter: brightness(0) opacity(0.83); }
+    .sodern-logo { width: 120px; margin-top: 20px; filter: brightness(0) invert(1) opacity(0.87); }
     .sodern-link { display: inline-block; position: relative; }
     .sodern-link::after {
       content: '';
@@ -287,7 +256,7 @@
 
   <nav id="site-nav" aria-label="Primary navigation">
     <a href="/" class="nav-logo">NL<span>.</span></a>
-    <div class="nav-links" role="list">
+    <div class="nav-links">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
@@ -296,18 +265,6 @@
       <a href="#contact">Contact</a>
     </div>
     <div class="nav-right">
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle colour theme">
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-      </button>
       <a href="cv-nassim-lattab-en.pdf" target="_blank" rel="noopener noreferrer" class="nav-cta">Resume</a>
     </div>
   </nav>
@@ -361,7 +318,7 @@
           </p>
         </div>
         <div>
-          <p class="exp-title">AI Research Intern</p>
+          <p class="exp-title">AI Research Intern <span class="exp-at">@ Sodern · ArianeGroup</span></p>
           <p class="exp-subtitle">Deep Learning · Computer Vision</p>
           <p class="exp-desc">End-to-end deep learning pipeline for image restoration on embedded space systems.</p>
           <ul class="exp-bullets">
@@ -526,6 +483,7 @@
     </section>
 
     <section id="contact" aria-labelledby="contact-heading">
+      <p id="contact-label" class="section-label">Follow the white rabbit.</p>
       <h2 id="contact-heading" class="contact-heading fade-in">Let's work together.</h2>
       <p class="contact-sub fade-in">Open to full-time AI/ML engineering roles. Feel free to reach out.</p>
       <a href="mailto:nassimlattab@gmail.com" class="contact-btn fade-in">
@@ -552,23 +510,6 @@
   <script>
     (() => {
       'use strict';
-
-      /* ── Theme ─────────────────────────────────────────── */
-      const html    = document.documentElement;
-      const toggle  = document.getElementById('themeToggle');
-
-      const getSystemTheme = () =>
-        window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-
-      const applyTheme = (theme) => html.setAttribute('data-theme', theme);
-
-      applyTheme(localStorage.getItem('theme') ?? getSystemTheme());
-
-      toggle.addEventListener('click', () => {
-        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        applyTheme(next);
-        localStorage.setItem('theme', next);
-      });
 
       /* ── Scroll-hide nav ───────────────────────────────── */
       const nav = document.getElementById('site-nav');
