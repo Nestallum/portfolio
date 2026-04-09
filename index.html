@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nassim Lattab — Junior AI Engineer focused on Deep Learning, Computer Vision and NLP." />
   <title>Nassim Lattab — AI Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
 
   <style>
+    /* ─── Tokens ─────────────────────────────────────────── */
     :root {
       --accent:        #7EB8C9;
       --accent-dim:    rgba(126, 184, 201, 0.12);
@@ -17,41 +19,41 @@
       --font-mono: 'DM Mono', monospace;
       --radius-sm: 6px;
       --radius-md: 12px;
-      --radius-lg: 16px;
       --nav-h: 64px;
-
-      --fz-xxs: 12px;
-      --fz-xs:  13px;
+      --fz-xs:  12px;
       --fz-sm:  14px;
-      --fz-md:  15px;
+      --fz-md:  16px;
       --fz-lg:  18px;
       --fz-xl:  20px;
-      --fz-xxl: 24px;
     }
+
+    /* ─── Themes ─────────────────────────────────────────── */
     [data-theme="dark"] {
-      --bg:          #0f0f11;
-      --bg-2:        #161619;
-      --bg-3:        #1e1e22;
-      --border:      rgba(255,255,255,0.07);
-      --border-2:    rgba(255,255,255,0.12);
-      --text-1:      #e8e8ed;
-      --text-2:      #9898a5;
-      --text-3:      #5a5a66;
-      --tag-bg:      rgba(255,255,255,0.05);
-      --tag-color:   #9898a5;
+      --bg:       #0f0f11;
+      --bg-2:     #161619;
+      --bg-3:     #1e1e22;
+      --border:   rgba(255, 255, 255, 0.07);
+      --border-2: rgba(255, 255, 255, 0.12);
+      --text-1:   #e8e8ed;
+      --text-2:   #9898a5;
+      --text-3:   #5a5a66;
+      --tag-bg:   rgba(255, 255, 255, 0.05);
+      --tag-color: #9898a5;
     }
     [data-theme="light"] {
-      --bg:          #f5f5f7;
-      --bg-2:        #ffffff;
-      --bg-3:        #f0f0f2;
-      --border:      rgba(0,0,0,0.07);
-      --border-2:    rgba(0,0,0,0.12);
-      --text-1:      #1d1d1f;
-      --text-2:      #6e6e73;
-      --text-3:      #aeaeb2;
-      --tag-bg:      rgba(0,0,0,0.05);
-      --tag-color:   #6e6e73;
+      --bg:       #f5f5f7;
+      --bg-2:     #ffffff;
+      --bg-3:     #f0f0f2;
+      --border:   rgba(0, 0, 0, 0.07);
+      --border-2: rgba(0, 0, 0, 0.12);
+      --text-1:   #1d1d1f;
+      --text-2:   #6e6e73;
+      --text-3:   #aeaeb2;
+      --tag-bg:   rgba(0, 0, 0, 0.05);
+      --tag-color: #6e6e73;
     }
+
+    /* ─── Reset ──────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
@@ -66,6 +68,7 @@
     ul { list-style: none; }
     img { display: block; max-width: 100%; }
 
+    /* ─── Nav ────────────────────────────────────────────── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       height: var(--nav-h);
@@ -75,12 +78,16 @@
       border-bottom: 1px solid var(--border);
       transition: background 0.3s, transform 0.5s ease;
     }
-    nav.hidden { transform: translateY(-100%); }
+    /* Use .nav-scrolled-up / .nav-scrolled-down to avoid clash with HTML [hidden] */
+    nav.nav-hidden { transform: translateY(-100%); }
+
     .nav-logo { font-size: var(--fz-md); font-weight: 500; letter-spacing: -0.01em; color: var(--text-1); }
     .nav-logo span { color: var(--accent); }
+
     .nav-links { display: flex; align-items: center; gap: 2rem; }
     .nav-links a { font-size: var(--fz-sm); font-weight: 400; color: var(--text-2); transition: color 0.2s; }
     .nav-links a:hover { color: var(--text-1); }
+
     .nav-right { display: flex; align-items: center; gap: 1rem; }
     .theme-toggle {
       width: 36px; height: 36px;
@@ -95,8 +102,9 @@
     .theme-toggle svg { width: 16px; height: 16px; }
     .icon-sun { display: none; }
     .icon-moon { display: block; }
-    [data-theme="light"] .icon-sun { display: block; }
+    [data-theme="light"] .icon-sun  { display: block; }
     [data-theme="light"] .icon-moon { display: none; }
+
     .nav-cta {
       font-size: var(--fz-sm); font-weight: 500;
       padding: 7px 16px;
@@ -107,126 +115,166 @@
     }
     .nav-cta:hover { background: var(--accent-dim); }
 
+    /* ─── Layout ─────────────────────────────────────────── */
     main { max-width: 1000px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 2.5rem); }
     section { padding: 6rem 0; border-bottom: 1px solid var(--border); }
     section:last-of-type { border-bottom: none; }
     .section-label {
-      font-size: var(--fz-xxs); font-weight: 500;
+      font-size: var(--fz-xs); font-weight: 500;
       letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--accent); margin-bottom: 2.5rem;
     }
 
+    /* ─── Hero ───────────────────────────────────────────── */
     #hero { padding-top: calc(var(--nav-h) + 6rem); padding-bottom: 6rem; border-bottom: 1px solid var(--border); }
     .hero-eyebrow { font-size: var(--fz-sm); font-weight: 400; color: var(--accent); font-family: var(--font-mono); margin-bottom: 1.5rem; }
-    .hero-name { font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 300; letter-spacing: -0.03em; line-height: 1.05; color: var(--text-1); margin-bottom: 1rem; }
+    .hero-name { font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 300; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1rem; }
     .hero-name strong { font-weight: 500; }
-    .hero-tagline { font-size: 1rem; font-weight: 300; color: var(--text-2); max-width: 540px; margin-bottom: 2.5rem; line-height: 1.6; }
+    .hero-tagline { font-size: var(--fz-md); font-weight: 300; color: var(--text-2); max-width: 500px; margin-bottom: 2.5rem; line-height: 1.6; }
     .hero-links { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-    .hero-link { display: flex; align-items: center; gap: 6px; font-size: var(--fz-sm); font-weight: 400; color: var(--text-2); transition: color 0.2s; font-family: var(--font-mono); }
+    .hero-link {
+      display: flex; align-items: center; gap: 6px;
+      font-size: var(--fz-sm); font-weight: 400; color: var(--text-2);
+      transition: color 0.2s; font-family: var(--font-mono);
+    }
     .hero-link:hover { color: var(--accent); }
     .hero-link svg { width: 14px; height: 14px; flex-shrink: 0; }
     .hero-sep { color: var(--text-3); font-size: var(--fz-xs); }
 
-    .about-text { font-size: 1rem; font-weight: 300; color: var(--text-2); max-width: 620px; line-height: 1.8; }
+    /* ─── About ──────────────────────────────────────────── */
+    .about-text { font-size: var(--fz-md); font-weight: 300; color: var(--text-2); max-width: 620px; line-height: 1.8; }
     .about-text strong { color: var(--text-1); font-weight: 400; }
 
-    .exp-item { display: grid; grid-template-columns: 140px 1fr; gap: 0 2rem; padding: 2rem 0; border-top: 1px solid var(--border); }
+    /* ─── Experience ─────────────────────────────────────── */
+    .exp-item {
+      display: grid; grid-template-columns: 140px 1fr; gap: 0 2rem;
+      padding: 2rem 0; border-top: 1px solid var(--border);
+    }
     .exp-item:first-of-type { border-top: none; padding-top: 0; }
     .exp-meta { padding-top: 2px; }
-    .exp-date { font-size: var(--fz-xs); font-weight: 400; color: var(--text-3); font-family: var(--font-mono); line-height: 1.5; }
+    .exp-date    { font-size: var(--fz-xs); font-weight: 400; color: var(--text-3); font-family: var(--font-mono); line-height: 1.5; }
     .exp-company { font-size: var(--fz-xs); font-weight: 400; color: var(--text-3); margin-top: 4px; line-height: 1.5; }
-    .exp-title { font-size: var(--fz-lg); font-weight: 500; color: var(--text-1); margin-bottom: 0.4rem; }
+    .exp-title    { font-size: var(--fz-lg); font-weight: 500; color: var(--text-1); margin-bottom: 0.4rem; }
     .exp-subtitle { font-size: var(--fz-sm); font-weight: 400; color: var(--accent); margin-bottom: 0.9rem; font-family: var(--font-mono); }
-    .exp-desc { font-size: var(--fz-md); font-weight: 300; color: var(--text-2); line-height: 1.75; margin-bottom: 1rem; }
-    .exp-bullets { padding-left: 0; }
-    .exp-bullets li { font-size: var(--fz-md); font-weight: 300; color: var(--text-2); line-height: 1.7; padding-left: 1.2rem; position: relative; margin-bottom: 0.35rem; }
+    .exp-desc     { font-size: var(--fz-md); font-weight: 300; color: var(--text-2); line-height: 1.75; margin-bottom: 1rem; }
+    .exp-bullets  { padding-left: 0; }
+    .exp-bullets li {
+      font-size: var(--fz-md); font-weight: 300; color: var(--text-2);
+      line-height: 1.7; padding-left: 1.2rem; position: relative; margin-bottom: 0.35rem;
+    }
     .exp-bullets li::before { content: '–'; position: absolute; left: 0; color: var(--text-3); }
     .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; position: relative; z-index: 1; }
 
     .sodern-logo {
-      width: 120px;
-      margin-top: 20px;
+      width: 120px; margin-top: 20px;
       filter: brightness(0) invert(1) opacity(0.87);
     }
-    [data-theme="light"] .sodern-logo {
-      filter: brightness(0) opacity(0.83);
-    }
+    [data-theme="light"] .sodern-logo { filter: brightness(0) opacity(0.83); }
     .sodern-link { display: inline-block; position: relative; }
     .sodern-link::after {
       content: '';
-      position: absolute;
-      bottom: -8px; left: 0;
+      position: absolute; bottom: -8px; left: 0;
       width: 100%; height: 1px;
       background: var(--text-2);
-      transform: scaleX(0);
-      transform-origin: right;
+      transform: scaleX(0); transform-origin: right;
       transition: transform 0.3s ease;
     }
     .sodern-link:hover::after { transform: scaleX(1); transform-origin: left; }
 
-    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    /* ─── Projects ───────────────────────────────────────── */
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .project-card {
-      position: relative;
-      overflow: hidden;
-      background: var(--bg-2);
-      padding: 1.75rem;
-      display: flex; flex-direction: column;
-      gap: 0.75rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
+      position: relative; overflow: hidden;
+      background: var(--bg-2); padding: 1.5rem;
+      display: flex; flex-direction: column; gap: 0.65rem;
+      border: 1px solid var(--border); border-radius: var(--radius-md);
+      color: inherit; transition: border-color 0.2s;
     }
     .project-card::after {
       content: '';
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background: var(--bg-3);
       transform: translateY(100%);
       transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
       pointer-events: none;
     }
     .project-card:hover::after { transform: translateY(0); }
-    .project-card:hover { border-color: var(--border); }
     .project-top { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; }
-    .project-icon { width: 32px; height: 32px; border: 1px solid var(--border-2); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--accent); }
+    .project-icon {
+      width: 32px; height: 32px;
+      border: 1px solid var(--border-2); border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center; color: var(--accent);
+    }
     .project-icon svg { width: 16px; height: 16px; }
     .project-link-icon { color: var(--text-3); transition: color 0.2s; }
     .project-card:hover .project-link-icon { color: var(--accent); }
     .project-link-icon svg { width: 14px; height: 14px; }
     .project-title { font-size: var(--fz-lg); font-weight: 500; color: var(--text-1); line-height: 1.3; position: relative; z-index: 1; }
-    .project-desc { font-size: var(--fz-md); font-weight: 300; color: var(--text-2); line-height: 1.65; flex: 1; position: relative; z-index: 1; }
-    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; position: relative; z-index: 1; }
-    .tag { font-size: var(--fz-xs); font-weight: 400; padding: 3px 9px; background: var(--tag-bg); color: var(--tag-color); border-radius: 20px; font-family: var(--font-mono); border: 1px solid var(--border); }
+    .project-desc  { font-size: var(--fz-md); font-weight: 300; color: var(--text-2); line-height: 1.65; flex: 1; position: relative; z-index: 1; }
+    .project-tags  { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; position: relative; z-index: 1; }
 
+    /* ─── Tag ────────────────────────────────────────────── */
+    .tag {
+      font-size: var(--fz-xs); font-weight: 400;
+      padding: 3px 8px;
+      background: var(--tag-bg); color: var(--tag-color);
+      border-radius: 20px; font-family: var(--font-mono);
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    /* ─── Skills ─────────────────────────────────────────── */
     .skills-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
-    .skill-group-label { font-size: var(--fz-xxs); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.75rem; }
+    .skill-group-label {
+      font-size: var(--fz-xs); font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-3); margin-bottom: 0.75rem;
+    }
     .skill-list { display: flex; flex-direction: column; gap: 0.4rem; }
     .skill-list li { font-size: var(--fz-md); font-weight: 300; color: var(--text-2); font-family: var(--font-mono); }
 
-    .edu-item { display: grid; grid-template-columns: 140px 1fr; gap: 0 2rem; padding: 1.75rem 0; border-top: 1px solid var(--border); }
+    /* ─── Education ──────────────────────────────────────── */
+    .edu-item {
+      display: grid; grid-template-columns: 140px 1fr; gap: 0 2rem;
+      padding: 1.75rem 0; border-top: 1px solid var(--border);
+    }
     .edu-item:first-of-type { border-top: none; padding-top: 0; }
+    .edu-date   { font-size: var(--fz-xs); font-weight: 400; color: var(--text-3); font-family: var(--font-mono); line-height: 1.5; padding-top: 2px; }
     .edu-degree { font-size: var(--fz-lg); font-weight: 500; color: var(--text-1); margin-bottom: 0.25rem; }
     .edu-school { font-size: var(--fz-md); font-weight: 300; color: var(--text-2); margin-bottom: 0.5rem; }
-    .edu-note { display: inline-flex; align-items: center; gap: 6px; font-size: var(--fz-xs); font-weight: 400; color: var(--accent); font-family: var(--font-mono); }
+    .edu-note   { display: inline-flex; align-items: center; gap: 6px; font-size: var(--fz-xs); font-weight: 400; color: var(--accent); font-family: var(--font-mono); }
 
+    /* ─── Contact ────────────────────────────────────────── */
     #contact { text-align: center; padding: 6rem 0; }
-    .contact-heading { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 300; letter-spacing: -0.02em; color: var(--text-1); margin-bottom: 1rem; }
+    .contact-heading { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 300; letter-spacing: -0.02em; margin-bottom: 1rem; }
     .contact-sub { font-size: var(--fz-lg); font-weight: 300; color: var(--text-2); max-width: 450px; margin: 0 auto 2.5rem; }
-    .contact-btn { display: inline-flex; align-items: center; gap: 8px; font-size: var(--fz-md); font-weight: 500; padding: 12px 28px; background: var(--accent-dim); border: 1px solid var(--accent-border); border-radius: var(--radius-md); color: var(--accent); transition: background 0.2s, border-color 0.2s; }
-    .contact-btn:hover { background: rgba(126,184,201,0.2); }
+    .contact-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: var(--fz-md); font-weight: 500; padding: 12px 28px;
+      background: var(--accent-dim); border: 1px solid var(--accent-border);
+      border-radius: var(--radius-md); color: var(--accent);
+      transition: background 0.2s;
+    }
+    .contact-btn:hover { background: rgba(126, 184, 201, 0.2); }
     .contact-socials { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
     .contact-social { font-size: var(--fz-xs); font-weight: 400; color: var(--text-3); font-family: var(--font-mono); transition: color 0.2s; }
     .contact-social:hover { color: var(--accent); }
 
-    footer { text-align: center; padding: 2rem; font-size: var(--fz-xs); color: var(--text-3); font-family: var(--font-mono); border-top: 1px solid var(--border); }
+    /* ─── Footer ─────────────────────────────────────────── */
+    footer {
+      text-align: center; padding: 2rem;
+      font-size: var(--fz-xs); color: var(--text-3);
+      font-family: var(--font-mono); border-top: 1px solid var(--border);
+    }
 
+    /* ─── Animations ─────────────────────────────────────── */
     .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
+    /* ─── Responsive ─────────────────────────────────────── */
     @media (max-width: 640px) {
       .nav-links { display: none; }
+      .nav-cta   { display: none; }
       .exp-item, .edu-item { grid-template-columns: 1fr; gap: 0.25rem; }
       .exp-meta, .edu-date { margin-bottom: 0.5rem; }
       .projects-grid { grid-template-columns: 1fr; }
@@ -235,9 +283,9 @@
 </head>
 <body>
 
-  <nav>
+  <nav id="site-nav" aria-label="Primary navigation">
     <span class="nav-logo">NL<span>.</span></span>
-    <div class="nav-links">
+    <div class="nav-links" role="list">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
@@ -246,41 +294,42 @@
       <a href="#contact">Contact</a>
     </div>
     <div class="nav-right">
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle colour theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
           <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
           <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
         </svg>
       </button>
-      <a href="cv-nassim-lattab-en.pdf" target="_blank" class="nav-cta">Resume</a>
+      <a href="cv-nassim-lattab-en.pdf" target="_blank" rel="noopener noreferrer" class="nav-cta">Resume</a>
     </div>
   </nav>
 
   <main>
 
-    <section id="hero">
+    <section id="hero" aria-labelledby="hero-name">
       <p class="hero-eyebrow fade-in">Hello, I'm</p>
-      <h1 class="hero-name fade-in"><strong>Nassim Lattab</strong></h1>
+      <h1 id="hero-name" class="hero-name fade-in"><strong>Nassim Lattab</strong></h1>
       <p class="hero-tagline fade-in">
         Junior AI Engineer focused on Deep Learning Systems<br>
         (Computer Vision, NLP, Transformers) — turning research into scalable, real-world AI applications.
       </p>
       <div class="hero-links fade-in">
-        <a href="https://github.com/Nestallum" target="_blank" class="hero-link">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <a href="https://github.com/Nestallum" target="_blank" rel="noopener noreferrer" class="hero-link">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
           github.com/Nestallum
         </a>
-        <span class="hero-sep">·</span>
-        <a href="https://linkedin.com/in/nassim-lattab" target="_blank" class="hero-link">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <span class="hero-sep" aria-hidden="true">·</span>
+        <a href="https://linkedin.com/in/nassim-lattab" target="_blank" rel="noopener noreferrer" class="hero-link">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
           linkedin.com/in/nassim-lattab
         </a>
-        <span class="hero-sep">·</span>
+        <span class="hero-sep" aria-hidden="true">·</span>
         <a href="mailto:nassimlattab@gmail.com" class="hero-link">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
           nassimlattab@gmail.com
@@ -288,19 +337,23 @@
       </div>
     </section>
 
-    <section id="about">
-      <p class="section-label">About</p>
+    <section id="about" aria-labelledby="about-label">
+      <p id="about-label" class="section-label">About</p>
       <p class="about-text fade-in">
         I'm a Paris-based AI engineer with an MSc from Université Paris Cité, where I graduated <strong>first in my class</strong>. My work sits at the intersection of research and engineering — from fine-tuning language models to deploying deep learning pipelines on embedded hardware. I'm drawn to problems where precision matters: optimizing inference, making models interpretable, and building systems that hold up in production. Currently looking for a full-time position in AI/ML engineering.
       </p>
     </section>
 
-    <section id="experience">
-      <p class="section-label">Experience</p>
+    <section id="experience" aria-labelledby="experience-label">
+      <p id="experience-label" class="section-label">Experience</p>
       <div class="exp-item fade-in">
         <div class="exp-meta">
           <p class="exp-date">Feb 2025<br>Aug 2025</p>
-          <p class="exp-company"><a href="https://sodern.com/en" target="_blank" class="sodern-link"><img src="assets/sodern-logo.png" alt="Sodern — ArianeGroup" class="sodern-logo"></a></p>        
+          <p class="exp-company">
+            <a href="https://sodern.com/en" target="_blank" rel="noopener noreferrer" class="sodern-link">
+              <img src="assets/sodern-logo.png" alt="Sodern — ArianeGroup" class="sodern-logo" />
+            </a>
+          </p>
         </div>
         <div>
           <p class="exp-title">AI Research Intern</p>
@@ -327,16 +380,16 @@
       </div>
     </section>
 
-    <section id="projects">
-      <p class="section-label">Projects</p>
+    <section id="projects" aria-labelledby="projects-label">
+      <p id="projects-label" class="section-label">Projects</p>
       <div class="projects-grid">
 
-        <a href="https://github.com/Nestallum/llm-chatbot" target="_blank" class="project-card fade-in">
+        <a href="https://github.com/Nestallum/llm-chatbot" target="_blank" rel="noopener noreferrer" class="project-card fade-in">
           <div class="project-top">
-            <div class="project-icon">
+            <div class="project-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             </div>
-            <span class="project-link-icon">
+            <span class="project-link-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
             </span>
           </div>
@@ -351,12 +404,12 @@
           </div>
         </a>
 
-        <a href="https://github.com/Nestallum/argument-mining-llm" target="_blank" class="project-card fade-in">
+        <a href="https://github.com/Nestallum/argument-mining-llm" target="_blank" rel="noopener noreferrer" class="project-card fade-in">
           <div class="project-top">
-            <div class="project-icon">
+            <div class="project-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
             </div>
-            <span class="project-link-icon">
+            <span class="project-link-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
             </span>
           </div>
@@ -370,12 +423,12 @@
           </div>
         </a>
 
-        <a href="https://github.com/Nestallum/time-series-forecasting" target="_blank" class="project-card fade-in">
+        <a href="https://github.com/Nestallum/time-series-forecasting" target="_blank" rel="noopener noreferrer" class="project-card fade-in">
           <div class="project-top">
-            <div class="project-icon">
+            <div class="project-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
             </div>
-            <span class="project-link-icon">
+            <span class="project-link-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
             </span>
           </div>
@@ -389,12 +442,12 @@
           </div>
         </a>
 
-        <a href="https://github.com/Nestallum/yt-comment-sentiment-analysis" target="_blank" class="project-card fade-in">
+        <a href="https://github.com/Nestallum/yt-comment-sentiment-analysis" target="_blank" rel="noopener noreferrer" class="project-card fade-in">
           <div class="project-top">
-            <div class="project-icon">
+            <div class="project-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
             </div>
-            <span class="project-link-icon">
+            <span class="project-link-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
             </span>
           </div>
@@ -411,8 +464,8 @@
       </div>
     </section>
 
-    <section id="skills">
-      <p class="section-label">Skills</p>
+    <section id="skills" aria-labelledby="skills-label">
+      <p id="skills-label" class="section-label">Skills</p>
       <div class="skills-groups fade-in">
         <div>
           <p class="skill-group-label">ML / AI</p>
@@ -447,12 +500,10 @@
       </div>
     </section>
 
-    <section id="education">
-      <p class="section-label">Education</p>
+    <section id="education" aria-labelledby="education-label">
+      <p id="education-label" class="section-label">Education</p>
       <div class="edu-item fade-in">
-        <div>
-          <p class="exp-date">2023 – 2025</p>
-        </div>
+        <p class="edu-date">2023 – 2025</p>
         <div>
           <p class="edu-degree">MSc in Computer Science — Artificial Intelligence</p>
           <p class="edu-school">Université Paris Cité, Paris</p>
@@ -460,9 +511,7 @@
         </div>
       </div>
       <div class="edu-item fade-in">
-        <div>
-          <p class="exp-date">2020 – 2023</p>
-        </div>
+        <p class="edu-date">2020 – 2023</p>
         <div>
           <p class="edu-degree">BSc in Computer Science</p>
           <p class="edu-school">Université Paris Cité, Paris</p>
@@ -471,65 +520,75 @@
       </div>
     </section>
 
-    <section id="contact">
-      <h2 class="contact-heading fade-in">Let's work together.</h2>
+    <section id="contact" aria-labelledby="contact-heading">
+      <h2 id="contact-heading" class="contact-heading fade-in">Let's work together.</h2>
       <p class="contact-sub fade-in">Open to full-time AI/ML engineering roles. Feel free to reach out.</p>
       <a href="mailto:nassimlattab@gmail.com" class="contact-btn fade-in">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
         nassimlattab@gmail.com
       </a>
       <div class="contact-socials">
-        <a href="https://github.com/Nestallum" target="_blank" class="contact-social">GitHub</a>
-        <span class="hero-sep">·</span>
-        <a href="https://linkedin.com/in/nassim-lattab" target="_blank" class="contact-social">LinkedIn</a>
-        <span class="hero-sep">·</span>
-        <a href="cv-nassim-lattab-en.pdf" target="_blank" class="contact-social">Resume</a>
-        <span class="hero-sep">·</span>
-        <span class="contact-social" style="cursor:default; pointer-events:none;">Paris, France</span>
+        <a href="https://github.com/Nestallum" target="_blank" rel="noopener noreferrer" class="contact-social">GitHub</a>
+        <span class="hero-sep" aria-hidden="true">·</span>
+        <a href="https://linkedin.com/in/nassim-lattab" target="_blank" rel="noopener noreferrer" class="contact-social">LinkedIn</a>
+        <span class="hero-sep" aria-hidden="true">·</span>
+        <a href="cv-nassim-lattab-en.pdf" target="_blank" rel="noopener noreferrer" class="contact-social">Resume</a>
+        <span class="hero-sep" aria-hidden="true">·</span>
+        <span class="contact-social" style="cursor: default; pointer-events: none;">Paris, France</span>
       </div>
     </section>
 
   </main>
 
-  <footer>
-    Designed & built by Nassim Lattab
+  <footer role="contentinfo">
+    Designed &amp; built by Nassim Lattab
   </footer>
 
   <script>
-    const toggle = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    const saved = localStorage.getItem('theme');
-  
-    if (saved) html.setAttribute('data-theme', saved);
-    
-    toggle.addEventListener('click', () => {
-      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-    });
+    (() => {
+      'use strict';
 
-    const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
-      }
-    });
-    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+      /* ── Theme ─────────────────────────────────────────── */
+      const html    = document.documentElement;
+      const toggle  = document.getElementById('themeToggle');
 
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+      const getSystemTheme = () =>
+        window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
 
-    let lastY = 0;
-    window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    const y = window.scrollY;
-    if (y > lastY && y > 80) {
-      nav.classList.add('hidden');
-    } else {
-      nav.classList.remove('hidden');
-    }
-    lastY = y;
-    });
+      const applyTheme = (theme) => html.setAttribute('data-theme', theme);
+
+      applyTheme(localStorage.getItem('theme') ?? getSystemTheme());
+
+      toggle.addEventListener('click', () => {
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem('theme', next);
+      });
+
+      /* ── Scroll-hide nav ───────────────────────────────── */
+      const nav = document.getElementById('site-nav');
+      let lastY = window.scrollY;
+
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        nav.classList.toggle('nav-hidden', y > lastY && y > 80);
+        lastY = y;
+      }, { passive: true });
+
+      /* ── Fade-in on scroll ─────────────────────────────── */
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      );
+
+      document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+    })();
   </script>
 </body>
 </html>
