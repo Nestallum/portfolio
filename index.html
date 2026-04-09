@@ -57,13 +57,15 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
-      font-family: var(--font-sans);
       background: var(--bg);
+      background-size: 80px 80px;
+      font-family: var(--font-sans);
       color: var(--text-1);
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
       transition: background 0.3s, color 0.3s;
     }
+
     a { color: inherit; text-decoration: none; }
     ul { list-style: none; }
     img { display: block; max-width: 100%; }
@@ -284,7 +286,7 @@
 <body>
 
   <nav id="site-nav" aria-label="Primary navigation">
-    <span class="nav-logo">NL<span>.</span></span>
+    <a href="/" class="nav-logo">NL<span>.</span></a>
     <div class="nav-links" role="list">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
