@@ -92,12 +92,12 @@
     .nav-cta {
       font-size: var(--fz-sm); font-weight: 500;
       padding: 7px 16px;
-      border: 1px solid var(--accent-border);
+      border: 1px solid var(--border-2);
       border-radius: var(--radius-sm);
-      color: var(--accent);
-      transition: background 0.2s;
+      color: var(--text-2);
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
-    .nav-cta:hover { background: var(--accent-dim); }
+    .nav-cta:hover { color: var(--text-1); background: var(--bg-3); }
 
     /* ─── Layout ─────────────────────────────────────────── */
     main { max-width: 1000px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 2.5rem); position: relative; z-index: 1;}
