@@ -95,9 +95,10 @@
       border: 1px solid var(--border-2);
       border-radius: var(--radius-sm);
       color: var(--text-2);
+      background: var(--bg);
       transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
-    .nav-cta:hover { color: var(--text-1); background: var(--bg-3); }
+    .nav-cta:hover { color: var(--text-1); background: var(--bg-2); }
 
     /* ─── Layout ─────────────────────────────────────────── */
     main { max-width: 1000px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 2.5rem); position: relative; z-index: 1;}
@@ -269,7 +270,7 @@
       position: fixed; bottom: 2rem; left: 2rem; z-index: 50;
       width: 40px; height: 40px;
       display: flex; align-items: center; justify-content: center;
-      background: var(--bg-2);
+      background: var(--bg);
       border: 1px solid var(--border-2);
       border-radius: var(--radius-sm);
       color: var(--text-2);
@@ -278,7 +279,7 @@
       transition: opacity 0.3s, color 0.2s, border-color 0.2s;
     }
     #back-top.visible { opacity: 1; pointer-events: auto; }
-    #back-top:hover { color: var(--text-1); background: var(--bg-3); }
+    #back-top:hover { color: var(--text-1); background: var(--bg-2); }
 
     /* ─── Animations ─────────────────────────────────────── */
     .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
