@@ -90,7 +90,7 @@
     .nav-cta:hover { background: var(--accent-dim); }
 
     /* ─── Layout ─────────────────────────────────────────── */
-    main { max-width: 1000px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 2.5rem); }
+    main { max-width: 1000px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 2.5rem); position: relative; z-index: 1;}
     section { padding: 6rem 0; border-bottom: 1px solid var(--border); }
     section:last-of-type { border-bottom: none; }
     .section-label {
@@ -242,9 +242,26 @@
     /* ─── Footer ─────────────────────────────────────────── */
     footer {
       text-align: center; padding: 2rem;
+      padding-top: 4rem;
       font-size: var(--fz-xs); color: var(--text-3);
-      font-family: var(--font-mono); border-top: 1px solid var(--border);
+      font-family: var(--font-mono); 
+      /* border-top: 1px solid var(--border);*/
     }
+
+    #back-top {
+      position: fixed; bottom: 2rem; left: 2rem; z-index: 50;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg-2);
+      border: 1px solid var(--border-2);
+      border-radius: var(--radius-sm);
+      color: var(--text-2);
+      cursor: pointer;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s, color 0.2s, border-color 0.2s;
+    }
+    #back-top.visible { opacity: 1; pointer-events: auto; }
+    #back-top:hover { color: var(--text-1); background: var(--bg-3); }
 
     /* ─── Animations ─────────────────────────────────────── */
     .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -538,6 +555,11 @@
     Designed &amp; built by Nassim Lattab
   </footer>
 
+  <button id="back-top" aria-label="Back to top">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+  <canvas id="matrix-canvas" style="position:fixed;inset:0;pointer-events:none;z-index:0;"></canvas>
+
   <script>
     (() => {
       'use strict';
@@ -565,6 +587,74 @@
       );
 
       document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+      
+      /* ── Back to top ───────────────────────────────────── */
+      const backTop = document.getElementById('back-top');
+      window.addEventListener('scroll', () => {
+        backTop.classList.toggle('visible', window.scrollY > 400);
+      }, { passive: true });
+      backTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      /* ── Matrix background ─────────────────────────────── */
+      const canvas = document.getElementById('matrix-canvas');
+      const ctx = canvas.getContext('2d');
+      const CHARS = 'アイウエオカキクケコサシスセソタチツテトハヒフヘホ0123456789<>{}[]|/\\';
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      const particles = [];
+      let lastSpawn = 0;
+
+      function spawnChar() {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: 0,
+          vy: -(30 + Math.random() * 60),
+          char: CHARS[Math.floor(Math.random() * CHARS.length)],
+          size: 10 + Math.random() * 8,
+          blur: Math.random() * 2.5,
+          alpha: 0.08 + Math.random() * 0.2,
+          dur: 1200 + Math.random() * 1200,
+          born: performance.now(),
+        });
+      }
+
+      function draw(now) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (now - lastSpawn > 120) {
+          const n = 1 + Math.floor(Math.random() * 3);
+          for (let i = 0; i < n; i++) spawnChar();
+          lastSpawn = now;
+        }
+
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          const t = (now - p.born) / p.dur;
+          if (t >= 1) { particles.splice(i, 1); continue; }
+          const ease = 1 - Math.pow(1 - t, 2);
+          const x = p.x + p.vx * ease;
+          const y = p.y + p.vy * ease * (p.dur / 1000);
+          ctx.save();
+          ctx.globalAlpha = p.alpha * (1 - t);
+          ctx.filter = `blur(${p.blur}px)`;
+          ctx.font = `${p.size}px monospace`;
+          ctx.fillStyle = '#7EB8C9';
+          ctx.fillText(p.char, x, y);
+          ctx.restore();
+        }
+
+        requestAnimationFrame(draw);
+      }
+      requestAnimationFrame(draw);
     })();
   </script>
   
