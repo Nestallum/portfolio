@@ -253,6 +253,22 @@
     .link-text { transition: color 0.2s;}
     .link-text:hover { color: var(--text-1); }
 
+    .cursor {
+      display: inline-block;
+      width: 4px;
+      height: 0.9em;
+      background: var(--text-3);
+      margin-left: 2px;
+      vertical-align: -0.10em;
+      border-radius: 2px;
+      animation: blink 1.1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
     /* ─── Responsive ─────────────────────────────────────── */
     @media (max-width: 640px) {
       .nav-links { display: none; }
@@ -290,7 +306,7 @@
       <p class="hero-eyebrow fade-in">Hello, I'm</p>
       <h1 id="hero-name" class="hero-name fade-in">
         Nassim Lattab.<br>
-        <span class="hero-name-sub">I build intelligent systems.</span>
+        <span class="hero-name-sub">I build intelligent systems.<span class="cursor" aria-hidden="true"></span></span>
       </h1>
       <p class="hero-tagline fade-in">
         Junior AI Engineer focused on Deep Learning Systems<br>
@@ -551,5 +567,6 @@
       document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
     })();
   </script>
+  
 </body>
 </html>

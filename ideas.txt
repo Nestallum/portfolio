@@ -1,0 +1,4 @@
+- animation fade in fade out tout le temps ?
+- curseur d'insertion animé qui clignote, comme quand on rédige du texte
+- curseur custom ?
+- se renseigner sur les backgrounds animés
