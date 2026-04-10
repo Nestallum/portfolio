@@ -115,7 +115,7 @@
     .nav-cta:hover { color: var(--text-1); background: var(--bg-2); }
 
     /* ─── Layout ─────────────────────────────────────────── */
-    main { max-width: 1000px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 2.5rem); position: relative; z-index: 1;}
+    main { max-width: 1000px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 2.5rem); position: relative; z-index: 2;}
     section { scroll-margin-top: calc(var(--nav-h) - 2rem) ; padding: 6rem 0; border-bottom: 1px solid var(--border); }
     section:last-of-type { border-bottom: none; }
     .section-label {
@@ -599,6 +599,7 @@
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
   </button>
   <canvas id="matrix-canvas" style="position:fixed;inset:0;pointer-events:none;z-index:0;"></canvas>
+  <div style="position:fixed;inset:0;pointer-events:none;z-index:1;backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(2px);"></div>
 
   <script>
     (() => {
