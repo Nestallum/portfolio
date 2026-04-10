@@ -655,7 +655,6 @@
           vy: -(30 + Math.random() * 60),
           char: CHARS[Math.floor(Math.random() * CHARS.length)],
           size: 10 + Math.random() * 8,
-          blur: Math.random() * 2.5,
           alpha: 0.08 + Math.random() * 0.2,
           dur: 1200 + Math.random() * 1200,
           born: performance.now(),
@@ -680,16 +679,12 @@
           const ease = 1 - Math.pow(1 - t, 2);
           const x = p.x + p.vx * ease;
           const y = p.y + p.vy * ease * (p.dur / 1000);
-          ctx.save();
           ctx.globalAlpha = p.alpha * (1 - t);
-          ctx.filter = `blur(${p.blur}px)`;
           ctx.font = `${p.size}px monospace`;
           ctx.fillStyle = accentColor;
           ctx.fillText(p.char, x, y);
-          ctx.restore();
         }
-
-        setTimeout(() => requestAnimationFrame(draw), 1000 / 30);
+        requestAnimationFrame(draw);
       }
       requestAnimationFrame(draw);
     })();
