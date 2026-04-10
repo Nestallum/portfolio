@@ -282,12 +282,12 @@
 
     .cursor {
       display: inline-block;
-      width: 4px;
-      height: 0.9em;
+      width: 0.45em;
+      height: 0.75em;
       background: var(--text-3);
-      margin-left: 2px;
-      vertical-align: -0.10em;
-      border-radius: 2px;
+      margin-left: 3px;
+      vertical-align: -0.05em;
+      border-radius: 1px;
       animation: blink 1.1s step-end infinite;
     }
 
@@ -541,7 +541,7 @@
     </section>
 
     <section id="contact" aria-label="Contact">
-      <p class="section-label">Follow the white rabbit.</p>
+      <p class="section-label" style="font-family: 'Courier New', Courier, monospace; font-size:var(--fz-sm); letter-spacing: 0.0em; text-transform: none;">Follow the white rabbit.</p>
       <p class="contact-heading fade-in">Let's work together.</p>
       <p class="contact-sub fade-in">Open to full-time AI/ML engineering roles. Feel free to reach out.</p>
       <a href="mailto:nassimlattab@gmail.com" class="contact-btn fade-in">
@@ -607,7 +607,7 @@
       /* ── Matrix background ─────────────────────────────── */
       const canvas = document.getElementById('matrix-canvas');
       const ctx = canvas.getContext('2d');
-      const CHARS = 'アイウエオカキクケコサシスセソタチツテトハヒフヘホ0123456789<>{}[]|/\\';
+      const CHARS = 'ｦｱｳｴｵｶｷｹｺｻｼｽｾｿﾀﾂﾃﾅﾆﾇﾈﾊﾋﾎﾏﾐﾑﾒﾓﾔﾕﾗﾘﾙﾚﾛﾜﾝ0123456789';
 
       function resize() {
         canvas.width = window.innerWidth;
@@ -654,7 +654,7 @@
           ctx.globalAlpha = p.alpha * (1 - t);
           ctx.filter = `blur(${p.blur}px)`;
           ctx.font = `${p.size}px monospace`;
-          ctx.fillStyle = '#7EB8C9';
+          ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
           ctx.fillText(p.char, x, y);
           ctx.restore();
         }
