@@ -249,10 +249,17 @@
     .contact-social { font-size: var(--fz-xs); font-weight: 400; color: var(--text-3); font-family: var(--font-mono); transition: color 0.2s; }
     .contact-social:hover { color: var(--accent); }
 
+    .section-label-courier {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: var(--fz-sm);
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
     /* ─── Footer ─────────────────────────────────────────── */
     footer {
-      text-align: center; padding: 2rem;
-      padding-top: 4rem;
+      text-align: center;
+      padding: 4rem 2rem 2rem;
       font-size: var(--fz-xs); color: var(--text-3);
       font-family: var(--font-mono); 
       /* border-top: 1px solid var(--border);*/
@@ -541,7 +548,7 @@
     </section>
 
     <section id="contact" aria-label="Contact">
-      <p class="section-label" style="font-family: 'Courier New', Courier, monospace; font-size:var(--fz-sm); letter-spacing: 0.0em; text-transform: none;">Follow the white rabbit.</p>
+      <p class="section-label section-label-courier">Follow the white rabbit.</p>
       <p class="contact-heading fade-in">Let's work together.</p>
       <p class="contact-sub fade-in">Open to full-time AI/ML engineering roles. Feel free to reach out.</p>
       <a href="mailto:nassimlattab@gmail.com" class="contact-btn fade-in">
@@ -574,7 +581,7 @@
     (() => {
       'use strict';
 
-      /* ── Scroll-hide nav ───────────────────────────────── */
+      /* ── Scroll nav ───────────────────────────────── */
       const nav = document.getElementById('site-nav');
 
       window.addEventListener('scroll', () => {
@@ -633,6 +640,8 @@
           born: performance.now(),
         });
       }
+      
+      const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
 
       function draw(now) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -654,7 +663,7 @@
           ctx.globalAlpha = p.alpha * (1 - t);
           ctx.filter = `blur(${p.blur}px)`;
           ctx.font = `${p.size}px monospace`;
-          ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+          ctx.fillStyle = accentColor;
           ctx.fillText(p.char, x, y);
           ctx.restore();
         }
