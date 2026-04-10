@@ -101,7 +101,7 @@
 
     /* ─── Layout ─────────────────────────────────────────── */
     main { max-width: 1000px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 2.5rem); position: relative; z-index: 1;}
-    section { padding: 6rem 0; border-bottom: 1px solid var(--border); }
+    section { scroll-margin-top: calc(var(--nav-h) - 2rem) ; padding: 6rem 0; border-bottom: 1px solid var(--border); }
     section:last-of-type { border-bottom: none; }
     .section-label {
       font-size: var(--fz-xs); font-weight: 500;
@@ -110,7 +110,7 @@
     }
 
     /* ─── Hero ───────────────────────────────────────────── */
-    #hero { padding-top: calc(90px + 6rem); padding-bottom: 6rem; }
+    #hero { padding-top: calc(90px + 10rem); padding-bottom: 6rem; }
     .hero-eyebrow { font-size: var(--fz-sm); font-weight: 400; color: var(--accent); font-family: var(--font-mono); margin-bottom: 1.5rem; }
     .hero-name { font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 800; letter-spacing: 0.02em; line-height: 1.0; margin-bottom: 1.5rem; }
     .hero-name-sub { display: block; color: var(--text-3); font-weight: 800; letter-spacing: 0.01em; }
