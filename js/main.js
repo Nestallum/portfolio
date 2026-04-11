@@ -152,7 +152,108 @@
     requestAnimationFrame(draw);
   }
 
+  /* ── Cursor ─────────────────────────────────────────────── */
+  function initCursor() {
+    const dot  = document.createElement('div');
+    const ghost = document.createElement('div');
+    dot.id  = 'cursor-dot';
+    ghost.id = 'cursor-ghost';
+    document.body.appendChild(ghost);
+    document.body.appendChild(dot);
+    dot.style.display  = 'none';
+    ghost.style.display = 'none';
+
+    let x = 0, y = 0;
+    let cx = 0, cy = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      x = e.clientX;
+      y = e.clientY;
+      dot.style.left = x + 'px';
+      dot.style.top  = y + 'px';
+    });
+
+    function animate() {
+      cx += (x - cx) * 0.10;
+      cy += (y - cy) * 0.10;
+      ghost.style.left = cx + 'px';
+      ghost.style.top  = cy + 'px';
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    document.querySelectorAll('a, button').forEach((el) => {
+      el.addEventListener('mouseenter', () => ghost.classList.add('hovered'));
+      el.addEventListener('mouseleave', () => ghost.classList.remove('hovered'));
+    });
+  }
+
+  /* ── Cursor picker ──────────────────────────────────────── */
+  function initCursorPicker() {
+    let currentId = 'default';
+
+    const trigger  = document.getElementById('cursor-trigger');
+    const label    = document.getElementById('cursor-label');
+    const dropdown = document.getElementById('cursor-dropdown');
+
+    function renderDropdown() {
+      dropdown.innerHTML = '';
+      CURSORS.forEach((c) => {
+        const item = document.createElement('button');
+        item.className = 'theme-dd-item' + (c.id === currentId ? ' active' : '');
+        item.dataset.id = c.id;
+        item.innerHTML = `
+          <span class="theme-dd-name">${c.name}</span>
+          <svg class="theme-dd-check" viewBox="0 0 12 12" fill="none"
+              stroke="var(--accent)" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 6l3 3 5-5"/>
+          </svg>
+        `;
+        item.addEventListener('click', () => selectCursor(c.id));
+        dropdown.appendChild(item);
+      });
+    }
+
+    function selectCursor(id) {
+      currentId = id;
+      label.textContent = CURSORS.find((c) => c.id === id).name;
+
+      const dot  = document.getElementById('cursor-dot');
+      const ghost = document.getElementById('cursor-ghost');
+
+      if (id === 'default') {
+        document.body.classList.remove('custom-cursor');
+        if (dot)  dot.style.display = 'none';
+        if (ghost) ghost.style.display = 'none';
+      } else if (id === 'ghost') {
+        document.body.classList.add('custom-cursor');
+        if (dot)  dot.style.display = 'block';
+        if (ghost) ghost.style.display = 'block';
+      }
+
+      closeDropdown();
+      renderDropdown();
+    }
+
+    function openDropdown()  { dropdown.classList.add('open'); trigger.classList.add('open'); }
+    function closeDropdown() { dropdown.classList.remove('open'); trigger.classList.remove('open'); }
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.classList.contains('open') ? closeDropdown() : openDropdown();
+    });
+    document.addEventListener('click', closeDropdown);
+    dropdown.addEventListener('click', (e) => e.stopPropagation());
+
+    const defaultCursor = CURSORS.find((c) => c.id === 'default');
+    label.textContent = defaultCursor.name;
+    renderDropdown();
+  }
+
   initMatrix('matrix-canvas-back');
   initMatrix('matrix-canvas-front');
+  initCursor();
+  initCursorPicker();
   initThemePicker();
 })();
