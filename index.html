@@ -635,6 +635,16 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
 
+      let mouseX = null, mouseY = null;
+      window.addEventListener('mousemove', e => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+      window.addEventListener('mouseleave', () => {
+        mouseX = null;
+        mouseY = null;
+      });
+
       /* ── Matrix background ─────────────────────────────── */
       const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
       const CHARS = 'ｦｱｳｴｵｶｷｹｺｻｼｽｾｿﾀﾂﾃﾅﾆﾇﾈﾊﾋﾎﾏﾐﾑﾒﾓﾔﾕﾗﾘﾙﾚﾛﾜﾝ0123456789';
@@ -669,6 +679,15 @@
 
         function draw(now) {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          if (mouseX !== null) {
+            const halo = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 550);
+            halo.addColorStop(0, 'rgba(126,184,201,0.02)');
+            halo.addColorStop(1, 'transparent');
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = halo;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          }
 
           if (now - lastSpawn > 240) {
             const n = 1 + Math.floor(Math.random() * 2);
