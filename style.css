@@ -388,7 +388,7 @@ footer {
 .link-text { transition: color 0.2s;}
 .link-text:hover { color: var(--text-1); }
 
-.cursor {
+.caret {
     display: inline-block;
     width: 0.45em;
     height: 0.75em;
