@@ -4,6 +4,7 @@
   /* ── Theme ─────────────────────────────────────────────── */
 
   const DEFAULT_THEME_ID = 'night-blue';
+  let currentAccent = '#afd4e0';
 
   function applyTheme(theme) {
     const r = document.documentElement.style;
@@ -16,6 +17,7 @@
     r.setProperty('--text-2',        theme.text2);
     r.setProperty('--text-3',        theme.text3);
     r.setProperty('--tag-color',     theme.tagColor);
+    currentAccent = theme.accent;
   }
 
   function initThemePicker() {
@@ -143,8 +145,7 @@
         const ease = 1 - Math.pow(1 - t, 2);
         ctx.globalAlpha = p.alpha * (1 - t);
         ctx.font        = `${p.size}px monospace`;
-        ctx.fillStyle   = getComputedStyle(document.documentElement)
-                            .getPropertyValue('--accent').trim();
+        ctx.fillStyle = currentAccent;
         ctx.fillText(p.char, p.x + p.vx * ease, p.y + p.vy * ease * (p.dur / 1000));
       }
       requestAnimationFrame(draw);
