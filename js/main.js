@@ -8,16 +8,17 @@
 
   function applyTheme(theme) {
     const r = document.documentElement.style;
-    r.setProperty('--bg-rgb',        theme.bgRgb);
-    r.setProperty('--bg',            theme.bg);
-    r.setProperty('--bg-2',          theme.bg2);
-    r.setProperty('--bg-3',          theme.bg3);
-    r.setProperty('--accent',        theme.accent);
-    r.setProperty('--accent-dim',    theme.accentDim);
-    r.setProperty('--text-2',        theme.text2);
-    r.setProperty('--text-3',        theme.text3);
-    r.setProperty('--tag-color',     theme.tagColor);
-    currentAccent = theme.accent;
+    r.setProperty('--color-bg-rgb',            theme.colorBgRgb);
+    r.setProperty('--color-bg',                theme.colorBg);
+    r.setProperty('--color-surface',           theme.colorSurface);
+    r.setProperty('--color-surface-elevated',  theme.colorSurfaceElevated);
+    r.setProperty('--color-accent',            theme.colorAccent);
+    r.setProperty('--color-accent-subtle',     theme.colorAccentSubtle);
+    r.setProperty('--color-text-primary',      theme.colorTextPrimary);
+    r.setProperty('--color-text-secondary',    theme.colorTextSecondary);
+    r.setProperty('--color-text-tertiary',     theme.colorTextTertiary);
+    r.setProperty('--color-tag-text',          theme.colorTagText);
+    currentAccent = theme.colorAccent;
   }
 
   function initThemePicker() {
@@ -35,10 +36,10 @@
         item.className = 'theme-dd-item' + (t.id === currentId ? ' active' : '');
         item.dataset.id = t.id;
         item.innerHTML = `
-          <span class="theme-dd-dot" style="background:${t.accent};"></span>
+          <span class="theme-dd-dot" style="background:${t.colorAccent};"></span>
           <span class="theme-dd-name">${t.name}</span>
           <svg class="theme-dd-check" viewBox="0 0 12 12" fill="none"
-               stroke="${t.accent}" stroke-width="1.8"
+               stroke="${t.colorAccent}" stroke-width="1.8"
                stroke-linecap="round" stroke-linejoin="round">
             <path d="M2 6l3 3 5-5"/>
           </svg>
@@ -53,7 +54,7 @@
       if (!t) return;
       currentId = id;
       applyTheme(t);
-      dot.style.background = t.accent;
+      dot.style.background = t.colorAccent;
       label.textContent = t.name;
       closeDropdown();
       renderDropdown();
@@ -70,7 +71,7 @@
     dropdown.addEventListener('click', (e) => e.stopPropagation());
 
     const defaultTheme = THEMES.find((t) => t.id === DEFAULT_THEME_ID);
-    dot.style.background   = defaultTheme.accent;
+    dot.style.background   = defaultTheme.colorAccent;
     label.textContent      = defaultTheme.name;
     renderDropdown();
   }
@@ -206,7 +207,7 @@
         item.innerHTML = `
           <span class="theme-dd-name">${c.name}</span>
           <svg class="theme-dd-check" viewBox="0 0 12 12" fill="none"
-              stroke="var(--accent)" stroke-width="1.8"
+              stroke="var(--color-accent)" stroke-width="1.8"
               stroke-linecap="round" stroke-linejoin="round">
             <path d="M2 6l3 3 5-5"/>
           </svg>
