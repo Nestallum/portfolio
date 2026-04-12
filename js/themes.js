@@ -21,18 +21,18 @@ const THEMES = [
     id: 'perfect-blue',
     name: 'Perfect Blue',
 
-    colorBgRgb:           '22, 26, 44',
-    colorBg:              '#161a2c',
-    colorSurface:         '#1e2238',
-    colorSurfaceElevated: '#262a44',
+    colorBgRgb:           '24, 28, 46',
+    colorBg:              '#181c2e',
+    colorSurface:         '#202438',
+    colorSurfaceElevated: '#282c44',
 
     colorAccent:          '#6e8bbf',
     colorAccentSubtle:    'rgba(110, 139, 191, 0.08)',
 
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#8696b2',
-    colorTextTertiary:    '#425068',
-    colorTagText:         '#5e7088',
+    colorTextSecondary:   '#9aaac8',
+    colorTextTertiary:    '#526080',
+    colorTagText:         '#6e7ea0',
   },
 
   {
@@ -66,9 +66,9 @@ const THEMES = [
     colorAccentSubtle:    'rgba(200, 169, 110, 0.08)',
 
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#9a9aa4',
-    colorTextTertiary:    '#505058',
-    colorTagText:         '#747480',
+    colorTextSecondary:   '#9b9aa0',
+    colorTextTertiary:    '#545458',
+    colorTagText:         '#76747a',
   },
 
   {
@@ -147,18 +147,18 @@ const THEMES = [
     id: 'pearl',
     name: 'Pearl',
 
-    colorBgRgb:           '26, 25, 24',
-    colorBg:              '#1a1918',
-    colorSurface:         '#222120',
-    colorSurfaceElevated: '#2a2928',
+    colorBgRgb:           '27, 27, 26',
+    colorBg:              '#1b1b1a',
+    colorSurface:         '#232322',
+    colorSurfaceElevated: '#2b2b2a',
 
-    colorAccent:          '#d4c8b8',
-    colorAccentSubtle:    'rgba(212, 200, 184, 0.08)',
+    colorAccent:          '#bab0a0',
+    colorAccentSubtle:    'rgba(186, 176, 160, 0.08)',
 
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#a09890',
-    colorTextTertiary:    '#585048',
-    colorTagText:         '#787068',
+    colorTextSecondary:   '#9c9a96',
+    colorTextTertiary:    '#5a5856',
+    colorTagText:         '#797674',
   },
 
 ];
