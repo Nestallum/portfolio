@@ -3,7 +3,7 @@
 
   /* ── Theme ─────────────────────────────────────────────── */
 
-  const DEFAULT_THEME_ID = 'night-blue';
+  const DEFAULT_THEME_ID = 'ethereal';
   let currentAccent = '#afd4e0';
 
   function applyTheme(theme) {

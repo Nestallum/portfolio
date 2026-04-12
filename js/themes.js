@@ -1,114 +1,147 @@
 const THEMES = [
   {
-    id: 'night-blue',
-    name: 'Night Blue',
-
-    colorBg:              '#0f1115',
-    colorSurface:         '#151924',
+    id: 'ethereal',
+    name: 'Ethereal',
+    
+    colorBgRgb:           '16, 19, 26',
+    colorBg:              '#10131a',
+    colorSurface:         '#161a24',
+    colorSurfaceElevated: '#1d2230',
+    
+    colorAccent:          '#8bbcd6',
+    colorAccentSubtle:    'rgba(139, 188, 214, 0.08)',
+    
+    colorTextPrimary:     '#f1f3f9',
+    colorTextSecondary:   '#aab1c5',
+    colorTextTertiary:    '#61687c',
+    colorTagText:         '#8a91a6',
+  },
+  
+  {
+    id: 'midnight',
+    name: 'Midnight',
+    
+    colorBgRgb:           '15, 17, 22',
+    colorBg:              '#0f1116',
+    colorSurface:         '#151922',
     colorSurfaceElevated: '#1c2130',
-
-    colorAccent:          '#7fb3c9',
-    colorAccentSubtle:    'rgba(127, 179, 201, 0.08)',
-
+    
+    colorAccent:          '#8aa4ff',
+    colorAccentSubtle:    'rgba(138, 164, 255, 0.08)',
+    
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#a9b0c3',
+    colorTextSecondary:   '#aab1c5',
     colorTextTertiary:    '#5f667a',
-    colorTagText:         '#8b92a8',
+    colorTagText:         '#8a91a6',
   },
+  
+  
   {
-    id: 'monochrome',
-    name: 'Monochrome',
-
-    colorBg:              '#111214',
-    colorSurface:         '#191a1d',
-    colorSurfaceElevated: '#212226',
-
-    colorAccent:          '#9aa0a6',
-    colorAccentSubtle:    'rgba(154, 160, 166, 0.08)',
-
+    id: 'neon-genesis',
+    name: 'Neon Genesis',
+    
+    colorBgRgb:           '18, 16, 26',
+    colorBg:              '#12101a',
+    colorSurface:         '#181522',
+    colorSurfaceElevated: '#201c2c',
+    
+    colorAccent:          '#78dba9',
+    colorAccentSubtle:    'rgba(120, 219, 169, 0.08)',
+    
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#a0a4ac',
-    colorTextTertiary:    '#5f636b',
-    colorTagText:         '#7d828a',
+    colorTextSecondary:   '#b1a9c9',
+    colorTextTertiary:    '#6b6280',
+    colorTagText:         '#8d84a3',
   },
-  {
-    id: 'evangelion',
-    name: 'Evangelion',
-
-    colorBg:              '#0f1014',
-    colorSurface:         '#171923',
-    colorSurfaceElevated: '#1f2130',
-
-    colorAccent:          '#6ecf8d',
-    colorAccentSubtle:    'rgba(110, 207, 141, 0.08)',
-
-    colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#b0a8c3',
-    colorTextTertiary:    '#6a6280',
-    colorTagText:         '#8c84a3',
-  },
+  
   {
     id: 'fallen-angel',
     name: 'Fallen Angel',
-
-    colorBg:              '#101112',
-    colorSurface:         '#17181b',
-    colorSurfaceElevated: '#1f2024',
-
-    colorAccent:          '#d85c5c',
-    colorAccentSubtle:    'rgba(216, 92, 92, 0.08)',
-
+    
+    colorBgRgb:           '18, 17, 18',
+    colorBg:              '#121112',
+    colorSurface:         '#19181b',
+    colorSurfaceElevated: '#211f23',
+    
+    colorAccent:          '#e06c6c',
+    colorAccentSubtle:    'rgba(224, 108, 108, 0.08)',
+    
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#b0b3bd',
-    colorTextTertiary:    '#666a75',
-    colorTagText:         '#8a8f9c',
+    colorTextSecondary:   '#b3b0b8',
+    colorTextTertiary:    '#6a6670',
+    colorTagText:         '#908c96',
   },
+
   {
     id: 'matrix',
     name: 'Matrix',
-
-    colorBg:              '#0f1113',
-    colorSurface:         '#151a17',
-    colorSurfaceElevated: '#1c221d',
-
-    colorAccent:          '#5fae6e',
-    colorAccentSubtle:    'rgba(95, 174, 110, 0.08)',
+    
+    colorBgRgb:           '17, 17, 19',
+    colorBg:              '#111113',
+    colorSurface:         '#18181b',
+    colorSurfaceElevated: '#1f1f23',
+    
+    colorAccent:          '#68c07f',
+    colorAccentSubtle:    'rgba(104, 192, 127, 0.08)',
 
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#9fb3a7',
-    colorTextTertiary:    '#5c6f63',
-    colorTagText:         '#7f998a',
+    colorTextSecondary:   '#a8adb5',
+    colorTextTertiary:    '#5f6470',
+    colorTagText:         '#848991',
   },
+
   {
     id: 'cyberpunk',
     name: 'Cyberpunk',
-
-    colorBg:              '#0f1115',
-    colorSurface:         '#161925',
-    colorSurfaceElevated: '#1d2133',
+    
+    colorBgRgb:           '17, 18, 26',
+    colorBg:              '#11121a',
+    colorSurface:         '#171826',
+    colorSurfaceElevated: '#1f2030',
 
     colorAccent:          '#e6d85c',
     colorAccentSubtle:    'rgba(230, 216, 92, 0.08)',
-
+    
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#aeb4c7',
-    colorTextTertiary:    '#636a80',
+    colorTextSecondary:   '#b2b6c7',
+    colorTextTertiary:    '#686e80',
+    colorTagText:         '#9096ab',
+  },
+
+  
+  {
+    id: 'the-amazing',
+    name: 'The Amazing',
+    
+    colorBgRgb:           '17, 20, 28',
+    colorBg:              '#11141c',
+    colorSurface:         '#181c28',
+    colorSurfaceElevated: '#202538',
+
+    colorAccent:          '#e05a74',
+    colorAccentSubtle:    'rgba(224, 90, 116, 0.08)',
+    
+    colorTextPrimary:     '#f1f3f9',
+    colorTextSecondary:   '#b2b8cc',
+    colorTextTertiary:    '#686f85',
     colorTagText:         '#9097ad',
   },
+  
   {
-    id: 'spiderman',
-    name: 'Spider-Man',
-
-    colorBg:              '#0f1116',
-    colorSurface:         '#161a26',
-    colorSurfaceElevated: '#1d2233',
-
-    colorAccent:          '#d94c6a',
-    colorAccentSubtle:    'rgba(217, 76, 106, 0.08)',
-
+    id: 'monochrome',
+    name: 'Monochrome',
+  
+    colorBgRgb:           '18, 18, 19',
+    colorBg:              '#121213',
+    colorSurface:         '#1a1a1d',
+    colorSurfaceElevated: '#222226',
+  
+    colorAccent:          '#a0a4ab',
+    colorAccentSubtle:    'rgba(160, 164, 171, 0.08)',
+  
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#aeb4c7',
-    colorTextTertiary:    '#636a80',
-    colorTagText:         '#9097ad',
-  }
+    colorTextSecondary:   '#a5a9b0',
+    colorTextTertiary:    '#61656d',
+    colorTagText:         '#848891',
+  },
 ];
