@@ -4,7 +4,7 @@
   /* ── Theme ─────────────────────────────────────────────── */
 
   const DEFAULT_THEME_ID = 'obsidian';
-  let currentAccent = '#c8a96e';
+  let currentAccent = '#a8c0d8';
 
   function applyTheme(theme) {
     const r = document.documentElement.style;

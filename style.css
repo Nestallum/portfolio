@@ -18,28 +18,24 @@
     /* Layout */
     --nav-h: 72px;
 
-    /* Accent */
-    --color-accent:        #c8a96e;
-    --color-accent-subtle: rgba(200, 169, 110, 0.08);
+    /* ─── System (default) ───────────────────────────────── */
+    --color-accent:           #a8c0d8;
+    --color-accent-subtle:    rgba(168, 192, 216, 0.08);
 
-    /* Backgrounds */
-    --color-bg-rgb:           20, 20, 22;
-    --color-bg:               #141416;
-    --color-surface:          #1c1c1f;
-    --color-surface-elevated: #242428;
+    --color-bg-rgb:           24, 23, 24;
+    --color-bg:               #181718;
+    --color-surface:          #222022;
+    --color-surface-elevated: #2a282a;
 
-    /* Borders */
-    --color-border:        rgba(255, 255, 255, 0.06);
-    --color-border-strong: rgba(255, 255, 255, 0.10);
+    --color-border:           rgba(255, 255, 255, 0.06);
+    --color-border-strong:    rgba(255, 255, 255, 0.10);
 
-    /* Text */
-    --color-text-primary:   #f1f3f9;
-    --color-text-secondary: #9a9aa4;
-    --color-text-tertiary:  #505058;
+    --color-text-primary:     #f1f3f9;
+    --color-text-secondary:   #989aa0;
+    --color-text-tertiary:    #585860;
 
-    /* Tags */
-    --color-tag-bg:    rgba(255, 255, 255, 0.04);
-    --color-tag-text:  #747480;
+    --color-tag-bg:           rgba(255, 255, 255, 0.04);
+    --color-tag-text:         #787880;
 }
 
 ::selection {
