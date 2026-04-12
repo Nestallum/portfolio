@@ -34,19 +34,19 @@ const THEMES = [
     colorTextTertiary:    '#425068',
     colorTagText:         '#5e7088',
   },
-   
+
   {
     id: 'neon-genesis',
     name: 'Neon Genesis',
-  
-    colorBgRgb:           '22, 16, 32',
-    colorBg:              '#161020',
-    colorSurface:         '#1e1630',
-    colorSurfaceElevated: '#261c3c',
-  
+
+    colorBgRgb:           '34, 28, 56',
+    colorBg:              '#221c38',
+    colorSurface:         '#2a2448',
+    colorSurfaceElevated: '#332d56',
+
     colorAccent:          '#8ed48a',
     colorAccentSubtle:    'rgba(142, 212, 138, 0.08)',
-  
+
     colorTextPrimary:     '#f1f3f9',
     colorTextSecondary:   '#a898c8',
     colorTextTertiary:    '#5c5078',
