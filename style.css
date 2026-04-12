@@ -298,7 +298,7 @@ section:last-of-type { border-bottom: none; }
 .sodern-logo {
     width: 120px;
     margin-top: 20px;
-    filter: brightness(0) saturate(100%) invert(98%) sepia(6%) saturate(717%) hue-rotate(185deg) brightness(95%) contrast(103%);
+    filter: brightness(0) saturate(100%) invert(92%) sepia(4%) saturate(1995%) hue-rotate(192deg) brightness(108%) contrast(95%);
     transition: filter 0.2s ease;
 }
 
