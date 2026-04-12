@@ -2,21 +2,21 @@ const THEMES = [
   {
     id: 'ethereal',
     name: 'Ethereal',
-    
-    colorBgRgb:           '16, 19, 26',
-    colorBg:              '#10131a',
-    colorSurface:         '#161a24',
-    colorSurfaceElevated: '#1d2230',
-    
-    colorAccent:          '#8bbcd6',
-    colorAccentSubtle:    'rgba(139, 188, 214, 0.08)',
-    
+
+    colorBgRgb:           '14, 18, 26',
+    colorBg:              '#0e121a',
+    colorSurface:         '#151c26',
+    colorSurfaceElevated: '#1c2432',
+
+    colorAccent:          '#b8d4e8',
+    colorAccentSubtle:    'rgba(184, 212, 232, 0.08)',
+
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#aab1c5',
-    colorTextTertiary:    '#61687c',
-    colorTagText:         '#8a91a6',
+    colorTextSecondary:   '#a4b8cc',
+    colorTextTertiary:    '#5a7080',
+    colorTagText:         '#7a9aad',
   },
-  
+    
   {
     id: 'midnight',
     name: 'Midnight',
@@ -126,7 +126,7 @@ const THEMES = [
     colorTextTertiary:    '#686f85',
     colorTagText:         '#9097ad',
   },
-  
+
   {
     id: 'monochrome',
     name: 'Monochrome',
