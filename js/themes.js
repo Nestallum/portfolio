@@ -21,145 +21,72 @@ const THEMES = [
     id: 'ethereal',
     name: 'Ethereal',
 
-    colorBgRgb:           '14, 18, 24',
-    colorBg:              '#0e1218',
-    colorSurface:         '#151c22',
-    colorSurfaceElevated: '#1c242e',
+    colorBgRgb:           '16, 18, 22',
+    colorBg:              '#101216',
+    colorSurface:         '#18191e',
+    colorSurfaceElevated: '#202228',
 
-    colorAccent:          '#b8d4e8',
-    colorAccentSubtle:    'rgba(184, 212, 232, 0.08)',
+    colorAccent:          '#c2ccd8',
+    colorAccentSubtle:    'rgba(194, 204, 216, 0.08)',
 
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#9aabba',
-    colorTextTertiary:    '#506070',
-    colorTagText:         '#748898',
+    colorTextSecondary:   '#9ba4b0',
+    colorTextTertiary:    '#525a64',
+    colorTagText:         '#767e8a',
   },
 
   {
-    id: 'midnight',
-    name: 'Midnight',
+    id: 'perfect-blue',
+    name: 'Perfect Blue',
     
-    colorBgRgb:           '15, 17, 22',
-    colorBg:              '#0f1116',
-    colorSurface:         '#151922',
-    colorSurfaceElevated: '#1c2130',
+    colorBgRgb:           '15, 18, 32',
+    colorBg:              '#0f1220',
+    colorSurface:         '#15192c',
+    colorSurfaceElevated: '#1c2038',
     
-    colorAccent:          '#8aa4ff',
-    colorAccentSubtle:    'rgba(138, 164, 255, 0.08)',
+    colorAccent:          '#6e8bbf',
+    colorAccentSubtle:    'rgba(110, 139, 191, 0.08)',
     
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#aab1c5',
-    colorTextTertiary:    '#5f667a',
-    colorTagText:         '#8a91a6',
+    colorTextSecondary:   '#8696b2',
+    colorTextTertiary:    '#425068',
+    colorTagText:         '#5e7088',
   },
-  
   
   {
     id: 'neon-genesis',
     name: 'Neon Genesis',
-    
-    colorBgRgb:           '18, 16, 26',
-    colorBg:              '#12101a',
-    colorSurface:         '#181522',
-    colorSurfaceElevated: '#201c2c',
-    
-    colorAccent:          '#78dba9',
-    colorAccentSubtle:    'rgba(120, 219, 169, 0.08)',
-    
+
+    colorBgRgb:           '22, 16, 32',
+    colorBg:              '#161020',
+    colorSurface:         '#1e1630',
+    colorSurfaceElevated: '#261c3c',
+
+    colorAccent:          '#6ec468',
+    colorAccentSubtle:    'rgba(110, 196, 104, 0.08)',
+
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#b1a9c9',
-    colorTextTertiary:    '#6b6280',
-    colorTagText:         '#8d84a3',
-  },
-  
-  {
-    id: 'fallen-angel',
-    name: 'Fallen Angel',
-    
-    colorBgRgb:           '18, 17, 18',
-    colorBg:              '#121112',
-    colorSurface:         '#19181b',
-    colorSurfaceElevated: '#211f23',
-    
-    colorAccent:          '#e06c6c',
-    colorAccentSubtle:    'rgba(224, 108, 108, 0.08)',
-    
-    colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#b3b0b8',
-    colorTextTertiary:    '#6a6670',
-    colorTagText:         '#908c96',
+    colorTextSecondary:   '#a898c8',
+    colorTextTertiary:    '#5c5078',
+    colorTagText:         '#7a6e98',
   },
 
   {
-    id: 'matrix',
-    name: 'Matrix',
-    
-    colorBgRgb:           '17, 17, 19',
-    colorBg:              '#111113',
-    colorSurface:         '#18181b',
-    colorSurfaceElevated: '#1f1f23',
-    
-    colorAccent:          '#68c07f',
-    colorAccentSubtle:    'rgba(104, 192, 127, 0.08)',
+    id: 'janemba',
+    name: 'Janemba',
+
+    colorBgRgb:           '22, 18, 30',
+    colorBg:              '#16121e',
+    colorSurface:         '#1e1828',
+    colorSurfaceElevated: '#261e32',
+
+    colorAccent:          '#bf6868',
+    colorAccentSubtle:    'rgba(191, 104, 104, 0.08)',
 
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#a8adb5',
-    colorTextTertiary:    '#5f6470',
-    colorTagText:         '#848991',
+    colorTextSecondary:   '#a896b0',
+    colorTextTertiary:    '#5e4e68',
+    colorTagText:         '#806880',
   },
-
-  {
-    id: 'cyberpunk',
-    name: 'Cyberpunk',
-    
-    colorBgRgb:           '17, 18, 26',
-    colorBg:              '#11121a',
-    colorSurface:         '#171826',
-    colorSurfaceElevated: '#1f2030',
-
-    colorAccent:          '#e6d85c',
-    colorAccentSubtle:    'rgba(230, 216, 92, 0.08)',
-    
-    colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#b2b6c7',
-    colorTextTertiary:    '#686e80',
-    colorTagText:         '#9096ab',
-  },
-
   
-  {
-    id: 'the-amazing',
-    name: 'The Amazing',
-    
-    colorBgRgb:           '17, 20, 28',
-    colorBg:              '#11141c',
-    colorSurface:         '#181c28',
-    colorSurfaceElevated: '#202538',
-
-    colorAccent:          '#e05a74',
-    colorAccentSubtle:    'rgba(224, 90, 116, 0.08)',
-    
-    colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#b2b8cc',
-    colorTextTertiary:    '#686f85',
-    colorTagText:         '#9097ad',
-  },
-
-  {
-    id: 'monochrome',
-    name: 'Monochrome',
-  
-    colorBgRgb:           '18, 18, 19',
-    colorBg:              '#121213',
-    colorSurface:         '#1a1a1d',
-    colorSurfaceElevated: '#222226',
-  
-    colorAccent:          '#a0a4ab',
-    colorAccentSubtle:    'rgba(160, 164, 171, 0.08)',
-  
-    colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#a5a9b0',
-    colorTextTertiary:    '#61656d',
-    colorTagText:         '#848891',
-  },
 ];
