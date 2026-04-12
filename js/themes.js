@@ -1,22 +1,40 @@
 const THEMES = [
   {
+    id: 'obsidian',
+    name: 'Obsidian',
+
+    colorBgRgb:           '20, 20, 22',
+    colorBg:              '#141416',
+    colorSurface:         '#1c1c1f',
+    colorSurfaceElevated: '#242428',
+
+    colorAccent:          '#c8a96e',
+    colorAccentSubtle:    'rgba(200, 169, 110, 0.08)',
+
+    colorTextPrimary:     '#f1f3f9',
+    colorTextSecondary:   '#9a9aa4',
+    colorTextTertiary:    '#505058',
+    colorTagText:         '#747480',
+  },
+
+  {
     id: 'ethereal',
     name: 'Ethereal',
 
-    colorBgRgb:           '14, 18, 26',
-    colorBg:              '#0e121a',
-    colorSurface:         '#151c26',
-    colorSurfaceElevated: '#1c2432',
+    colorBgRgb:           '14, 18, 24',
+    colorBg:              '#0e1218',
+    colorSurface:         '#151c22',
+    colorSurfaceElevated: '#1c242e',
 
     colorAccent:          '#b8d4e8',
     colorAccentSubtle:    'rgba(184, 212, 232, 0.08)',
 
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#a4b8cc',
-    colorTextTertiary:    '#5a7080',
-    colorTagText:         '#7a9aad',
+    colorTextSecondary:   '#9aabba',
+    colorTextTertiary:    '#506070',
+    colorTagText:         '#748898',
   },
-    
+
   {
     id: 'midnight',
     name: 'Midnight',
