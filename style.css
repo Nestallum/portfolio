@@ -19,27 +19,27 @@
     --nav-h: 72px;
 
     /* Accent */
-    --color-accent:        #afd4e0;
-    --color-accent-subtle:    rgba(124, 190, 212, 0.08);
+    --color-accent:        #c8a96e;
+    --color-accent-subtle: rgba(200, 169, 110, 0.08);
 
     /* Backgrounds */
-    --color-bg-rgb: 18, 21, 31;
-    --color-bg:     #12151f;
-    --color-surface:   #1a1e2a;
-    --color-surface-elevated:   #222736;
+    --color-bg-rgb:           20, 20, 22;
+    --color-bg:               #141416;
+    --color-surface:          #1c1c1f;
+    --color-surface-elevated: #242428;
 
     /* Borders */
-    --color-border:   rgba(255, 255, 255, 0.06);
+    --color-border:        rgba(255, 255, 255, 0.06);
     --color-border-strong: rgba(255, 255, 255, 0.10);
 
     /* Text */
-    --color-text-primary: #f0f0f5;
-    --color-text-secondary: #a8a8bc;
-    --color-text-tertiary: #585868;
+    --color-text-primary:   #f1f3f9;
+    --color-text-secondary: #9a9aa4;
+    --color-text-tertiary:  #505058;
 
     /* Tags */
     --color-tag-bg:    rgba(255, 255, 255, 0.04);
-    --color-tag-text: #9898aa;
+    --color-tag-text:  #747480;
 }
 
 ::selection {
