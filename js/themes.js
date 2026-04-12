@@ -92,15 +92,15 @@ const THEMES = [
   {
     id: 'janemba',
     name: 'Janemba',
-    
-    colorBgRgb:           '22, 18, 30',
-    colorBg:              '#16121e',
-    colorSurface:         '#1e1828',
-    colorSurfaceElevated: '#261e32',
-    
-    colorAccent:          '#bf6868',
-    colorAccentSubtle:    'rgba(191, 104, 104, 0.08)',
-    
+
+    colorBgRgb:           '28, 24, 34',
+    colorBg:              '#1c1822',
+    colorSurface:         '#242030',
+    colorSurfaceElevated: '#2c283a',
+
+    colorAccent:       '#c85868',
+    colorAccentSubtle: 'rgba(200, 88, 104, 0.08)',
+
     colorTextPrimary:     '#f1f3f9',
     colorTextSecondary:   '#a896b0',
     colorTextTertiary:    '#5e4e68',
