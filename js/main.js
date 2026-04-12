@@ -4,7 +4,7 @@
   /* ── Theme ─────────────────────────────────────────────── */
 
   const DEFAULT_THEME_ID = 'system';
-  let currentAccent = '#a8c0d8';
+  let currentAccent = '#6898a8';
 
   function applyTheme(theme) {
     const r = document.documentElement.style;

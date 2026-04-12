@@ -3,18 +3,18 @@ const THEMES = [
     id: 'system',
     name: 'System',
 
-    colorBgRgb:           '24, 23, 24',
-    colorBg:              '#181718',
-    colorSurface:         '#222022',
-    colorSurfaceElevated: '#2a282a',
+    colorBgRgb:           '26, 27, 30',
+    colorBg:              '#1a1b1e',
+    colorSurface:         '#222428',
+    colorSurfaceElevated: '#2a2c30',
 
-    colorAccent:          '#a8c0d8',
-    colorAccentSubtle:    'rgba(168, 192, 216, 0.08)',
+    colorAccent:          '#6898a8',
+    colorAccentSubtle:    'rgba(104, 152, 168, 0.08)',
 
     colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#989aa0',
-    colorTextTertiary:    '#585860',
-    colorTagText:         '#787880',
+    colorTextSecondary:   '#909aa0',
+    colorTextTertiary:    '#505860',
+    colorTagText:         '#707880',
   },
 
   {
@@ -124,4 +124,5 @@ const THEMES = [
     colorTextTertiary:    '#5c5078',
     colorTagText:         '#7a6e98',
   },
+  
 ];

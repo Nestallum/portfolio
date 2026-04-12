@@ -19,23 +19,23 @@
     --nav-h: 72px;
 
     /* ─── System (default) ───────────────────────────────── */
-    --color-accent:           #a8c0d8;
-    --color-accent-subtle:    rgba(168, 192, 216, 0.08);
+    --color-accent:           #6898a8;
+    --color-accent-subtle:    rgba(104, 152, 168, 0.08);
 
-    --color-bg-rgb:           24, 23, 24;
-    --color-bg:               #181718;
-    --color-surface:          #222022;
-    --color-surface-elevated: #2a282a;
+    --color-bg-rgb:           26, 27, 30;
+    --color-bg:               #1a1b1e;
+    --color-surface:          #222428;
+    --color-surface-elevated: #2a2c30;
 
     --color-border:           rgba(255, 255, 255, 0.06);
     --color-border-strong:    rgba(255, 255, 255, 0.10);
 
     --color-text-primary:     #f1f3f9;
-    --color-text-secondary:   #989aa0;
-    --color-text-tertiary:    #585860;
+    --color-text-secondary:   #909aa0;
+    --color-text-tertiary:    #505860;
 
     --color-tag-bg:           rgba(255, 255, 255, 0.04);
-    --color-tag-text:         #787880;
+    --color-tag-text:         #707880;
 }
 
 ::selection {
