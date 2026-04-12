@@ -3,7 +3,7 @@
 
   /* ── Theme ─────────────────────────────────────────────── */
 
-  const DEFAULT_THEME_ID = 'obsidian';
+  const DEFAULT_THEME_ID = 'system';
   let currentAccent = '#a8c0d8';
 
   function applyTheme(theme) {
