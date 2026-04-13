@@ -399,6 +399,53 @@ footer {
     font-family: var(--font-mono); 
 }
 
+#glyphs-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 20px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  font-family: var(--font-sans);
+  color: var(--color-text-tertiary);
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+#glyphs-toggle:hover {
+  color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 6%, var(--color-bg));
+}
+
+#glyphs-toggle:hover .glyphs-dot {
+  background: color-mix(in srgb, var(--color-accent) 50%, transparent);
+}
+
+#glyphs-toggle.active {
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+}
+
+#glyphs-toggle.active .glyphs-dot {
+  background: var(--color-accent);
+}
+
+.glyphs-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-text-tertiary);
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
 #back-top {
     position: fixed; bottom: 2rem; left: 2rem; z-index: 50;
     width: 40px; height: 40px;

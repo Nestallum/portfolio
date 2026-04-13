@@ -118,15 +118,18 @@
     function rnd(a, b) { return a + Math.random() * (b - a); }
     function randAmp() { return rnd(0.02, 0.12); }
 
-    let cells = [];
+    let cells   = [];
+    let active  = false;
+    let running = false;
 
     function makeCell(x, y) {
       return {
         x, y,
-        char: rc(),
-        amp:  randAmp(),
-        t:    rnd(0, Math.PI * 2),
-        s:    rnd(0.08, 0.18),
+        char:      rc(),
+        amp:       0,
+        targetAmp: randAmp(),
+        t:         rnd(0, Math.PI * 2),
+        s:         rnd(0.08, 0.18),
       };
     }
 
@@ -149,6 +152,7 @@
     let lastFrame = 0;
 
     function draw(now) {
+      if (!running) return;
       requestAnimationFrame(draw);
       if (now - lastFrame < 50) return;
       lastFrame = now;
@@ -161,25 +165,59 @@
       ctx.fillStyle = currentAccent;
 
       cells.forEach((g) => {
+        if (g.amp < g.targetAmp) {
+          g.amp = Math.min(g.amp + 0.008, g.targetAmp);
+        } else if (g.amp > g.targetAmp) {
+          g.amp = Math.max(g.amp - 0.012, g.targetAmp);
+        }
+
         const prevT = g.t;
         g.t += g.s;
 
         const crossed = Math.floor(prevT / Math.PI) !== Math.floor(g.t / Math.PI);
-        if (crossed) {
-          g.char = rc();
-          g.amp  = randAmp();
+        if (crossed && active) {
+          g.char      = rc();
+          g.targetAmp = randAmp();
         }
+
+        if (g.amp <= 0) return;
 
         ctx.globalAlpha = g.amp * (0.15 + 0.85 * Math.max(0, Math.sin(g.t)));
         ctx.fillText(g.char, g.x, g.y);
       });
 
       ctx.globalAlpha = 1;
+
+      if (!active && cells.every((g) => g.amp <= 0)) {
+        running = false;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
     }
 
-    requestAnimationFrame(draw);
+    function enable() {
+      active  = true;
+      running = true;
+      build();
+      requestAnimationFrame(draw);
+    }
+
+    function disable() {
+      active = false;
+      cells.forEach((g) => { g.targetAmp = 0; });
+    }
+
+    const btn = document.getElementById('glyphs-toggle');
+    btn.addEventListener('click', () => {
+      if (active) {
+        disable();
+        btn.classList.remove('active');
+      } else {
+        enable();
+        btn.classList.add('active');
+      }
+    });
   }
-  
+
   /* ── Cursor ─────────────────────────────────────────────── */
   function initCursor() {
     const dot  = document.createElement('div');
