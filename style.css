@@ -381,15 +381,14 @@ section:last-of-type { border-bottom: none; }
 .contact-btn {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: var(--text-md); font-weight: 500; padding: 12px 28px;
-    background: var(--color-bg);
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-md); 
-    color: var(--color-text-secondary);
-    transition: background 0.2s, color 0.2s;
+    background: color-mix(in srgb, var(--color-accent) 6%, var(--color-bg));
+    border: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent);
+    border-radius: var(--radius-md);
+    color: var(--color-accent);
 }
-.contact-btn:hover { 
-    background: var(--color-surface);
-    color: var(--color-text-primary);
+.contact-btn:hover {
+    background: color-mix(in srgb, var(--color-accent) 10%, var(--color-bg));
+    color: color-mix(in srgb, var(--color-accent) 100%, white 10%);
 }
 .contact-socials { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
 .contact-social { font-size: var(--text-xs); font-weight: 400; color: var(--color-text-tertiary); font-family: var(--font-mono); transition: color 0.2s; }
