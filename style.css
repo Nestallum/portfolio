@@ -505,6 +505,7 @@ footer {
 @media (max-width: 640px) {
   .nav-links     { display: none; }
   #cursor-trigger { display: none; }
+  #glyphs-toggle  { display: none; }
   #hero { padding-top: calc(90px + 4rem); }
   .exp-item, .edu-item { grid-template-columns: 1fr; gap: 0.25rem; }
   .exp-meta, .edu-date { margin-bottom: 0.5rem; }
