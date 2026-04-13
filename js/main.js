@@ -112,7 +112,7 @@
     const CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789$+-*/=%"\'#&_(),.;:?!<>[]\\|{}^~';
 
     const GAP  = 32;
-    const SIZE = 12;
+    const SIZE = 14;
 
     function rc()      { return CHARS[Math.floor(Math.random() * CHARS.length)]; }
     function rnd(a, b) { return a + Math.random() * (b - a); }

@@ -468,6 +468,10 @@ footer {
 }
 
 /* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .nav-links { display: none; }
+}
+
 @media (max-width: 640px) {
   .nav-links     { display: none; }
   #cursor-trigger { display: none; }
