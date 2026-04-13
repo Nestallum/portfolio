@@ -116,7 +116,7 @@
 
     function rc()      { return CHARS[Math.floor(Math.random() * CHARS.length)]; }
     function rnd(a, b) { return a + Math.random() * (b - a); }
-    function randAmp() { return rnd(0.02, 0.22); }
+    function randAmp() { return rnd(0.02, 0.16); }
 
     let cells = [];
 
