@@ -33,7 +33,7 @@
 
       <div id="cursor-dropdown"></div>
 
-      <button id="cursor-trigger" class="nav-btn">
+      <button id="cursor-trigger" class="nav-btn btn-ui">
         <svg class="cursor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M4 2 L4 20 L8 16 L12 24 L14 22 L10 14 L16 14 Z"/>
         </svg>
@@ -47,7 +47,7 @@
 
       <div id="theme-dropdown"></div>
 
-      <button id="theme-trigger" class="nav-btn">
+      <button id="theme-trigger" class="nav-btn btn-ui">
         <span id="theme-dot"></span>
         <span id="theme-label"></span>
         <svg id="theme-chevron"
@@ -319,12 +319,23 @@
 
   </main>
   
-  <button id="glyphs-toggle" aria-label="Toggle Glyphs" aria-pressed="false">
-    <span class="glyphs-dot"></span>
+  <button id="glyphs-toggle" class="btn-ui" aria-label="Toggle Glyphs" aria-pressed="false">
+    <svg class="glyphs-dot" viewBox="0 0 16 16" fill="currentColor"
+        style="width:14px;height:14px;flex-shrink:0;transition:color 0.2s;">
+      <rect x="1"  y="1"  width="3" height="3" rx="0.5" opacity="0.9"/>
+      <rect x="6"  y="1"  width="3" height="3" rx="0.5" opacity="0.45"/>
+      <rect x="11" y="1"  width="3" height="3" rx="0.5" opacity="0.18"/>
+      <rect x="1"  y="6"  width="3" height="3" rx="0.5" opacity="0.45"/>
+      <rect x="6"  y="6"  width="3" height="3" rx="0.5" opacity="0.9"/>
+      <rect x="11" y="6"  width="3" height="3" rx="0.5" opacity="0.35"/>
+      <rect x="1"  y="11" width="3" height="3" rx="0.5" opacity="0.18"/>
+      <rect x="6"  y="11" width="3" height="3" rx="0.5" opacity="0.55"/>
+      <rect x="11" y="11" width="3" height="3" rx="0.5" opacity="0.9"/>
+    </svg>
     Glyphs
   </button>
   
-  <button id="back-top" aria-label="Back to top">
+  <button id="back-top" class="btn-ui" aria-label="Back to top">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
   </button>
   
