@@ -105,11 +105,15 @@
   });
 
   /* ── Matrix background ──────────────────────────────────── */
-  const CHARS = 'ｦｱｳｴｵｶｷｹｺｻｼｽｾｿﾀﾂﾃﾅﾆﾇﾈﾊﾋﾎﾏﾐﾑﾒﾓﾔﾕﾗﾘﾙﾚﾛﾜﾝ0123456789';
-
-  function initMatrix(canvasId) {
-    const canvas = document.getElementById(canvasId);
+  function initMatrix() {
+    const canvas = document.getElementById('matrix-canvas');
     const ctx    = canvas.getContext('2d');
+
+    const KATAKANA   = 'ｦｱｳｴｵｶｷｹｺｻｼｽｾｿﾀﾂﾃﾅﾆﾇﾈﾊﾋﾎﾏﾐﾑﾒﾓﾔﾕﾗﾘﾙﾚﾛﾜﾝ';
+    const DIGITS     = '0123456789';
+    const SPECIAL    = '<>=+"*-:';
+    const CHARS      = KATAKANA.repeat(2) + DIGITS + SPECIAL;
+    const FLIP_CHARS = new Set(['2', '5', '6', '9']);
 
     const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
     resize();
@@ -119,23 +123,25 @@
     let lastSpawn   = 0;
 
     function spawnChar() {
+      const char = CHARS[Math.floor(Math.random() * CHARS.length)];
       particles.push({
         x:     Math.random() * canvas.width,
         y:     Math.random() * canvas.height,
         vx:    0,
-        vy:    -(30 + Math.random() * 60),
-        char:  CHARS[Math.floor(Math.random() * CHARS.length)],
-        size:  10 + Math.random() * 8,
+        vy:    15 + Math.random() * 30,
+        char,
+        flip:  FLIP_CHARS.has(char) ? -1 : (Math.random() > 0.5 ? -1 : 1),
+        size:  14,
         alpha: 0.08 + Math.random() * 0.2,
-        dur:   1200 + Math.random() * 1200,
+        dur:   1200 + Math.random() * 2400,
         born:  performance.now(),
       });
     }
 
     function draw(now) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (now - lastSpawn > 240) {
-        const n = 1 + Math.floor(Math.random() * 2);
+      if (now - lastSpawn > 100) {
+        const n = 3 + Math.floor(Math.random() * 3);
         for (let i = 0; i < n; i++) spawnChar();
         lastSpawn = now;
       }
@@ -145,9 +151,17 @@
         if (t >= 1) { particles.splice(i, 1); continue; }
         const ease = 1 - Math.pow(1 - t, 2);
         ctx.globalAlpha = p.alpha * (1 - t);
-        ctx.font        = `${p.size}px monospace`;
-        ctx.fillStyle = currentAccent;
-        ctx.fillText(p.char, p.x + p.vx * ease, p.y + p.vy * ease * (p.dur / 1000));
+        ctx.font        = `${p.size}px 'Noto Sans JP'`;
+        ctx.fillStyle   = currentAccent;
+
+        const px = p.x + p.vx * ease;
+        const py = p.y + p.vy * ease * (p.dur / 1000);
+
+        ctx.save();
+        ctx.translate(px, py);
+        ctx.scale(p.flip, 1);
+        ctx.fillText(p.char, 0, 0);
+        ctx.restore();
       }
       requestAnimationFrame(draw);
     }
@@ -253,8 +267,7 @@
     renderDropdown();
   }
 
-  initMatrix('matrix-canvas-back');
-  initMatrix('matrix-canvas-front');
+  initMatrix();
   initCursor();
   initCursorPicker();
   initThemePicker();
