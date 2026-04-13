@@ -38,6 +38,12 @@
     --color-tag-text:         #707880;
 }
 
+@font-face {
+  font-family: 'MatrixCode';
+  src: url('assets/fonts/matrix-code-nfi.woff2') format('woff2');
+  font-display: swap;
+}
+
 ::selection {
     background: var(--color-accent-subtle);
     color: var(--color-text-primary);
