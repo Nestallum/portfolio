@@ -1,23 +1,5 @@
 const THEMES = [
   {
-    id: 'system',
-    name: 'System',
-
-    colorBgRgb:           '26, 27, 30',
-    colorBg:              '#1a1b1e',
-    colorSurface:         '#222428',
-    colorSurfaceElevated: '#2a2c30',
-
-    colorAccent:          '#6898a8',
-    colorAccentSubtle:    'rgba(104, 152, 168, 0.08)',
-
-    colorTextPrimary:     '#f1f3f9',
-    colorTextSecondary:   '#909aa0',
-    colorTextTertiary:    '#505860',
-    colorTagText:         '#707880',
-  },
-
-  {
     id: 'perfect-blue',
     name: 'Perfect Blue',
 
@@ -33,6 +15,24 @@ const THEMES = [
     colorTextSecondary:   '#9aaac8',
     colorTextTertiary:    '#526080',
     colorTagText:         '#6e7ea0',
+  },
+
+  {
+    id: 'system',
+    name: 'System',
+
+    colorBgRgb:           '26, 27, 30',
+    colorBg:              '#1a1b1e',
+    colorSurface:         '#222428',
+    colorSurfaceElevated: '#2a2c30',
+
+    colorAccent:          '#6898a8',
+    colorAccentSubtle:    'rgba(104, 152, 168, 0.08)',
+
+    colorTextPrimary:     '#f1f3f9',
+    colorTextSecondary:   '#909aa0',
+    colorTextTertiary:    '#505860',
+    colorTagText:         '#707880',
   },
 
   {

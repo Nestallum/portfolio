@@ -443,8 +443,7 @@ section:last-of-type {
 .hero-name {
   font-size: clamp(2.2rem, 6.5vw, 4.2rem);
   font-weight: 800;
-  letter-spacing: 0.02em;
-  line-height: 1;
+  line-height: 1.05;
   margin-bottom: 1.5rem;
 }
 

@@ -141,7 +141,7 @@
      Theme picker
   ────────────────────────────────────────────────────────── */
   function initThemePicker() {
-    let currentId = localStorage.getItem('theme-id') ?? 'system';
+    let currentId = localStorage.getItem('theme-id') ?? 'perfect-blue'; // <- persist selected theme across sessions
 
     const { trigger, dropdown, close, closeInstant } = createDropdownController('theme-trigger', 'theme-dropdown');
     dropdownControllers.push({ close });
