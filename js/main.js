@@ -1,199 +1,464 @@
+/**
+ * main.js — Single entry point for all UI behaviour.
+ *
+ * Depends on globals loaded before this file:
+ *   - THEMES  (js/themes.js)
+ *   - CURSORS (js/cursors.js)
+ */
 (() => {
   'use strict';
 
-  /* ── Theme ─────────────────────────────────────────────── */
+  /* ──────────────────────────────────────────────────────────
+     Shared state
+     Centralising mutable state avoids the global `currentAccent`
+     leak that previously existed between the matrix and theme modules.
+  ────────────────────────────────────────────────────────── */
+  const state = {
+    accentColor: '#6898a8',
+  };
 
-  const DEFAULT_THEME_ID = 'system';
-  let currentAccent = '#6898a8';
-
-  function applyTheme(theme) {
-    const r = document.documentElement.style;
-    r.setProperty('--color-bg-rgb',            theme.colorBgRgb);
-    r.setProperty('--color-bg',                theme.colorBg);
-    r.setProperty('--color-surface',           theme.colorSurface);
-    r.setProperty('--color-surface-elevated',  theme.colorSurfaceElevated);
-    r.setProperty('--color-accent',            theme.colorAccent);
-    r.setProperty('--color-accent-subtle',     theme.colorAccentSubtle);
-    r.setProperty('--color-text-primary',      theme.colorTextPrimary);
-    r.setProperty('--color-text-secondary',    theme.colorTextSecondary);
-    r.setProperty('--color-text-tertiary',     theme.colorTextTertiary);
-    r.setProperty('--color-tag-text',          theme.colorTagText);
-    currentAccent = theme.colorAccent;
+  /* ──────────────────────────────────────────────────────────
+     Utility: debounce
+     Prevents expensive callbacks (e.g. canvas rebuild) from firing
+     on every pixel of a resize event.
+  ────────────────────────────────────────────────────────── */
+  function debounce(fn, delay) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn(...args), delay);
+    };
   }
 
-  function initThemePicker() {
-    let currentId = DEFAULT_THEME_ID;
+  /* ──────────────────────────────────────────────────────────
+     Utility: createDropdownItem
+     Builds a dropdown button safely using the DOM API instead
+     of innerHTML, which avoids potential XSS vectors when
+     theme/cursor data originates from external sources.
+  ────────────────────────────────────────────────────────── */
+  function createDropdownItem({ label, dotColor, isActive, onSelect }) {
+    const btn = document.createElement('button');
+    btn.className = 'dropdown-item' + (isActive ? ' active' : '');
+    btn.setAttribute('role', 'option');
+    btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
 
-    const trigger  = document.getElementById('theme-trigger');
-    const dot      = document.getElementById('theme-dot');
-    const label    = document.getElementById('theme-label');
-    const dropdown = document.getElementById('theme-dropdown');
-
-    function renderDropdown() {
-      dropdown.innerHTML = '';
-      THEMES.forEach((t) => {
-        const item = document.createElement('button');
-        item.className = 'theme-dd-item' + (t.id === currentId ? ' active' : '');
-        item.dataset.id = t.id;
-        item.innerHTML = `
-          <span class="theme-dd-dot" style="background:${t.colorAccent};"></span>
-          <span class="theme-dd-name">${t.name}</span>
-          <svg class="theme-dd-check" viewBox="0 0 12 12" fill="none"
-               stroke="${t.colorAccent}" stroke-width="1.8"
-               stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2 6l3 3 5-5"/>
-          </svg>
-        `;
-        item.addEventListener('click', () => selectTheme(t.id));
-        dropdown.appendChild(item);
-      });
+    if (dotColor) {
+      const dot = document.createElement('span');
+      dot.className = 'dropdown-dot';
+      dot.style.background = dotColor;
+      btn.appendChild(dot);
     }
 
-    function selectTheme(id) {
-      const t = THEMES.find((x) => x.id === id);
-      if (!t) return;
-      currentId = id;
-      applyTheme(t);
-      dot.style.background = t.colorAccent;
-      label.textContent = t.name;
-      closeDropdown();
-      renderDropdown();
+    const name = document.createElement('span');
+    name.className = 'dropdown-name';
+    name.textContent = label;
+    btn.appendChild(name);
+
+    // Checkmark SVG — visible only on active item via CSS
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'dropdown-check');
+    svg.setAttribute('viewBox', '0 0 12 12');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', dotColor || 'var(--color-accent)');
+    svg.setAttribute('stroke-width', '1.8');
+    svg.setAttribute('stroke-linecap', 'round');
+    svg.setAttribute('stroke-linejoin', 'round');
+    svg.setAttribute('aria-hidden', 'true');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M2 6l3 3 5-5');
+    svg.appendChild(path);
+    btn.appendChild(svg);
+
+    btn.addEventListener('click', onSelect);
+    return btn;
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     Dropdown controller factory
+     Encapsulates open/close logic so both the theme and cursor
+     pickers share one implementation instead of duplicating it.
+  ────────────────────────────────────────────────────────── */
+  function createDropdownController(triggerId, dropdownId) {
+    const trigger  = document.getElementById(triggerId);
+    const dropdown = document.getElementById(dropdownId);
+
+    function open() {
+      dropdown.classList.add('open');
+      trigger.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
     }
 
-    function openDropdown()  { dropdown.classList.add('open'); trigger.classList.add('open'); }
-    function closeDropdown() { dropdown.classList.remove('open'); trigger.classList.remove('open'); }
+    function close() {
+      dropdown.classList.remove('open');
+      trigger.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    function closeInstant() {
+      dropdown.style.transition = 'none';
+      dropdown.classList.remove('open');
+      trigger.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+      setTimeout(() => {
+        dropdown.style.transition = '';
+      }, 50);
+    }
+
+    function toggle() {
+      if (dropdown.classList.contains('open')) {
+        close();
+      } else {
+        // Close all other dropdowns before opening this one
+        dropdownControllers.forEach((ctrl) => ctrl.close());
+        open();
+      }
+    }
 
     trigger.addEventListener('click', (e) => {
       e.stopPropagation();
-      dropdown.classList.contains('open') ? closeDropdown() : openDropdown();
+      toggle();
     });
-    document.addEventListener('click', closeDropdown);
+
+    // Prevent clicks inside the dropdown from bubbling to the
+    // document listener that closes it.
     dropdown.addEventListener('click', (e) => e.stopPropagation());
 
-    const defaultTheme = THEMES.find((t) => t.id === DEFAULT_THEME_ID);
-    dot.style.background   = defaultTheme.colorAccent;
-    label.textContent      = defaultTheme.name;
-    renderDropdown();
+    return { trigger, dropdown, open, close, closeInstant };
   }
 
-  /* ── Scroll nav ─────────────────────────────────────────── */
-  const nav = document.getElementById('site-nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 10);
-  }, { passive: true });
+  /* ──────────────────────────────────────────────────────────
+     Global click-outside handler
+     A single document listener handles closing of both dropdowns,
+     replacing the two separate listeners in the original code.
+  ────────────────────────────────────────────────────────── */
+  const dropdownControllers = [];
 
-  /* ── Fade-in on scroll ──────────────────────────────────── */
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      });
-    },
-    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-  );
-  document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
-
-  /* ── Back to top ────────────────────────────────────────── */
-  const backTop = document.getElementById('back-top');
-  window.addEventListener('scroll', () => {
-    backTop.classList.toggle('visible', window.scrollY > 400);
-  }, { passive: true });
-  backTop.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.addEventListener('click', () => {
+    dropdownControllers.forEach((ctrl) => ctrl.close());
   });
 
-  /* ── Matrix background ──────────────────────────────────── */
+  /* ──────────────────────────────────────────────────────────
+     Theme picker
+  ────────────────────────────────────────────────────────── */
+  function initThemePicker() {
+    let currentId = localStorage.getItem('theme-id') ?? 'system';
+
+    const { trigger, dropdown, close, closeInstant } = createDropdownController('theme-trigger', 'theme-dropdown');
+    dropdownControllers.push({ close });
+
+    const dot   = document.getElementById('theme-dot');
+    const label = document.getElementById('theme-label');
+
+    function applyTheme(theme) {
+      const root = document.documentElement.style;
+      root.setProperty('--color-bg-rgb',            theme.colorBgRgb);
+      root.setProperty('--color-bg',                theme.colorBg);
+      root.setProperty('--color-surface',           theme.colorSurface);
+      root.setProperty('--color-surface-elevated',  theme.colorSurfaceElevated);
+      root.setProperty('--color-accent',            theme.colorAccent);
+      root.setProperty('--color-accent-subtle',     theme.colorAccentSubtle);
+      root.setProperty('--color-text-primary',      theme.colorTextPrimary);
+      root.setProperty('--color-text-secondary',    theme.colorTextSecondary);
+      root.setProperty('--color-text-tertiary',     theme.colorTextTertiary);
+      root.setProperty('--color-tag-text',          theme.colorTagText);
+
+      // Propagate the new accent to the matrix renderer via shared state.
+      state.accentColor = theme.colorAccent;
+    }
+
+    function renderItems() {
+      dropdown.innerHTML = '';
+      THEMES.forEach((t) => {
+        dropdown.appendChild(
+          createDropdownItem({
+            label:    t.name,
+            dotColor: t.colorAccent,
+            isActive: t.id === currentId,
+            onSelect: () => {
+              currentId = t.id;
+              localStorage.setItem('theme-id', t.id); // <- persist
+              applyTheme(t);
+              dot.style.background = t.colorAccent;
+              label.textContent    = t.name;
+              closeInstant();
+              renderItems();
+            },
+          })
+        );
+      });
+    }
+
+    // Seed initial state
+    const defaultTheme   = THEMES.find((t) => t.id === currentId);
+    dot.style.background = defaultTheme.colorAccent;
+    label.textContent    = defaultTheme.name;
+    renderItems();
+    // Apply the saved theme on page load (not just on selection)
+    const savedTheme = THEMES.find((t) => t.id === currentId);
+    if (savedTheme) applyTheme(savedTheme);
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     Custom cursor
+  ────────────────────────────────────────────────────────── */
+  function initCursor() {
+    const dot   = document.createElement('div');
+    const ghost = document.createElement('div');
+    dot.id   = 'cursor-dot';
+    ghost.id = 'cursor-ghost';
+
+    // Inserted at body start so z-index works across stacking contexts
+    document.body.prepend(ghost, dot);
+
+    dot.style.display   = 'none';
+    ghost.style.display = 'none';
+
+    let targetX = 0, targetY = 0;
+    let ghostX  = 0, ghostY  = 0;
+    let rafId   = null;
+
+    document.addEventListener('mousemove', (e) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+      // Snap ghost to cursor on first move so it never slides in from 0,0
+      if (ghostX === 0 && ghostY === 0) {
+        ghostX = targetX;
+        ghostY = targetY;
+      }
+      dot.style.left = `${targetX}px`;
+      dot.style.top  = `${targetY}px`;
+    });
+
+    // Lazy lerp loop — only runs while the cursor is active
+    function animateGhost() {
+      ghostX += (targetX - ghostX) * 0.1;
+      ghostY += (targetY - ghostY) * 0.1;
+      ghost.style.left = `${ghostX}px`;
+      ghost.style.top  = `${ghostY}px`;
+      rafId = requestAnimationFrame(animateGhost);
+    }
+
+    // Expand ghost ring on interactive elements
+    function onEnter() { ghost.classList.add('hovered'); }
+    function onLeave() { ghost.classList.remove('hovered'); }
+
+    document.querySelectorAll('a, button').forEach((el) => {
+      el.addEventListener('mouseenter', onEnter);
+      el.addEventListener('mouseleave', onLeave);
+    });
+
+    return {
+      enable() {
+        // Snap ghost to current cursor position before starting the loop
+        ghostX = targetX;
+        ghostY = targetY;
+        ghost.style.left = `${ghostX}px`;
+        ghost.style.top  = `${ghostY}px`;
+
+        dot.style.display   = 'block';
+        ghost.style.display = 'block';
+        document.body.classList.add('custom-cursor');
+        if (!rafId) rafId = requestAnimationFrame(animateGhost);
+      },
+      disable() {
+        dot.style.display   = 'none';
+        ghost.style.display = 'none';
+        document.body.classList.remove('custom-cursor');
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      },
+    };
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     Cursor picker
+  ────────────────────────────────────────────────────────── */
+  function initCursorPicker(cursor) {
+    let currentId = 'default';
+
+    const { dropdown, close, closeInstant } = createDropdownController('cursor-trigger', 'cursor-dropdown');
+    dropdownControllers.push({ close });
+
+    const label = document.getElementById('cursor-label');
+
+    function renderItems() {
+      dropdown.innerHTML = '';
+      CURSORS.forEach((c) => {
+        dropdown.appendChild(
+          createDropdownItem({
+            label:    c.name,
+            dotColor: null,
+            isActive: c.id === currentId,
+            onSelect: () => {
+              currentId         = c.id;
+              label.textContent = c.name;
+
+              if (c.id === 'ghost') {
+                cursor.enable();
+              } else {
+                cursor.disable();
+              }
+
+              closeInstant();
+              renderItems();
+            },
+          })
+        );
+      });
+    }
+
+    const defaultCursor  = CURSORS.find((c) => c.id === currentId);
+    label.textContent    = defaultCursor.name;
+    renderItems();
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     Scroll-driven behaviours
+  ────────────────────────────────────────────────────────── */
+  function initScrollBehaviours() {
+    const nav     = document.getElementById('site-nav');
+    const backTop = document.getElementById('back-top');
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+      backTop.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+
+    backTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     Intersection Observer — fade-in on scroll
+  ────────────────────────────────────────────────────────── */
+  function initFadeIn() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Observe once, then detach
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     Matrix canvas background
+  ────────────────────────────────────────────────────────── */
   function initMatrix() {
     const canvas = document.getElementById('matrix-canvas');
     const ctx    = canvas.getContext('2d');
 
-    const CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789$+-*/=%"\'#&_(),.;:?!<>[]\\|{}^~';
-
-    const GAP  = 32;
-    const SIZE = 14;
-
-    function rc()      { return CHARS[Math.floor(Math.random() * CHARS.length)]; }
-    function rnd(a, b) { return a + Math.random() * (b - a); }
-    function randAmp() { return rnd(0.02, 0.12); }
+    const CHARS    = 'abcdefghijklmnopqrstuvwxyz0123456789$+-*/=%"\'#&_(),.;:?!<>[]\\|{}^~';
+    const CELL_GAP = 32;
+    const FONT_SIZE = 14;
 
     let cells   = [];
     let active  = false;
     let running = false;
+    let lastFrame = 0;
+    let rafId   = null;
+
+    function randomChar()       { return CHARS[Math.floor(Math.random() * CHARS.length)]; }
+    function randomRange(a, b)  { return a + Math.random() * (b - a); }
+    function randomAmplitude()  { return randomRange(0.02, 0.12); }
 
     function makeCell(x, y) {
       return {
-        x, y,
-        char:      rc(),
+        x,
+        y,
+        char:      randomChar(),
         amp:       0,
-        targetAmp: randAmp(),
-        t:         rnd(0, Math.PI * 2),
-        s:         rnd(0.08, 0.18),
+        targetAmp: randomAmplitude(),
+        t:         randomRange(0, Math.PI * 2),
+        speed:     randomRange(0.08, 0.18),
       };
     }
 
-    function build() {
+    function buildGrid() {
       const dpr = window.devicePixelRatio || 1;
+
+      // Reset transform before applying a new scale to avoid
+      // cumulative scaling on repeated resize events.
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+
       canvas.width  = window.innerWidth  * dpr;
       canvas.height = window.innerHeight * dpr;
-      canvas.style.width  = window.innerWidth  + 'px';
-      canvas.style.height = window.innerHeight + 'px';
+      canvas.style.width  = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
       ctx.scale(dpr, dpr);
 
-      const cols = Math.floor(canvas.width  / GAP);
-      const rows = Math.floor(canvas.height / GAP);
+      const cols = Math.floor(window.innerWidth  / CELL_GAP);
+      const rows = Math.floor(window.innerHeight / CELL_GAP);
 
       cells = [];
-      for (let r = 0; r < rows; r++)
-        for (let c = 0; c < cols; c++)
-          cells.push(makeCell(c * GAP + GAP / 2, r * GAP + GAP / 2));
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          cells.push(makeCell(
+            c * CELL_GAP + CELL_GAP / 2,
+            r * CELL_GAP + CELL_GAP / 2
+          ));
+        }
+      }
     }
 
-    build();
-    window.addEventListener('resize', build);
-
-    let lastFrame = 0;
+    const debouncedBuild = debounce(buildGrid, 150);
+    window.addEventListener('resize', debouncedBuild, { passive: true });
 
     function draw(now) {
       if (!running) return;
-      requestAnimationFrame(draw);
+      rafId = requestAnimationFrame(draw);
+
+      // Cap the frame rate at ~20 fps for the matrix effect
       if (now - lastFrame < 50) return;
       lastFrame = now;
 
+      // Skip rendering while the tab is hidden to save CPU
       if (document.hidden) return;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.font      = `${SIZE}px 'MatrixCode'`;
+      ctx.font      = `${FONT_SIZE}px 'MatrixCode'`;
       ctx.textAlign = 'center';
-      ctx.fillStyle = currentAccent;
+      ctx.fillStyle = state.accentColor;
 
-      cells.forEach((g) => {
-        if (g.amp < g.targetAmp) {
-          g.amp = Math.min(g.amp + 0.008, g.targetAmp);
-        } else if (g.amp > g.targetAmp) {
-          g.amp = Math.max(g.amp - 0.012, g.targetAmp);
+      cells.forEach((cell) => {
+        // Smooth amplitude towards target
+        if (cell.amp < cell.targetAmp) {
+          cell.amp = Math.min(cell.amp + 0.008, cell.targetAmp);
+        } else if (cell.amp > cell.targetAmp) {
+          cell.amp = Math.max(cell.amp - 0.012, cell.targetAmp);
         }
 
-        const prevT = g.t;
-        g.t += g.s;
+        const prevT = cell.t;
+        cell.t += cell.speed;
 
-        const crossed = Math.floor(prevT / Math.PI) !== Math.floor(g.t / Math.PI);
-        if (crossed && active) {
-          g.char      = rc();
-          g.targetAmp = randAmp();
+        // Flip character and randomise target amplitude on each half-cycle
+        const halfCycleCrossed = Math.floor(prevT / Math.PI) !== Math.floor(cell.t / Math.PI);
+        if (halfCycleCrossed && active) {
+          cell.char      = randomChar();
+          cell.targetAmp = randomAmplitude();
         }
 
-        if (g.amp <= 0) return;
+        if (cell.amp <= 0) return;
 
-        ctx.globalAlpha = g.amp * (0.15 + 0.85 * Math.max(0, Math.sin(g.t)));
-        ctx.fillText(g.char, g.x, g.y);
+        ctx.globalAlpha = cell.amp * (0.15 + 0.85 * Math.max(0, Math.sin(cell.t)));
+        ctx.fillText(cell.char, cell.x, cell.y);
       });
 
       ctx.globalAlpha = 1;
 
-      if (!active && cells.every((g) => g.amp <= 0)) {
+      // Stop the RAF loop once all cells have faded out
+      if (!active && cells.every((c) => c.amp <= 0)) {
         running = false;
+        cancelAnimationFrame(rafId);
+        rafId = null;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
       }
     }
@@ -201,128 +466,40 @@
     function enable() {
       active  = true;
       running = true;
-      build();
-      requestAnimationFrame(draw);
+      buildGrid();
+      rafId = requestAnimationFrame(draw);
     }
 
     function disable() {
       active = false;
-      cells.forEach((g) => { g.targetAmp = 0; });
+      // Cells will fade out naturally; the RAF loop stops itself
+      cells.forEach((cell) => { cell.targetAmp = 0; });
     }
 
     const btn = document.getElementById('glyphs-toggle');
+
     btn.addEventListener('click', () => {
-      if (active) {
-        disable();
-        btn.classList.remove('active');
-      } else {
+      const isActive = !active;
+      if (isActive) {
         enable();
         btn.classList.add('active');
+      } else {
+        disable();
+        btn.classList.remove('active');
       }
+      // Keep aria-pressed in sync with actual state
+      btn.setAttribute('aria-pressed', String(isActive));
     });
   }
 
-  /* ── Cursor ─────────────────────────────────────────────── */
-  function initCursor() {
-    const dot  = document.createElement('div');
-    const ghost = document.createElement('div');
-    dot.id  = 'cursor-dot';
-    ghost.id = 'cursor-ghost';
-    document.body.appendChild(ghost);
-    document.body.appendChild(dot);
-    dot.style.display  = 'none';
-    ghost.style.display = 'none';
-
-    let x = 0, y = 0;
-    let cx = 0, cy = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      x = e.clientX;
-      y = e.clientY;
-      dot.style.left = x + 'px';
-      dot.style.top  = y + 'px';
-    });
-
-    function animate() {
-      cx += (x - cx) * 0.10;
-      cy += (y - cy) * 0.10;
-      ghost.style.left = cx + 'px';
-      ghost.style.top  = cy + 'px';
-      requestAnimationFrame(animate);
-    }
-    animate();
-
-    document.querySelectorAll('a, button').forEach((el) => {
-      el.addEventListener('mouseenter', () => ghost.classList.add('hovered'));
-      el.addEventListener('mouseleave', () => ghost.classList.remove('hovered'));
-    });
-  }
-
-  /* ── Cursor picker ──────────────────────────────────────── */
-  function initCursorPicker() {
-    let currentId = 'default';
-
-    const trigger  = document.getElementById('cursor-trigger');
-    const label    = document.getElementById('cursor-label');
-    const dropdown = document.getElementById('cursor-dropdown');
-
-    function renderDropdown() {
-      dropdown.innerHTML = '';
-      CURSORS.forEach((c) => {
-        const item = document.createElement('button');
-        item.className = 'theme-dd-item' + (c.id === currentId ? ' active' : '');
-        item.dataset.id = c.id;
-        item.innerHTML = `
-          <span class="theme-dd-name">${c.name}</span>
-          <svg class="theme-dd-check" viewBox="0 0 12 12" fill="none"
-              stroke="var(--color-accent)" stroke-width="1.8"
-              stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2 6l3 3 5-5"/>
-          </svg>
-        `;
-        item.addEventListener('click', () => selectCursor(c.id));
-        dropdown.appendChild(item);
-      });
-    }
-
-    function selectCursor(id) {
-      currentId = id;
-      label.textContent = CURSORS.find((c) => c.id === id).name;
-
-      const dot  = document.getElementById('cursor-dot');
-      const ghost = document.getElementById('cursor-ghost');
-
-      if (id === 'default') {
-        document.body.classList.remove('custom-cursor');
-        if (dot)  dot.style.display = 'none';
-        if (ghost) ghost.style.display = 'none';
-      } else if (id === 'ghost') {
-        document.body.classList.add('custom-cursor');
-        if (dot)  dot.style.display = 'block';
-        if (ghost) ghost.style.display = 'block';
-      }
-
-      closeDropdown();
-      renderDropdown();
-    }
-
-    function openDropdown()  { dropdown.classList.add('open'); trigger.classList.add('open'); }
-    function closeDropdown() { dropdown.classList.remove('open'); trigger.classList.remove('open'); }
-
-    trigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      dropdown.classList.contains('open') ? closeDropdown() : openDropdown();
-    });
-    document.addEventListener('click', closeDropdown);
-    dropdown.addEventListener('click', (e) => e.stopPropagation());
-
-    const defaultCursor = CURSORS.find((c) => c.id === 'default');
-    label.textContent = defaultCursor.name;
-    renderDropdown();
-  }
-
-  initMatrix();
-  initCursor();
-  initCursorPicker();
+  /* ──────────────────────────────────────────────────────────
+     Boot sequence
+  ────────────────────────────────────────────────────────── */
+  const cursor = initCursor();
+  initCursorPicker(cursor);
   initThemePicker();
+  initScrollBehaviours();
+  initFadeIn();
+  initMatrix();
+
 })();
