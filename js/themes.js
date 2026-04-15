@@ -1,5 +1,6 @@
 const THEMES = [
-    {
+
+  {
     id: 'perfect-blue',
     name: 'Perfect Blue',
 
@@ -67,5 +68,4 @@ const THEMES = [
     colorTagText:         '#7a7e86',
   },
 
- 
 ];
