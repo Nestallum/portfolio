@@ -15,6 +15,8 @@
   <meta name="twitter:image" content="https://nassim-lattab.vercel.app/assets/social/og-image.png" />
   <title>Nassim Lattab — AI Engineer</title>
 
+  <link rel="canonical" href="https://nassim-lattab.vercel.app/" />
+  
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/assets/social/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/assets/social/favicon.svg" />
@@ -28,24 +30,44 @@
   <link
   href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap"
   rel="stylesheet"
-/>
+  />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Nassim Lattab",
+    "jobTitle": "AI Engineer",
+    "url": "https://nassim-lattab.vercel.app",
+    "email": "nassimlattab@gmail.com",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Université Paris Cité"
+    },
+    "knowsAbout": ["Deep Learning", "Computer Vision", "NLP", "Transformers", "PyTorch", "TensorFlow"],
+    "sameAs": [
+      "https://github.com/Nestallum",
+      "https://linkedin.com/in/nassim-lattab"
+    ]
+  }
+  </script>
   <script>
     // Apply saved theme synchronously before first paint to prevent flash
     (function () {
       const saved = localStorage.getItem('theme-id');
-      if (!saved || saved === 'system') return;
+      if (!saved || saved === 'perfect-blue') return;
       // THEMES not yet loaded here — we just need the accent + bg colors.
       // They'll be patched properly once main.js runs.
       // This minimal script only fixes the background color flash.
       const map = {
-        'perfect-blue':  ['24,28,46',  '#181c2e'],
-        'neon-genesis':  ['27,26,38',  '#1b1a26'],
-        'obsidian':      ['26,26,30',  '#1a1a1e'],
-        'claude':        ['29,29,28',  '#1d1d1c'],
-        'janemba':       ['28,26,32',  '#1c1a20'],
-        'dusk-rose':     ['27,26,28',  '#1b1a1c'],
-        'ethereal':      ['24,24,26',  '#18181a'],
-        'pearl':         ['27,27,26',  '#1b1b1a'],
+        'system':        ['26,27,30',  '#1a1b1e'],
+        'neon-genesis':  ['23,23,45',  '#17172d'],
+        'obsidian':      ['25,25,30',  '#19191e'],
+        'claude':        ['25,25,24',  '#191918'],
+        'janemba':       ['26,24,34',  '#1a1822'],
+        'dusk-rose':     ['26,24,28',  '#1a181c'],
+        'ethereal':      ['23,25,29',  '#17191d'],
+        'pearl':         ['25,25,22',  '#191916'],
       };
       const entry = map[saved];
       if (!entry) return;
@@ -223,7 +245,7 @@
           </span>
         </div>
         <div class="exp-body">
-          <p class="exp-title">AI Research Intern <span class="exp-at">@ Sodern · ArianeGroup</span></p>
+          <h3 class="exp-title">AI Research Intern <span class="exp-at">@ Sodern · ArianeGroup</span></h3>
           <p class="exp-subtitle">Deep Learning · Computer Vision</p>
           <p class="exp-desc">End-to-end deep learning pipeline for image restoration on embedded space systems.</p>
           <ul class="exp-bullets">
@@ -261,7 +283,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7 17 17 7M7 7h10v10"/></svg>
             </span>
           </div>
-          <p class="project-title">LLM Chatbot</p>
+          <h3 class="project-title">LLM Chatbot</h3>
           <p class="project-desc">Hybrid chatbot combining symbolic AI for intent matching with Mistral 7B for response generation. Custom message broker orchestrating requests between the symbolic engine and the LLM; containerized with Docker.</p>
           <div class="project-tags" aria-label="Technologies used">
             <span class="tag">Python</span>
@@ -281,7 +303,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7 17 17 7M7 7h10v10"/></svg>
             </span>
           </div>
-          <p class="project-title">RoBERTa Fine-tuning</p>
+          <h3 class="project-title">RoBERTa Fine-tuning</h3>
           <p class="project-desc">Fine-tuned RoBERTa (Meta) on large-scale text classification tasks, reaching 83% F1 and 90% recall. Scalable NLP preprocessing pipelines with custom tokenization and optimized DataLoader workflows.</p>
           <div class="project-tags" aria-label="Technologies used">
             <span class="tag">PyTorch</span>
@@ -300,7 +322,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7 17 17 7M7 7h10v10"/></svg>
             </span>
           </div>
-          <p class="project-title">Time Series Forecasting</p>
+          <h3 class="project-title">Time Series Forecasting</h3>
           <p class="project-desc">RNN-based forecasting achieving ±0.3°C accuracy on 22k temperature samples. Benchmarked LSTM and GRU architectures on 100-step ahead prediction tasks.</p>
           <div class="project-tags" aria-label="Technologies used">
             <span class="tag">TensorFlow</span>
@@ -319,7 +341,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7 17 17 7M7 7h10v10"/></svg>
             </span>
           </div>
-          <p class="project-title">Sentiment Analysis</p>
+          <h3 class="project-title">Sentiment Analysis</h3>
           <p class="project-desc">End-to-end NLP pipeline for opinion classification on large-scale social data collected via YouTube Data API. Anonymization protocols, NLTK preprocessing, MongoDB storage.</p>
           <div class="project-tags" aria-label="Technologies used">
             <span class="tag">NLTK</span>
@@ -376,7 +398,7 @@
       <article class="edu-item fade-in">
         <time class="edu-date" datetime="2023/2025">2023 – 2025</time>
         <div>
-          <p class="edu-degree">MSc in Computer Science — Artificial Intelligence</p>
+          <h3 class="edu-degree">MSc in Computer Science — Artificial Intelligence</h3>
           <p class="edu-school">
             <a href="https://u-paris.fr" target="_blank" rel="noopener noreferrer" class="link-text">Université Paris Cité</a>, Paris
           </p>
@@ -387,7 +409,7 @@
       <article class="edu-item fade-in">
         <time class="edu-date" datetime="2020/2023">2020 – 2023</time>
         <div>
-          <p class="edu-degree">BSc in Computer Science</p>
+          <h3 class="edu-degree">BSc in Computer Science</h3>
           <p class="edu-school">
             <a href="https://u-paris.fr" target="_blank" rel="noopener noreferrer" class="link-text">Université Paris Cité</a>, Paris
           </p>

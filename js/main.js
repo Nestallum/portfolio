@@ -14,7 +14,7 @@
      leak that previously existed between the matrix and theme modules.
   ────────────────────────────────────────────────────────── */
   const state = {
-    accentColor: '#6898a8',
+    accentColor: '#7aa2d6',
   };
 
   /* ──────────────────────────────────────────────────────────
@@ -159,11 +159,15 @@
       root.setProperty('--color-accent-subtle',     theme.colorAccentSubtle);
       root.setProperty('--color-text-primary',      theme.colorTextPrimary);
       root.setProperty('--color-text-secondary',    theme.colorTextSecondary);
-      root.setProperty('--color-text-tertiary',     theme.colorTextTertiary);
       root.setProperty('--color-tag-text',          theme.colorTagText);
 
       // Propagate the new accent to the matrix renderer via shared state.
       state.accentColor = theme.colorAccent;
+
+      const nav = document.getElementById('site-nav');
+      nav.style.display = 'none';
+      nav.offsetHeight; // trigger reflow
+      nav.style.display = '';
     }
 
     function renderItems() {
@@ -189,13 +193,13 @@
     }
 
     // Seed initial state
-    const defaultTheme   = THEMES.find((t) => t.id === currentId);
-    dot.style.background = defaultTheme.colorAccent;
-    label.textContent    = defaultTheme.name;
+    const initialTheme = THEMES.find((t) => t.id === currentId);
+    if (initialTheme) {
+      dot.style.background = initialTheme.colorAccent;
+      label.textContent    = initialTheme.name;
+      applyTheme(initialTheme);
+    }
     renderItems();
-    // Apply the saved theme on page load (not just on selection)
-    const savedTheme = THEMES.find((t) => t.id === currentId);
-    if (savedTheme) applyTheme(savedTheme);
   }
 
   /* ──────────────────────────────────────────────────────────
@@ -365,6 +369,8 @@
     let running = false;
     let lastFrame = 0;
     let rafId   = null;
+    let activeCells = 0;
+    let gridBuilt = false;
 
     function randomChar()       { return CHARS[Math.floor(Math.random() * CHARS.length)]; }
     function randomRange(a, b)  { return a + Math.random() * (b - a); }
@@ -409,7 +415,10 @@
       }
     }
 
-    const debouncedBuild = debounce(buildGrid, 150);
+    const debouncedBuild = debounce(() => {
+      buildGrid();
+      gridBuilt = true;
+    }, 150);
     window.addEventListener('resize', debouncedBuild, { passive: true });
 
     function draw(now) {
@@ -428,6 +437,7 @@
       ctx.textAlign = 'center';
       ctx.fillStyle = state.accentColor;
 
+      activeCells = 0;
       cells.forEach((cell) => {
         // Smooth amplitude towards target
         if (cell.amp < cell.targetAmp) {
@@ -435,6 +445,7 @@
         } else if (cell.amp > cell.targetAmp) {
           cell.amp = Math.max(cell.amp - 0.012, cell.targetAmp);
         }
+        if (cell.amp > 0) activeCells++;
 
         const prevT = cell.t;
         cell.t += cell.speed;
@@ -455,7 +466,7 @@
       ctx.globalAlpha = 1;
 
       // Stop the RAF loop once all cells have faded out
-      if (!active && cells.every((c) => c.amp <= 0)) {
+      if (!active && activeCells <= 0) {
         running = false;
         cancelAnimationFrame(rafId);
         rafId = null;
@@ -466,7 +477,10 @@
     function enable() {
       active  = true;
       running = true;
-      buildGrid();
+      if (!gridBuilt) {
+        buildGrid();
+        gridBuilt = true;
+      }
       rafId = requestAnimationFrame(draw);
     }
 
