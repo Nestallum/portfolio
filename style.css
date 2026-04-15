@@ -182,7 +182,7 @@ nav {
   border-bottom: 1px solid transparent;
   transition:
     height var(--transition-slow),
-    background var(--transition-slow),
+    background var(--transition-fast),
     backdrop-filter var(--transition-slow),
     border-color var(--transition-slow);
 }
