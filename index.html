@@ -60,15 +60,11 @@
       // They'll be patched properly once main.js runs.
       // This minimal script only fixes the background color flash.
       const map = {
-        'system':        ['26,27,30',  '#1a1b1e'],
-        'neon-genesis':  ['23,23,45',  '#17172d'],
-        'obsidian':      ['25,25,30',  '#19191e'],
-        'claude':        ['25,25,24',  '#191918'],
-        'janemba':       ['26,24,34',  '#1a1822'],
-        'dusk-rose':     ['26,24,28',  '#1a181c'],
-        'ethereal':      ['23,25,29',  '#17191d'],
-        'pearl':         ['25,25,22',  '#191916'],
+        'reverie': ['30,34,41',  '#1e2229'],
+        'ethereal': ['32,34,42',  '#20222a'],
+        'pearl':    ['34,34,34',  '#222222'],
       };
+      
       const entry = map[saved];
       if (!entry) return;
       document.documentElement.style.setProperty('--color-bg-rgb', entry[0]);

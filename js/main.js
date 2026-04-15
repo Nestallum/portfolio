@@ -14,7 +14,7 @@
      leak that previously existed between the matrix and theme modules.
   ────────────────────────────────────────────────────────── */
   const state = {
-    accentColor: '#7aa2d6',
+    accentColor: '#8296c4',
   };
 
   /* ──────────────────────────────────────────────────────────
@@ -164,10 +164,6 @@
       // Propagate the new accent to the matrix renderer via shared state.
       state.accentColor = theme.colorAccent;
 
-      const nav = document.getElementById('site-nav');
-      nav.style.display = 'none';
-      nav.offsetHeight; // trigger reflow
-      nav.style.display = '';
     }
 
     function renderItems() {
@@ -193,7 +189,7 @@
     }
 
     // Seed initial state
-    const initialTheme = THEMES.find((t) => t.id === currentId);
+    const initialTheme = THEMES.find((t) => t.id === currentId) ?? THEMES[0];
     if (initialTheme) {
       dot.style.background = initialTheme.colorAccent;
       label.textContent    = initialTheme.name;

@@ -27,22 +27,23 @@
   --transition-slow: 0.5s ease;
 
   /* ── Default (dark) theme ──────────────────────────────── */
-  --color-accent:           #7aa2d6;
-  --color-accent-subtle:    rgba(122, 162, 214, 0.12);
 
-  --color-bg-rgb:           19, 24, 44;
-  --color-bg:               #13182c;
-  --color-surface:          #1b2034;
-  --color-surface-elevated: #23283c;
+  --color-accent:           #8296c4;
+  --color-accent-subtle:    rgba(130, 150, 196, 0.12);
+
+  --color-bg-rgb:           24, 28, 40;
+  --color-bg:               #181c28;
+  --color-surface:          #202436;
+  --color-surface-elevated: #282c3e;
 
   --color-border:           rgba(255, 255, 255, 0.06);
   --color-border-strong:    rgba(255, 255, 255, 0.10);
 
-  --color-text-primary:     #f5f7ff;
-  --color-text-secondary:   #8b93a6;
+  --color-text-primary:     #d8dce8;
+  --color-text-secondary:   #6a7490;
 
   --color-tag-bg:           rgba(255, 255, 255, 0.04);
-  --color-tag-text:         #7d869a;
+  --color-tag-text:         #5a6480;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -189,9 +190,18 @@ nav {
 nav.scrolled {
   height: var(--nav-h);
   background: rgba(var(--color-bg-rgb), 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(24px) ;
+  -webkit-backdrop-filter: blur(24px) ;
   border-bottom: 1px solid var(--color-border);
+}
+
+nav.scrolled::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.05);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .nav-logo {
