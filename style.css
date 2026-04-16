@@ -112,7 +112,7 @@ body.custom-cursor * {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background:  rgba(255, 255, 255, 0.04);
+  background: transparent;
   border: 1px solid var(--color-border-strong);
   border-radius: 999px;
   color: var(--color-text-secondary);
@@ -128,7 +128,7 @@ body.custom-cursor * {
 }
 
 .btn-ui:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
   color: var(--color-text-primary);
 }
 
@@ -213,6 +213,18 @@ nav.scrolled::before {
   left: 50%;
   transform: translateX(-50%);
   transition: gap var(--transition-slow);
+}
+
+nav.scrolled .btn-ui {
+  background: transparent;
+}
+
+nav.scrolled .btn-ui:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+nav.scrolled .nav-btn.open {
+  background: var(--color-surface);
 }
 
 nav.scrolled .nav-links {
