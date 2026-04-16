@@ -646,7 +646,7 @@ section:last-of-type {
 
 .sodern-logo {
   width: 120px;
-  margin-top: 20px;
+  margin-top: 18px;
   transition: opacity var(--transition-base);
 }
 
@@ -1098,13 +1098,27 @@ footer {
     padding-top: calc(var(--nav-h) + 4rem);
   }
 
+  .exp-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .sodern-logo {
+    width: 120px;
+    margin-top: 0;
+  }
+
+  .exp-date {
+    line-height: 1.8;
+  }
+
   .exp-item,
   .edu-item {
     grid-template-columns: 1fr;
     gap: 0.25rem;
   }
 
-  .exp-meta,
   .edu-date {
     margin-bottom: 0.5rem;
   }
