@@ -142,7 +142,7 @@ body.custom-cursor * {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-bg);
+  background:  rgba(255, 255, 255, 0.04);
   border: 1px solid var(--color-border-strong);
   border-radius: 999px;
   color: var(--color-text-secondary);
@@ -158,16 +158,11 @@ body.custom-cursor * {
 }
 
 .btn-ui:hover {
-  background: var(--color-surface);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--color-text-primary);
 }
 
 .btn-ui:active {
-  transform: scale(0.97);
-  opacity: 0.85;
-}
-
-.nav-cta:active {
   transform: scale(0.97);
   opacity: 0.85;
 }
@@ -280,24 +275,8 @@ nav.scrolled .nav-links {
 }
 
 .nav-cta {
-  display: inline-flex;
-  align-items: center;
   height: 32px;
   padding: 0 12px;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border-strong);
-  border-radius: 999px;
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  transition:
-    background var(--transition-base),
-    color var(--transition-base);
-}
-
-.nav-cta:hover {
-  background: var(--color-surface);
-  color: var(--color-text-primary);
 }
 
 /* ─── Nav dropdown buttons ───────────────────────────────── */
@@ -1000,10 +979,15 @@ footer {
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;
+  background: var(--color-surface);
   transition:
     opacity 0.3s ease,
     color var(--transition-fast),
     background var(--transition-fast);
+}
+
+#back-top:hover {
+  background: var(--color-surface-elevated);
 }
 
 #back-top.visible {
