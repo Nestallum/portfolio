@@ -24,22 +24,19 @@
 
   /* ── Default (dark) theme ──────────────────────────────── */
 
-  --color-accent:           #F5F5F7;
-  --color-accent-subtle:    rgba(245, 245, 247, 0.07);
-
-  --color-bg-rgb:           16, 16, 16;
-  --color-bg:               #101010;;
-  --color-surface:          #1A1A1A;
-  --color-surface-elevated: #222222;
-
+  --color-accent:           #E8E8ED;
+  --color-accent-subtle:    rgba(232, 232, 237, 0.08);
+  --color-bg-rgb:           22, 22, 22;
+  --color-bg:               #161616;
+  --color-surface:          #202020;
+  --color-surface-elevated: #282828;
+  --color-text-primary:     #F5F5F7;
+  --color-text-secondary:   #86868B;
+  --color-tag-text:         #6E6E73;
+  
+  --color-tag-bg:           rgba(255, 255, 255, 0.04);
   --color-border:           rgba(255, 255, 255, 0.06);
   --color-border-strong:    rgba(255, 255, 255, 0.10);
-
-  --color-text-primary:     #F5F5F7;
-  --color-text-secondary:   #D1D1D6;
-
-  --color-tag-bg:           rgba(255, 255, 255, 0.04);
-  --color-tag-text:         #6E6E73;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -86,11 +83,10 @@ body::before {
   height: 100vh;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(
-    circle 75vw at 50% -5%,
-    rgba(255, 255, 255, 0.06) 0%,
-    rgba(255, 255, 255, 0.02) 40%,
-    transparent 65%
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.04) 0%,
+    transparent 99%
   );
 }
 

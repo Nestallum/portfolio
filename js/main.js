@@ -14,7 +14,7 @@
      leak that previously existed between the matrix and theme modules.
   ────────────────────────────────────────────────────────── */
   const state = {
-    accentColor: '#F5F5F7',
+    accentColor: '#E8E8ED',
   };
 
   /* ──────────────────────────────────────────────────────────
