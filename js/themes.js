@@ -1,71 +1,50 @@
 const THEMES = [
-
   {
-    id: 'perfect-blue',
-    name: 'Perfect Blue',
+    id: "ethereal",
+    name: "Ethereal",
 
-    colorBgRgb:           '24, 28, 40',
-    colorBg:              '#181c28',
-    colorSurface:         '#202436',
-    colorSurfaceElevated: '#282c3e',
+    colorBgRgb: "16, 16, 16",
+    colorBg: "#101010",
+    colorSurface: "#1A1A1A",
+    colorSurfaceElevated: "#222222",
 
-    colorAccent:          '#8296c4',
-    colorAccentSubtle:    'rgba(130, 150, 196, 0.12)',
+    colorAccent: "#F5F5F7",
+    colorAccentSubtle: "rgba(245, 245, 247, 0.07)",
 
-    colorTextPrimary:     '#d8dce8',
-    colorTextSecondary:   '#6a7490',
-    colorTagText:         '#5a6480',
+    colorTextPrimary: "#F5F5F7",
+    colorTextSecondary: "#D1D1D6",
+    colorTagText: "#6E6E73",
   },
-
   {
-    id: 'reverie',
-    name: 'Reverie',
+    id: "pulsar",
+    name: "Pulsar",
 
-    colorBgRgb:           '30, 34, 41',
-    colorBg:              '#1e2229',
-    colorSurface:         '#262a31',
-    colorSurfaceElevated: '#2e3239',
+    colorBgRgb: "15, 16, 18",
+    colorBg: "#0F1012",
+    colorSurface: "#191B1E",
+    colorSurfaceElevated: "#212327",
 
-    colorAccent:          '#98bece',
-    colorAccentSubtle:    'rgba(152, 190, 206, 0.12)',
+    colorAccent: "#F0F2F8",
+    colorAccentSubtle: "rgba(240, 242, 248, 0.07)",
 
-    colorTextPrimary:     '#e2e6ea',
-    colorTextSecondary:   '#7a8890',
-    colorTagText:         '#607880',
+    colorTextPrimary: "#F4F5F8",
+    colorTextSecondary: "#D0D2D8",
+    colorTagText: "#6A6C72",
   },
-
   {
-    id: 'ethereal',
-    name: 'Ethereal',
+    id: "nebula",
+    name: "Nebula",
 
-    colorBgRgb:           '32, 34, 42',
-    colorBg:              '#20222a',
-    colorSurface:         '#282b33',
-    colorSurfaceElevated: '#30333c',
+    colorBgRgb: "17, 16, 15",
+    colorBg: "#11100F",
+    colorSurface: "#1B1A18",
+    colorSurfaceElevated: "#232220",
 
-    colorAccent:          '#CACCD2',
-    colorAccentSubtle:    'rgba(216, 220, 227, 0.12)',
+    colorAccent: "#F6F4F0",
+    colorAccentSubtle: "rgba(246, 244, 240, 0.07)",
 
-    colorTextPrimary:     '#e4e6ec',
-    colorTextSecondary:   '#828894',
-    colorTagText:         '#747a86',
+    colorTextPrimary: "#F6F5F3",
+    colorTextSecondary: "#D6D2CC",
+    colorTagText: "#726E68",
   },
-
-  {
-    id: 'pearl',
-    name: 'Pearl',
-
-    colorBgRgb:           '34, 34, 34',
-    colorBg:              '#222222',
-    colorSurface:         '#2a2a2a',
-    colorSurfaceElevated: '#323232',
-
-    colorAccent:          '#D8D0C4',
-    colorAccentSubtle:    'rgba(214, 210, 204, 0.12)',
-
-    colorTextPrimary:     '#E6E6E6',
-    colorTextSecondary:   '#888888',
-    colorTagText:         '#7a7e86',
-  },
-
 ];
