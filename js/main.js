@@ -332,6 +332,40 @@
   }
 
   /* ──────────────────────────────────────────────────────────
+     Side-bar behaviours
+  ────────────────────────────────────────────────────────── */
+  function initSidebarHighlight() {
+    const links = document.querySelectorAll('.sidebar-link');
+    const sections = Array.from(document.querySelectorAll('section[id]'));
+
+    function setActive(id) {
+      links.forEach((link) => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+      });
+    }
+
+    function getActiveSection() {
+      const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 72;
+      const threshold = window.scrollY + window.innerHeight / 2;
+
+      let active = sections[0];
+      for (const section of sections) {
+        if (section.offsetTop <= threshold) {
+          active = section;
+        }
+      }
+      return active;
+    }
+
+    window.addEventListener('scroll', () => {
+      setActive(getActiveSection().id);
+    }, { passive: true });
+
+    // Set initial state
+    setActive(getActiveSection().id);
+  }
+
+  /* ──────────────────────────────────────────────────────────
      Intersection Observer — fade-in on scroll
   ────────────────────────────────────────────────────────── */
   function initFadeIn() {
@@ -509,6 +543,7 @@
   initCursorPicker(cursor);
   initThemePicker();
   initScrollBehaviours();
+  initSidebarHighlight();
   initFadeIn();
   initMatrix();
 
