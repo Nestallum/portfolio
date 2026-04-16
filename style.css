@@ -121,6 +121,8 @@ body.custom-cursor * {
   font-family: var(--font-sans);
   font-size: var(--text-sm);
   font-weight: 500;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   transition:
     background var(--transition-fast),
     color var(--transition-fast),
@@ -418,7 +420,7 @@ nav.scrolled .nav-btn.open {
 #site-sidebar ul {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .sidebar-link {
