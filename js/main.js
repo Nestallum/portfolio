@@ -14,7 +14,7 @@
      leak that previously existed between the matrix and theme modules.
   ────────────────────────────────────────────────────────── */
   const state = {
-    accentColor: '#E8E8ED',
+    accentColor: '#F5F5F7',
   };
 
   /* ──────────────────────────────────────────────────────────
@@ -160,6 +160,8 @@
       root.setProperty('--color-text-primary',      theme.colorTextPrimary);
       root.setProperty('--color-text-secondary',    theme.colorTextSecondary);
       root.setProperty('--color-tag-text',          theme.colorTagText);
+      root.setProperty('--color-tag-bg',            theme.colorTagBg);
+      root.setProperty('--color-tag-border',        theme.colorTagBorder);
 
       // Propagate the new accent to the matrix renderer via shared state.
       state.accentColor = theme.colorAccent;
@@ -549,6 +551,23 @@
   }
 
   /* ──────────────────────────────────────────────────────────
+     Card shine effect
+  ────────────────────────────────────────────────────────── */   
+  function initCardShine() {
+    document.querySelectorAll('.project-card').forEach((card) => {
+      const shine = card.querySelector('.shine');
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        shine.style.background = `radial-gradient(circle 180px at ${x}% ${y}%, rgba(255,255,255,0.06) 0%, transparent 100%)`;
+      });
+      card.addEventListener('mouseenter', () => { shine.style.opacity = '1'; });
+      card.addEventListener('mouseleave', () => { shine.style.opacity = '0'; });
+    });
+  }
+
+  /* ──────────────────────────────────────────────────────────
      Boot sequence
   ────────────────────────────────────────────────────────── */
   const cursor = initCursor();
@@ -558,5 +577,6 @@
   initSidebarHighlight();
   initFadeIn();
   initMatrix();
+  initCardShine();
 
 })();
