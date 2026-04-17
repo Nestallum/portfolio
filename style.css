@@ -1,7 +1,5 @@
-/* ─────────────────────────────────────────────────────────────
-   Design Tokens
-   All values that appear more than once live here as variables.
-   ───────────────────────────────────────────────────────────── */
+/* Design Tokens
+   All values that appear more than once live here as variables. */
 :root {
   /* Typography */
   --font-sans: 'Inter', sans-serif;
@@ -23,8 +21,7 @@
   --transition-base: 0.2s ease;
   --transition-slow: 0.5s ease;
 
-  /* ── Default (dark) theme ──────────────────────────────── */
-
+  /* Default (dark) theme */
   --color-accent:           #F5F5F7;
   --color-accent-subtle:    rgba(245, 245, 247, 0.08);
   --color-bg-rgb:           20, 20, 20;
@@ -34,25 +31,20 @@
   --color-text-primary:     #F5F5F7;
   --color-text-secondary:   #8E8E93;
   --color-tag-text:         #8E8E93;
-
   --color-tag-bg:           rgba(255, 255, 255, 0.06);
   --color-tag-border:       rgba(255, 255, 255, 0.12);
   --color-border:           rgba(255, 255, 255, 0.06);
   --color-border-strong:    rgba(255, 255, 255, 0.10);
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Custom font
-   ───────────────────────────────────────────────────────────── */
+/* Custom font */
 @font-face {
   font-family: 'MatrixCode';
   src: url('assets/fonts/matrix-code-nfi.woff2') format('woff2');
   font-display: swap;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Reset
-   ───────────────────────────────────────────────────────────── */
+/* Reset */
 *,
 *::before,
 *::after {
@@ -90,7 +82,7 @@ img {
   max-width: 100%;
 }
 
-/* Custom cursor: hide native pointer on all elements */
+/* Hide native pointer when custom cursor is active */
 body.custom-cursor,
 body.custom-cursor * {
   cursor: none !important;
@@ -107,9 +99,7 @@ body.custom-cursor * {
   border-radius: 3px;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Shared button base
-   ───────────────────────────────────────────────────────────── */
+/* Shared button base */
 .btn-ui {
   display: inline-flex;
   align-items: center;
@@ -150,9 +140,7 @@ body.custom-cursor * {
   opacity: 0.85;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Navigation
-   ───────────────────────────────────────────────────────────── */
+/* Navigation */
 header {
   position: fixed;
   top: 0;
@@ -236,7 +224,6 @@ nav.scrolled .nav-btn.open {
   font-weight: 400;
 }
 
-
 /* Right cluster: dropdowns + separator + CTA */
 .nav-right {
   display: flex;
@@ -256,7 +243,7 @@ nav.scrolled .nav-btn.open {
   padding: 0 12px;
 }
 
-/* ─── Nav dropdown buttons ───────────────────────────────── */
+/* Nav dropdown buttons */
 .nav-btn {
   gap: 8px;
   padding: 0 12px;
@@ -293,11 +280,9 @@ nav.scrolled .nav-btn.open {
   flex-shrink: 0;
 }
 
-/* ─── Dropdown panel ─────────────────────────────────────── */
-/*
-  Using opacity + visibility + pointer-events instead of
-  display:none/block — this allows CSS transitions to work.
-*/
+/* Dropdown panel
+   Uses opacity + visibility + pointer-events instead of display:none/block
+   so CSS transitions work correctly. */
 #cursor-dropdown {
   min-width: 115px;
 }
@@ -320,16 +305,14 @@ nav.scrolled .nav-btn.open {
   border-radius: 18px;
   padding: 5px;
   z-index: 200;
-
-  /* Closed state */
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transform: translateY(-4px);
   transition:
-  opacity 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-  visibility 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-  transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    visibility 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .nav-dropdown.open {
@@ -339,7 +322,6 @@ nav.scrolled .nav-btn.open {
   transform: translateY(0);
 }
 
-/* Dropdown items */
 .dropdown-item {
   display: flex;
   align-items: center;
@@ -380,7 +362,7 @@ nav.scrolled .nav-btn.open {
   flex: 1;
 }
 
-/* Checkmark SVG — hidden unless item is active */
+/* Checkmark SVG — visible only on active item */
 .dropdown-check {
   width: 12px;
   height: 12px;
@@ -393,9 +375,7 @@ nav.scrolled .nav-btn.open {
   opacity: 1;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Sidebar
-   ───────────────────────────────────────────────────────────── */
+/* Sidebar */
 #site-sidebar {
   position: fixed;
   top: 0;
@@ -457,9 +437,7 @@ nav.scrolled .nav-btn.open {
   opacity: 1;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Page layout
-   ───────────────────────────────────────────────────────────── */
+/* Page layout */
 main {
   max-width: 1000px;
   margin: 0 auto;
@@ -469,9 +447,15 @@ main {
   z-index: 3;
 }
 
-section {
+/* Shared layout for all sections and #contact */
+section,
+#contact {
   scroll-margin-top: calc(var(--nav-h) - 2rem);
   padding: 6rem 0;
+}
+
+/* Divider only on true <section> elements */
+section {
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -479,7 +463,12 @@ section:last-of-type {
   border-bottom: none;
 }
 
+/* Section label — with luminous dot (accent color)
+   .section-label-courier overrides to remove it */
 .section-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: var(--text-xs);
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -488,9 +477,34 @@ section:last-of-type {
   margin-bottom: 2.5rem;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   About
-   ───────────────────────────────────────────────────────────── */
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow:
+    0 0 5px var(--color-accent),
+    0 0 12px color-mix(in srgb, var(--color-accent) 50%, transparent);
+  flex-shrink: 0;
+  transition: box-shadow var(--transition-base);
+}
+
+/* "Follow the white rabbit" — no dot, no uppercase */
+.section-label-courier {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: var(--text-sm);
+  letter-spacing: 0;
+  text-transform: none;
+  display: block;
+}
+
+.section-label-courier::before {
+  display: none;
+}
+
+/* About */
 .headline-accent {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
@@ -519,7 +533,7 @@ section:last-of-type {
   line-height: 1.05;
   margin-bottom: 1.5rem;
   text-wrap: balance;
-   filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.2));
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.2));
 }
 
 .about-text {
@@ -535,9 +549,7 @@ section:last-of-type {
   font-weight: 400;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Experience
-   ───────────────────────────────────────────────────────────── */
+/* Experience */
 .exp-item {
   display: grid;
   grid-template-columns: 140px 1fr;
@@ -613,7 +625,6 @@ section:last-of-type {
   margin-bottom: 0.35rem;
 }
 
-/* Custom bullet dot */
 .exp-bullets li::before {
   content: '';
   position: absolute;
@@ -645,15 +656,12 @@ section:last-of-type {
   transition: opacity var(--transition-base);
 }
 
-/* Override hardcoded dark fills so the logo adapts to any theme */
 .sodern-logo path,
 .sodern-logo rect {
   fill: var(--color-text-primary);
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Projects
-   ───────────────────────────────────────────────────────────── */
+/* Projects */
 .projects-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -754,12 +762,10 @@ section:last-of-type {
   z-index: 1;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Tag chip
-   ───────────────────────────────────────────────────────────── */
+/* Tag chip */
 .tag {
   font-size: var(--text-xs);
-  font-family: var(--font-mono); 
+  font-family: var(--font-mono);
   font-weight: 400;
   padding: 4px 10px;
   white-space: nowrap;
@@ -769,9 +775,7 @@ section:last-of-type {
   border-radius: 999px;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Skills
-   ───────────────────────────────────────────────────────────── */
+/* Skills */
 .skills-groups {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -800,9 +804,7 @@ section:last-of-type {
   font-family: var(--font-mono);
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Education
-   ───────────────────────────────────────────────────────────── */
+/* Education */
 .edu-item {
   display: grid;
   grid-template-columns: 140px 1fr;
@@ -850,12 +852,10 @@ section:last-of-type {
   font-family: var(--font-mono);
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Contact
-   ───────────────────────────────────────────────────────────── */
+/* Contact — scroll-margin-top and padding inherited from shared rule above */
 #contact {
   text-align: center;
-  padding: 6rem 0;
+  border-bottom: none;
 }
 
 .contact-heading {
@@ -927,17 +927,7 @@ section:last-of-type {
   pointer-events: none;
 }
 
-/* Overrides for the "Follow the white rabbit" easter-egg label */
-.section-label-courier {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: var(--text-sm);
-  letter-spacing: 0;
-  text-transform: none;
-}
-
-/* ─────────────────────────────────────────────────────────────
-   Footer
-   ───────────────────────────────────────────────────────────── */
+/* Footer */
 footer {
   position: relative;
   z-index: 3;
@@ -948,9 +938,7 @@ footer {
   font-family: var(--font-mono);
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Floating controls
-   ───────────────────────────────────────────────────────────── */
+/* Floating controls */
 #glyphs-toggle {
   position: fixed;
   bottom: 2rem;
@@ -997,9 +985,7 @@ footer {
   pointer-events: auto;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Scroll-triggered fade-in
-   ───────────────────────────────────────────────────────────── */
+/* Scroll-triggered fade-in */
 .fade-in {
   opacity: 0;
   transform: translateY(18px);
@@ -1013,9 +999,7 @@ footer {
   transform: translateY(0);
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Utility
-   ───────────────────────────────────────────────────────────── */
+/* Utility */
 .link-text {
   transition: color var(--transition-base);
 }
@@ -1024,9 +1008,7 @@ footer {
   color: var(--color-text-primary);
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Custom cursor elements
-   ───────────────────────────────────────────────────────────── */
+/* Custom cursor */
 #cursor-dot {
   position: fixed;
   width: 5px;
@@ -1058,17 +1040,13 @@ footer {
   height: 48px;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Keyframes
-   ───────────────────────────────────────────────────────────── */
+/* Keyframes */
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Responsive
-   ───────────────────────────────────────────────────────────── */
+/* Responsive */
 @media (max-width: 640px) {
   #cursor-trigger {
     display: none;
