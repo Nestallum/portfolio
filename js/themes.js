@@ -40,4 +40,18 @@ const THEMES = [
     colorTagText: "#726E68",
   },
 
+  {
+  id: "apple",
+  name: "Apple",
+  colorBgRgb: "28, 28, 30",
+  colorBg: "#1C1C1E",              // Apple systemBackground dark
+  colorSurface: "#2C2C2E",         // Apple secondarySystemBackground dark
+  colorSurfaceElevated: "#3A3A3C", // Apple tertiarySystemBackground dark
+  colorAccent: "#F5F5F7",          // Apple label dark (quasi blanc)
+  colorAccentSubtle: "rgba(245, 245, 247, 0.08)",
+  colorTextPrimary: "#F5F5F7",     // Apple label dark
+  colorTextSecondary: "#8E8E93",   // Apple secondaryLabel dark
+  colorTagText: "#636366",         // Apple tertiaryLabel dark
+}
+
 ];

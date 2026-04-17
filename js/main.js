@@ -337,6 +337,8 @@
   function initSidebarHighlight() {
     const links = document.querySelectorAll('.sidebar-link');
     const sections = Array.from(document.querySelectorAll('section[id]'));
+    let isScrollingToAnchor = false;
+    let scrollTimeout = null;
 
     function setActive(id) {
       links.forEach((link) => {
@@ -345,9 +347,7 @@
     }
 
     function getActiveSection() {
-      const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 72;
       const threshold = window.scrollY + window.innerHeight / 2;
-
       let active = sections[0];
       for (const section of sections) {
         if (section.offsetTop <= threshold) {
@@ -357,11 +357,23 @@
       return active;
     }
 
+    links.forEach((link) => {
+      link.addEventListener('click', () => {
+        const id = link.getAttribute('href').slice(1);
+        setActive(id);
+        isScrollingToAnchor = true;
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          isScrollingToAnchor = false;
+        }, 800);
+      });
+    });
+
     window.addEventListener('scroll', () => {
+      if (isScrollingToAnchor) return;
       setActive(getActiveSection().id);
     }, { passive: true });
 
-    // Set initial state
     setActive(getActiveSection().id);
   }
 

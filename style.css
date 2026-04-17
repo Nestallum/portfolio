@@ -673,7 +673,6 @@ section:last-of-type {
   transition: border-color var(--transition-base);
 }
 
-/* Hover fill — slides up from bottom */
 .project-card::after {
   content: '';
   position: absolute;
