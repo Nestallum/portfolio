@@ -308,6 +308,8 @@ section,
 section { border-bottom: 1px solid var(--color-border); }
 section:last-of-type { border-bottom: none; }
 
+/* Section label — with luminous dot (accent color)
+   .section-label-courier overrides to remove it */
 .section-label {
   display: flex;
   align-items: center;
