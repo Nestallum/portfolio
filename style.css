@@ -851,16 +851,58 @@ footer {
   50%       { opacity: 0; }
 }
 
-/* ── Responsive ── */
+/* ── Laptop 13" : sidebar trop large, main trop serré ≤ 1100px ── */
+@media (max-width: 1100px) {
+  #site-sidebar { display: none; }
+
+  main {
+    max-width: 720px;
+    padding-left:  clamp(1.5rem, 5vw, 3rem);
+    padding-right: clamp(1.5rem, 5vw, 3rem);
+  }
+
+  .exp-item,
+  .edu-item { grid-template-columns: 110px 1fr; }
+}
+
+
+/* ── Mobile ≤ 640px ── */
 @media (max-width: 640px) {
+  :root { --nav-h: 64px; }
+  #site-sidebar  { display: none; }
   #cursor-trigger { display: none; }
   #glyphs-toggle  { display: none; }
 
-  .exp-meta { display: flex; align-items: center; gap: 1.5rem; }
-  .sodern-logo { width: 120px; margin-top: 0; }
-  .exp-date { line-height: 1.8; }
-  .exp-item, .edu-item { grid-template-columns: 1fr; gap: 0.25rem; }
-  .edu-date { margin-bottom: 0.5rem; }
+  nav {
+    height: auto;
+    min-height: 64px;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px clamp(1rem, 4vw, 1.5rem);
+  }
+
+  .nav-right { gap: 6px; }
+  .nav-sep   { display: none; }
+
+  main {
+    padding-top: calc(var(--nav-h) + 1.5rem);
+    padding-left:  clamp(1rem, 4vw, 1.5rem);
+    padding-right: clamp(1rem, 4vw, 1.5rem);
+  }
+
+  section,
+  #contact { padding: 3rem 0; }
+
+  .exp-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .sodern-logo { width: 100px; margin-top: 0; }
+  .exp-date    { line-height: 1.8; }
+  .exp-item,
+  .edu-item    { grid-template-columns: 1fr; gap: 0.25rem; }
+  .edu-date    { margin-bottom: 0.5rem; }
 
   .projects-carousel { height: auto; }
   .project-card {
@@ -872,6 +914,8 @@ footer {
     transition: none !important;
   }
   .project-card:not(.active) { display: none; }
+
+  .about-headline { font-size: clamp(1.8rem, 10vw, 2.8rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
