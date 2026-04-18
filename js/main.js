@@ -8,20 +8,10 @@
 (() => {
   'use strict';
 
-  /* ──────────────────────────────────────────────────────────
-     Shared state
-     Centralising mutable state avoids the global `currentAccent`
-     leak that previously existed between the matrix and theme modules.
-  ────────────────────────────────────────────────────────── */
-  const state = {
-    accentColor: '#F5F5F7',
-  };
+  /* ── Shared state ── */
+  const state = { accentColor: '#F5F5F7' };
 
-  /* ──────────────────────────────────────────────────────────
-     Utility: debounce
-     Prevents expensive callbacks (e.g. canvas rebuild) from firing
-     on every pixel of a resize event.
-  ────────────────────────────────────────────────────────── */
+  /* ── Utility: debounce ── */
   function debounce(fn, delay) {
     let timer;
     return (...args) => {
@@ -30,12 +20,7 @@
     };
   }
 
-  /* ──────────────────────────────────────────────────────────
-     Utility: createDropdownItem
-     Builds a dropdown button safely using the DOM API instead
-     of innerHTML, which avoids potential XSS vectors when
-     theme/cursor data originates from external sources.
-  ────────────────────────────────────────────────────────── */
+  /* ── Utility: createDropdownItem ── */
   function createDropdownItem({ label, dotColor, isActive, onSelect }) {
     const btn = document.createElement('button');
     btn.className = 'dropdown-item' + (isActive ? ' active' : '');
@@ -54,7 +39,6 @@
     name.textContent = label;
     btn.appendChild(name);
 
-    // Checkmark SVG — visible only on active item via CSS
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('class', 'dropdown-check');
     svg.setAttribute('viewBox', '0 0 12 12');
@@ -73,11 +57,7 @@
     return btn;
   }
 
-  /* ──────────────────────────────────────────────────────────
-     Dropdown controller factory
-     Encapsulates open/close logic so both the theme and cursor
-     pickers share one implementation instead of duplicating it.
-  ────────────────────────────────────────────────────────── */
+  /* ── Dropdown controller factory ── */
   function createDropdownController(triggerId, dropdownId) {
     const trigger  = document.getElementById(triggerId);
     const dropdown = document.getElementById(dropdownId);
@@ -99,51 +79,35 @@
       dropdown.classList.remove('open');
       trigger.classList.remove('open');
       trigger.setAttribute('aria-expanded', 'false');
-      setTimeout(() => {
-        dropdown.style.transition = '';
-      }, 50);
+      setTimeout(() => { dropdown.style.transition = ''; }, 50);
     }
 
     function toggle() {
       if (dropdown.classList.contains('open')) {
         close();
       } else {
-        // Close all other dropdowns before opening this one
         dropdownControllers.forEach((ctrl) => ctrl.close());
         open();
       }
     }
 
-    trigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggle();
-    });
-
-    // Prevent clicks inside the dropdown from bubbling to the
-    // document listener that closes it.
+    trigger.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
     dropdown.addEventListener('click', (e) => e.stopPropagation());
 
     return { trigger, dropdown, open, close, closeInstant };
   }
 
-  /* ──────────────────────────────────────────────────────────
-     Global click-outside handler
-     A single document listener handles closing of both dropdowns,
-     replacing the two separate listeners in the original code.
-  ────────────────────────────────────────────────────────── */
   const dropdownControllers = [];
 
   document.addEventListener('click', () => {
     dropdownControllers.forEach((ctrl) => ctrl.close());
   });
 
-  /* ──────────────────────────────────────────────────────────
-     Theme picker
-  ────────────────────────────────────────────────────────── */
+  /* ── Theme picker ── */
   function initThemePicker() {
-    let currentId = localStorage.getItem('theme-id') ?? 'ethereal'; // <- persist selected theme across sessions
+    let currentId = localStorage.getItem('theme-id') ?? 'ethereal';
 
-    const { trigger, dropdown, close, closeInstant } = createDropdownController('theme-trigger', 'theme-dropdown');
+    const { dropdown, close, closeInstant } = createDropdownController('theme-trigger', 'theme-dropdown');
     dropdownControllers.push({ close });
 
     const dot   = document.getElementById('theme-dot');
@@ -162,10 +126,7 @@
       root.setProperty('--color-tag-text',          theme.colorTagText);
       root.setProperty('--color-tag-bg',            theme.colorTagBg);
       root.setProperty('--color-tag-border',        theme.colorTagBorder);
-
-      // Propagate the new accent to the matrix renderer via shared state.
       state.accentColor = theme.colorAccent;
-
     }
 
     function renderItems() {
@@ -178,7 +139,7 @@
             isActive: t.id === currentId,
             onSelect: () => {
               currentId = t.id;
-              localStorage.setItem('theme-id', t.id); // <- persist
+              localStorage.setItem('theme-id', t.id);
               applyTheme(t);
               dot.style.background = t.colorAccent;
               label.textContent    = t.name;
@@ -190,7 +151,6 @@
       });
     }
 
-    // Seed initial state
     const initialTheme = THEMES.find((t) => t.id === currentId) ?? THEMES[0];
     if (initialTheme) {
       dot.style.background = initialTheme.colorAccent;
@@ -200,38 +160,26 @@
     renderItems();
   }
 
-  /* ──────────────────────────────────────────────────────────
-     Custom cursor
-  ────────────────────────────────────────────────────────── */
+  /* ── Custom cursor ── */
   function initCursor() {
     const dot   = document.createElement('div');
     const ghost = document.createElement('div');
     dot.id   = 'cursor-dot';
     ghost.id = 'cursor-ghost';
-
-    // Inserted at body start so z-index works across stacking contexts
     document.body.prepend(ghost, dot);
-
     dot.style.display   = 'none';
     ghost.style.display = 'none';
 
-    let targetX = 0, targetY = 0;
-    let ghostX  = 0, ghostY  = 0;
-    let rafId   = null;
+    let targetX = 0, targetY = 0, ghostX = 0, ghostY = 0, rafId = null;
 
     document.addEventListener('mousemove', (e) => {
       targetX = e.clientX;
       targetY = e.clientY;
-      // Snap ghost to cursor on first move so it never slides in from 0,0
-      if (ghostX === 0 && ghostY === 0) {
-        ghostX = targetX;
-        ghostY = targetY;
-      }
+      if (ghostX === 0 && ghostY === 0) { ghostX = targetX; ghostY = targetY; }
       dot.style.left = `${targetX}px`;
       dot.style.top  = `${targetY}px`;
     });
 
-    // Lazy lerp loop — only runs while the cursor is active
     function animateGhost() {
       ghostX += (targetX - ghostX) * 0.1;
       ghostY += (targetY - ghostY) * 0.1;
@@ -240,10 +188,8 @@
       rafId = requestAnimationFrame(animateGhost);
     }
 
-    // Expand ghost ring on interactive elements
     function onEnter() { ghost.classList.add('hovered'); }
     function onLeave() { ghost.classList.remove('hovered'); }
-
     document.querySelectorAll('a, button').forEach((el) => {
       el.addEventListener('mouseenter', onEnter);
       el.addEventListener('mouseleave', onLeave);
@@ -251,12 +197,9 @@
 
     return {
       enable() {
-        // Snap ghost to current cursor position before starting the loop
-        ghostX = targetX;
-        ghostY = targetY;
+        ghostX = targetX; ghostY = targetY;
         ghost.style.left = `${ghostX}px`;
         ghost.style.top  = `${ghostY}px`;
-
         dot.style.display   = 'block';
         ghost.style.display = 'block';
         document.body.classList.add('custom-cursor');
@@ -266,23 +209,16 @@
         dot.style.display   = 'none';
         ghost.style.display = 'none';
         document.body.classList.remove('custom-cursor');
-        if (rafId) {
-          cancelAnimationFrame(rafId);
-          rafId = null;
-        }
+        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
       },
     };
   }
 
-  /* ──────────────────────────────────────────────────────────
-     Cursor picker
-  ────────────────────────────────────────────────────────── */
+  /* ── Cursor picker ── */
   function initCursorPicker(cursor) {
     let currentId = 'default';
-
     const { dropdown, close, closeInstant } = createDropdownController('cursor-trigger', 'cursor-dropdown');
     dropdownControllers.push({ close });
-
     const label = document.getElementById('cursor-label');
 
     function renderItems() {
@@ -294,15 +230,9 @@
             dotColor: null,
             isActive: c.id === currentId,
             onSelect: () => {
-              currentId         = c.id;
+              currentId = c.id;
               label.textContent = c.name;
-
-              if (c.id === 'ghost') {
-                cursor.enable();
-              } else {
-                cursor.disable();
-              }
-
+              c.id === 'ghost' ? cursor.enable() : cursor.disable();
               closeInstant();
               renderItems();
             },
@@ -311,36 +241,26 @@
       });
     }
 
-    const defaultCursor  = CURSORS.find((c) => c.id === currentId);
-    label.textContent    = defaultCursor.name;
+    label.textContent = CURSORS.find((c) => c.id === currentId).name;
     renderItems();
   }
 
-  /* ──────────────────────────────────────────────────────────
-     Scroll-driven behaviours
-  ────────────────────────────────────────────────────────── */
+  /* ── Scroll-driven behaviours ── */
   function initScrollBehaviours() {
     const nav     = document.getElementById('site-nav');
     const backTop = document.getElementById('back-top');
-
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 10);
       backTop.classList.toggle('visible', window.scrollY > 400);
     }, { passive: true });
-
-    backTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
-  /* ──────────────────────────────────────────────────────────
-     Side-bar behaviours
-  ────────────────────────────────────────────────────────── */
+  /* ── Sidebar highlight ── */
   function initSidebarHighlight() {
-    const links = document.querySelectorAll('.sidebar-link');
+    const links    = document.querySelectorAll('.sidebar-link');
     const sections = Array.from(document.querySelectorAll('section[id]'));
-    let isScrollingToAnchor = false;
-    let scrollTimeout = null;
+    let isScrollingToAnchor = false, scrollTimeout = null;
 
     function setActive(id) {
       links.forEach((link) => {
@@ -352,22 +272,17 @@
       const threshold = window.scrollY + window.innerHeight / 2;
       let active = sections[0];
       for (const section of sections) {
-        if (section.offsetTop <= threshold) {
-          active = section;
-        }
+        if (section.offsetTop <= threshold) active = section;
       }
       return active;
     }
 
     links.forEach((link) => {
       link.addEventListener('click', () => {
-        const id = link.getAttribute('href').slice(1);
-        setActive(id);
+        setActive(link.getAttribute('href').slice(1));
         isScrollingToAnchor = true;
         clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          isScrollingToAnchor = false;
-        }, 800);
+        scrollTimeout = setTimeout(() => { isScrollingToAnchor = false; }, 800);
       });
     });
 
@@ -379,137 +294,82 @@
     setActive(getActiveSection().id);
   }
 
-  /* ──────────────────────────────────────────────────────────
-     Intersection Observer — fade-in on scroll
-  ────────────────────────────────────────────────────────── */
+  /* ── Fade-in on scroll ── */
   function initFadeIn() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target); // Observe once, then detach
+          observer.unobserve(entry.target);
         });
       },
       { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
-
     document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
   }
 
-  /* ──────────────────────────────────────────────────────────
-     Matrix canvas background
-  ────────────────────────────────────────────────────────── */
+  /* ── Matrix canvas ── */
   function initMatrix() {
     const canvas = document.getElementById('matrix-canvas');
     const ctx    = canvas.getContext('2d');
+    const CHARS  = 'abcdefghijklmnopqrstuvwxyz0123456789$+-*/=%"\'#&_(),.;:?!<>[]\\|{}^~';
+    const CELL_GAP = 32, FONT_SIZE = 14;
+    let cells = [], active = false, running = false, lastFrame = 0, rafId = null, activeCells = 0, gridBuilt = false;
 
-    const CHARS    = 'abcdefghijklmnopqrstuvwxyz0123456789$+-*/=%"\'#&_(),.;:?!<>[]\\|{}^~';
-    const CELL_GAP = 32;
-    const FONT_SIZE = 14;
-
-    let cells   = [];
-    let active  = false;
-    let running = false;
-    let lastFrame = 0;
-    let rafId   = null;
-    let activeCells = 0;
-    let gridBuilt = false;
-
-    function randomChar()       { return CHARS[Math.floor(Math.random() * CHARS.length)]; }
-    function randomRange(a, b)  { return a + Math.random() * (b - a); }
-    function randomAmplitude()  { return randomRange(0.02, 0.12); }
+    const randomChar      = () => CHARS[Math.floor(Math.random() * CHARS.length)];
+    const randomRange     = (a, b) => a + Math.random() * (b - a);
+    const randomAmplitude = () => randomRange(0.02, 0.12);
 
     function makeCell(x, y) {
-      return {
-        x,
-        y,
-        char:      randomChar(),
-        amp:       0,
-        targetAmp: randomAmplitude(),
-        t:         randomRange(0, Math.PI * 2),
-        speed:     randomRange(0.08, 0.18),
-      };
+      return { x, y, char: randomChar(), amp: 0, targetAmp: randomAmplitude(), t: randomRange(0, Math.PI * 2), speed: randomRange(0.08, 0.18) };
     }
 
     function buildGrid() {
       const dpr = window.devicePixelRatio || 1;
-
-      // Reset transform before applying a new scale to avoid
-      // cumulative scaling on repeated resize events.
       ctx.setTransform(1, 0, 0, 1, 0, 0);
-
       canvas.width  = window.innerWidth  * dpr;
       canvas.height = window.innerHeight * dpr;
       canvas.style.width  = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
       ctx.scale(dpr, dpr);
-
       const cols = Math.floor(window.innerWidth  / CELL_GAP);
       const rows = Math.floor(window.innerHeight / CELL_GAP);
-
       cells = [];
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-          cells.push(makeCell(
-            c * CELL_GAP + CELL_GAP / 2,
-            r * CELL_GAP + CELL_GAP / 2
-          ));
+          cells.push(makeCell(c * CELL_GAP + CELL_GAP / 2, r * CELL_GAP + CELL_GAP / 2));
         }
       }
     }
 
-    const debouncedBuild = debounce(() => {
-      buildGrid();
-      gridBuilt = true;
-    }, 150);
+    const debouncedBuild = debounce(() => { buildGrid(); gridBuilt = true; }, 150);
     window.addEventListener('resize', debouncedBuild, { passive: true });
 
     function draw(now) {
       if (!running) return;
       rafId = requestAnimationFrame(draw);
-
-      // Cap the frame rate at ~20 fps for the matrix effect
       if (now - lastFrame < 50) return;
       lastFrame = now;
-
-      // Skip rendering while the tab is hidden to save CPU
       if (document.hidden) return;
-
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.font      = `${FONT_SIZE}px 'MatrixCode'`;
       ctx.textAlign = 'center';
       ctx.fillStyle = state.accentColor;
-
       activeCells = 0;
       cells.forEach((cell) => {
-        // Smooth amplitude towards target
-        if (cell.amp < cell.targetAmp) {
-          cell.amp = Math.min(cell.amp + 0.008, cell.targetAmp);
-        } else if (cell.amp > cell.targetAmp) {
-          cell.amp = Math.max(cell.amp - 0.012, cell.targetAmp);
-        }
+        if (cell.amp < cell.targetAmp) cell.amp = Math.min(cell.amp + 0.008, cell.targetAmp);
+        else if (cell.amp > cell.targetAmp) cell.amp = Math.max(cell.amp - 0.012, cell.targetAmp);
         if (cell.amp > 0) activeCells++;
-
         const prevT = cell.t;
         cell.t += cell.speed;
-
-        // Flip character and randomise target amplitude on each half-cycle
         const halfCycleCrossed = Math.floor(prevT / Math.PI) !== Math.floor(cell.t / Math.PI);
-        if (halfCycleCrossed && active) {
-          cell.char      = randomChar();
-          cell.targetAmp = randomAmplitude();
-        }
-
+        if (halfCycleCrossed && active) { cell.char = randomChar(); cell.targetAmp = randomAmplitude(); }
         if (cell.amp <= 0) return;
-
         ctx.globalAlpha = cell.amp * (0.15 + 0.85 * Math.max(0, Math.sin(cell.t)));
         ctx.fillText(cell.char, cell.x, cell.y);
       });
-
       ctx.globalAlpha = 1;
-
-      // Stop the RAF loop once all cells have faded out
       if (!active && activeCells <= 0) {
         running = false;
         cancelAnimationFrame(rafId);
@@ -518,58 +378,162 @@
       }
     }
 
-    function enable() {
-      active  = true;
-      running = true;
-      if (!gridBuilt) {
-        buildGrid();
-        gridBuilt = true;
-      }
-      rafId = requestAnimationFrame(draw);
-    }
-
-    function disable() {
-      active = false;
-      // Cells will fade out naturally; the RAF loop stops itself
-      cells.forEach((cell) => { cell.targetAmp = 0; });
-    }
+    function enable()  { active = running = true; if (!gridBuilt) { buildGrid(); gridBuilt = true; } rafId = requestAnimationFrame(draw); }
+    function disable() { active = false; cells.forEach((cell) => { cell.targetAmp = 0; }); }
 
     const btn = document.getElementById('glyphs-toggle');
-
     btn.addEventListener('click', () => {
       const isActive = !active;
-      if (isActive) {
-        enable();
-        btn.classList.add('active');
-      } else {
-        disable();
-        btn.classList.remove('active');
-      }
-      // Keep aria-pressed in sync with actual state
+      isActive ? enable() : disable();
+      btn.classList.toggle('active', isActive);
       btn.setAttribute('aria-pressed', String(isActive));
     });
   }
 
-  /* ──────────────────────────────────────────────────────────
-     Card shine effect
-  ────────────────────────────────────────────────────────── */   
-  function initCardShine() {
-    document.querySelectorAll('.project-card').forEach((card) => {
-      const shine = card.querySelector('.shine');
+  /* ════════════════════════════════════════════════════════
+     Projects — carousel
+  ════════════════════════════════════════════════════════ */
+  function initProjects() {
+
+    const projects = [
+      {
+        num: '01',
+        tags: ['Mistral 7B', 'PyTorch', 'Docker'],
+        title: 'LLM Chatbot',
+        desc: 'Hybrid architecture combining symbolic AI for intent resolution with Mistral 7B for generation — orchestrated via a custom message broker, containerized with Docker.',
+        href: 'https://github.com/Nestallum/llm-chatbot',
+      },
+      {
+        num: '02',
+        tags: ['HuggingFace', 'RoBERTa', 'NLP'],
+        title: 'RoBERTa Fine-tuning',
+        desc: 'Fine-tuned RoBERTa on large-scale argument classification — 83% F1, 90% recall. Custom tokenization pipelines and optimized DataLoader workflows.',
+        href: 'https://github.com/Nestallum/argument-mining-llm',
+      },
+      {
+        num: '03',
+        tags: ['TensorFlow', 'LSTM', 'GRU'],
+        title: 'Time Series Forecasting',
+        desc: 'RNN-based forecasting at ±0.3°C accuracy on 22k temperature samples. Benchmarked LSTM vs GRU architectures on 100-step ahead prediction.',
+        href: 'https://github.com/Nestallum/time-series-forecasting',
+      },
+      {
+        num: '04',
+        tags: ['NLTK', 'MongoDB', 'YouTube API'],
+        title: 'Sentiment Analysis',
+        desc: 'End-to-end NLP pipeline for opinion classification on YouTube comments — data collection, anonymization, NLTK preprocessing and MongoDB storage.',
+        href: 'https://github.com/Nestallum/yt-comment-sentiment-analysis',
+      },
+    ];
+
+    const carouselEl = document.getElementById('projects-carousel');
+    const dotsEl     = document.getElementById('projects-dots');
+    const counterEl  = document.getElementById('projects-counter');
+    const N          = projects.length;
+    const PEEK       = 36;
+    const GAP        = 12;
+    let current      = 0;
+    let animating    = false;
+
+    /* Build cards */
+    const cardEls = projects.map((p) => {
+      const card = document.createElement('div');
+      card.className = 'project-card';
+      card.innerHTML = `
+        <div class="pcard-left">
+          <span class="pcard-num">${p.num}</span>
+          <div class="pcard-meta">
+            <div class="pcard-tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+            <h3 class="pcard-title">${p.title}</h3>
+            <p class="pcard-desc">${p.desc}</p>
+            <a class="pcard-link" href="${p.href}" target="_blank" rel="noopener">
+              View on GitHub
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            </a>
+          </div>
+        </div>
+      `;
+      carouselEl.appendChild(card);
+      return card;
+    });
+
+    cardEls.forEach((card) => {
+      const halo = document.createElement('div');
+      halo.className = 'pcard-halo';
+      card.appendChild(halo);
+
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        shine.style.background = `radial-gradient(circle 180px at ${x}% ${y}%, rgba(255,255,255,0.06) 0%, transparent 100%)`;
+        halo.style.left = (e.clientX - rect.left) + 'px';
+        halo.style.top  = (e.clientY - rect.top)  + 'px';
+        halo.style.opacity = '1';
       });
-      card.addEventListener('mouseenter', () => { shine.style.opacity = '1'; });
-      card.addEventListener('mouseleave', () => { shine.style.opacity = '0'; });
+
+      card.addEventListener('mouseleave', () => {
+        halo.style.opacity = '0';
+      });
     });
+
+    /* Build dots */
+    projects.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'projects-dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => go(i));
+      dotsEl.appendChild(d);
+    });
+
+    function place(animate) {
+      const W     = carouselEl.offsetWidth;
+      const cardW = W - PEEK * 2 - GAP * 2;
+
+      cardEls.forEach((card, i) => {
+        const rel = i - current;
+        let x;
+        if      (rel === 0)  x = PEEK + GAP;
+        else if (rel === -1) x = -(cardW + GAP) + PEEK + GAP;
+        else if (rel ===  1) x = PEEK + GAP + cardW + GAP;
+        else                 x = rel > 0 ? W + GAP : -(cardW + GAP * 2);
+
+        card.style.width      = cardW + 'px';
+        card.style.transition = animate
+          ? 'left 0.4s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.4s ease'
+          : 'none';
+        card.style.left    = x + 'px';
+        card.style.opacity = i === current ? '1' : '0.3';
+        card.classList.toggle('active', i === current);
+      });
+
+      dotsEl.querySelectorAll('.projects-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+      counterEl.textContent = `0${current + 1} / 0${N}`;
+
+      document.getElementById('projects-prev').disabled = current === 0;
+      document.getElementById('projects-next').disabled = current === N - 1;
+      carouselEl.style.setProperty('--fade-left',  current === 0     ? '0' : '1');
+      carouselEl.style.setProperty('--fade-right', current === N - 1 ? '0' : '1');
+    }
+
+    function go(target) {
+      if (animating || target < 0 || target >= N) return;
+      animating = true;
+      current = target;
+      place(true);
+      setTimeout(() => { animating = false; }, 420);
+    }
+
+    document.getElementById('projects-next').addEventListener('click', () => go(current + 1));
+    document.getElementById('projects-prev').addEventListener('click', () => go(current - 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') go(current + 1);
+      if (e.key === 'ArrowLeft')  go(current - 1);
+    });
+
+    place(false);
   }
 
-  /* ──────────────────────────────────────────────────────────
-     Boot sequence
-  ────────────────────────────────────────────────────────── */
+  /* ── Boot ── */
   const cursor = initCursor();
   initCursorPicker(cursor);
   initThemePicker();
@@ -577,6 +541,6 @@
   initSidebarHighlight();
   initFadeIn();
   initMatrix();
-  initCardShine();
+  initProjects();
 
 })();
