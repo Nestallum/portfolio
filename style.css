@@ -532,7 +532,7 @@ section:last-of-type { border-bottom: none; }
   flex-direction: column;
   transition: border-color 0.3s ease, transform 0.3s ease;
 }
- 
+
 .project-card:hover {
   border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
