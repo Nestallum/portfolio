@@ -477,8 +477,25 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 700px) {
-    nav { padding: 0 16px; }
-    .nav-links { display: none; }
+    nav {
+        grid-template-columns: 1fr auto;
+        padding: 0 16px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .nav-identity {
+        justify-self: start;
+    }
+
+    .nav-cta-wrap {
+        justify-self: end;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
     section { padding: 60px 16px; }
     .about-grid, .projects-grid, .skills-grid, .edu-grid { grid-template-columns: 1fr; }
     .about-card-main { grid-column: 1; }
