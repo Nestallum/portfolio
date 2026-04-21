@@ -4,6 +4,40 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nassim Lattab — AI Engineer</title>
+<meta name="description" content="AI Engineer portfolio of Nassim Lattab — turning research into real-world deep learning applications.">
+<meta name="author" content="Nassim Lattab">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+
+<!-- Favicons -->
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/assets/site.webmanifest">
+
+<!-- SEO -->
+<link rel="canonical" href="https://nassim-lattab.vercel.app/">
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Nassim Lattab — AI Engineer">
+<meta property="og:description" content="Turning deep learning research into real-world applications. Precision at every layer.">
+<meta property="og:image" content="https://nassim-lattab.vercel.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nassim Lattab — AI Engineer portfolio preview">
+<meta property="og:url" content="https://nassim-lattab.vercel.app/">
+<meta property="og:site_name" content="Nassim Lattab Portfolio">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nassim Lattab — AI Engineer">
+<meta name="twitter:description" content="Turning deep learning research into real-world applications. Precision at every layer.">
+<meta name="twitter:image" content="https://nassim-lattab.vercel.app/assets/og-image.png">
+<meta name="twitter:image:alt" content="Nassim Lattab — AI Engineer portfolio preview">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -474,6 +508,19 @@
 
   /* ── FOOTER ── */
   footer { text-align: center; padding: 24px; font-size: 12px; color: var(--text-tertiary); }
+.skip-link {
+    position: absolute; left: 16px; top: -48px; z-index: 2000;
+    background: var(--text-primary); color: var(--bg); padding: 10px 14px;
+    border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 600;
+    transition: top 0.2s ease;
+  }
+  .skip-link:focus { top: 16px; }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 700px) {
@@ -506,6 +553,7 @@
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <!-- LOADER -->
 <div id="loader">
@@ -517,7 +565,7 @@
 </div>
 
 <!-- NAV -->
-<nav id="nav">
+<nav id="nav" aria-label="Primary">
   <div class="nav-identity" style="cursor:pointer;" onclick="sessionStorage.setItem('reload','1');window.location.reload()">
     <span class="nav-name">Nassim Lattab</span>
     <span class="nav-title">AI Engineer</span>
@@ -546,14 +594,14 @@
 </nav>
 
 <!-- MAIN -->
-<main id="main">
+<main id="main" tabindex="-1">
 
   <!-- HERO -->
   <div id="hero-wrapper" style="position:relative;">
-    <section id="hero">
+    <section id="hero" aria-labelledby="hero-heading">
       <div class="hero-animate" id="heroContent">
         <p class="hero-eyebrow">AI Engineer · Paris, France</p>
-        <h1 class="hero-title">Research meets<br><span>engineering.</span></h1>
+        <h1 class="hero-title" id="hero-heading">Research meets<br><span>engineering.</span></h1>
         <p class="hero-sub">Turning deep learning research into real-world applications. Precision at every layer.</p>
         <div class="hero-actions">
           <a href="#projects" class="btn-primary">
@@ -787,7 +835,7 @@
 
 </main>
 
-<button id="back-to-top" aria-label="Back to top">
+<button id="back-to-top" type="button" aria-label="Back to top">
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
     <path d="M8 12V4M4 7l4-4 4 4" stroke="var(--text-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
@@ -799,6 +847,20 @@
 
 <script>
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    const loader = document.getElementById('loader');
+    loader.style.display = 'none';
+    document.body.style.overflow = '';
+    document.getElementById('nav').classList.add('visible');
+    document.getElementById('main').classList.add('visible');
+    document.getElementById('heroContent').classList.add('in');
+    document.getElementById('heroScroll').classList.add('visible');
+  } else {
+
   if (sessionStorage.getItem('reload')) {
     sessionStorage.removeItem('reload');
     window.scrollTo(0, 0);
@@ -835,12 +897,16 @@
     }, { once: true });
   });
   
+  }
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
     });
   }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  if (!reduceMotion) {
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
 
   const toggle = document.getElementById('theme-toggle');
   const saved = localStorage.getItem('theme') || 'light';
@@ -856,7 +922,7 @@
   window.addEventListener('scroll', () => {
     btt.classList.toggle('visible', window.scrollY > 400);
   }, { passive: true });
-  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
 
   const heroScroll = document.getElementById('heroScroll');
   window.addEventListener('scroll', () => {
@@ -872,7 +938,7 @@
       if (target) {
         e.preventDefault();
         const top = target.getBoundingClientRect().top + window.scrollY - 60;
-        window.scrollTo({ top, behavior: 'smooth' });
+        window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' });
       }
     });
   });
