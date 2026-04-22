@@ -494,6 +494,10 @@ html.js.intro-complete .hero-scroll.hidden {
 }
 
 /* ── REVEAL ANIMATION ── */
+.card {
+    transition: background 0.3s ease, box-shadow 0.3s; /* ── transition on toggle ── */
+}
+
 .reveal {
     transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
 }
@@ -886,7 +890,7 @@ html.js .reveal:not(.in) {
 }
 
 .btn-github:hover svg {
-    transform: translate(2px, -2px);
+    transform: translate(1px, -1px);
 }
 
 .btn-github svg {
