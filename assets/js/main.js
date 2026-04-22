@@ -15,6 +15,13 @@ const themeColorMeta = document.getElementById('theme-color-meta');
 const navHomeTrigger = document.getElementById('nav-home-trigger');
 const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
+const root = document.documentElement;
+
+function setIntroState(state) {
+    root.classList.remove('intro-pending', 'intro-started', 'intro-complete');
+    root.classList.add(state);
+}
+
 function updateThemeColor(theme) {
     if (!themeColorMeta) return;
     themeColorMeta.setAttribute('content', theme === 'dark' ? '#111111' : '#f5f5f7');
@@ -97,6 +104,7 @@ function initReducedMotionMode() {
     }
 
     document.body.style.overflow = '';
+    setIntroState('intro-complete');
     showCoreUi();
     heroScroll?.classList.add('visible');
 }
@@ -114,6 +122,7 @@ function initLoaderSequence() {
         const loaderBar = document.querySelector('.loader-bar-fill');
         if (!loaderBar || !loader) {
             document.body.style.overflow = '';
+            setIntroState('intro-complete');
             showCoreUi();
             heroScroll?.classList.add('visible');
             return;
@@ -122,10 +131,12 @@ function initLoaderSequence() {
         loaderBar.addEventListener('animationend', () => {
             setTimeout(() => {
                 document.body.style.overflow = '';
+                setIntroState('intro-started');
                 loader.classList.add('slide-up');
 
                 loader.addEventListener('transitionend', () => {
                     loader.style.display = 'none';
+                    setIntroState('intro-complete');
                     nav?.classList.add('visible');
 
                     if (heroScroll) {
@@ -161,7 +172,8 @@ function initRevealObserver() {
 
 function initBackToTop() {
     window.addEventListener('scroll', () => {
-        backToTop?.classList.toggle('visible', window.scrollY > 400);
+        const trigger = window.innerHeight * 0.6;
+        backToTop?.classList.toggle('visible', window.scrollY > trigger);
     }, { passive: true });
 
     backToTop?.addEventListener('click', () => {
@@ -173,10 +185,15 @@ function initBackToTop() {
 }
 
 function initHeroScrollIndicator() {
+    let hasScrolled = false;
+
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 20 && heroScroll) {
+        if (!heroScroll || hasScrolled) return;
+
+        if (window.scrollY > 20) {
             heroScroll.style.transition = 'opacity 0.25s ease-in';
             heroScroll.classList.add('hidden');
+            hasScrolled = true; // 👈 empêche tout retour
         }
     }, { passive: true });
 }
@@ -191,11 +208,21 @@ function initAnchorScroll() {
 
             event.preventDefault();
 
-            const top = target.getBoundingClientRect().top + window.scrollY - 60;
+            const offset = 60;
+            const top = target.getBoundingClientRect().top + window.scrollY - offset;
+
             window.scrollTo({
                 top,
                 behavior: reduceMotion ? 'auto' : 'smooth'
             });
+
+            history.pushState(null, '', targetSelector);
+
+            if (!target.hasAttribute('tabindex')) {
+                target.setAttribute('tabindex', '-1');
+            }
+
+            target.focus({ preventScroll: true });
         });
     });
 }
@@ -208,6 +235,7 @@ function initNavReload() {
 }
 
 function init() {
+    setIntroState('intro-pending');
     initTheme();
     initNavReload();
     initRevealObserver();

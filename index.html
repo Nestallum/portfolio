@@ -43,6 +43,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <script>
+        document.documentElement.classList.add('js');
+    </script>
+
+    <script>
         (() => {
             const savedTheme = localStorage.getItem('theme');
             const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -55,6 +59,12 @@
 </head>
 
 <body>
+    <noscript>
+        <style>
+            #loader { display: none !important; }
+        </style>
+    </noscript>
+
     <a class="skip-link" href="#main">Skip to content</a>
 
     <!-- LOADER -->
@@ -70,10 +80,10 @@
 
     <!-- NAV -->
     <nav id="nav" aria-label="Primary">
-        <div class="nav-identity nav-home-trigger" id="nav-home-trigger">
+        <button class="nav-identity nav-home-trigger" id="nav-home-trigger" type="button" aria-label="Reload home">
             <span class="nav-name">Nassim Lattab</span>
             <span class="nav-title">AI Engineer</span>
-        </div>
+        </button>
 
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
@@ -134,7 +144,7 @@
 
         <!-- ABOUT -->
         <section id="about">
-            <p class="section-label reveal">About</p>
+            <h2 class="section-label reveal">About</h2>
             <div class="about-grid">
                 <div class="about-card-main reveal reveal-delay-1">
                     <p class="about-intro">
