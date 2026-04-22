@@ -1345,4 +1345,9 @@ button:focus-visible {
     .contact-card {
         padding: 40px 24px;
     }
+
+    #back-to-top {
+        bottom: 84px;
+        left: 16px;
+    }
 }
