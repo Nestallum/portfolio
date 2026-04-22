@@ -1269,6 +1269,10 @@ button:focus-visible {
         gap: 10px;
     }
 
+    #theme-toggle {
+    display: none;
+    }
+
     section {
         padding: 60px 16px;
     }

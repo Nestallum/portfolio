@@ -30,6 +30,25 @@ function applyTheme(theme) {
 }
 
 function initTheme() {
+    const isMobile = window.matchMedia('(max-width: 700px)').matches;
+
+    if (isMobile) {
+        const systemTheme = systemPrefersDark.matches ? 'dark' : 'light';
+        applyTheme(systemTheme);
+
+        const handleSystemThemeChange = (event) => {
+            applyTheme(event.matches ? 'dark' : 'light');
+        };
+
+        if (typeof systemPrefersDark.addEventListener === 'function') {
+            systemPrefersDark.addEventListener('change', handleSystemThemeChange);
+        } else if (typeof systemPrefersDark.addListener === 'function') {
+            systemPrefersDark.addListener(handleSystemThemeChange);
+        }
+
+        return;
+    }
+
     const savedTheme = localStorage.getItem('theme');
     const initialTheme = savedTheme || (systemPrefersDark.matches ? 'dark' : 'light');
 
