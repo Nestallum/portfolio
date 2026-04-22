@@ -37,7 +37,14 @@ function initTheme() {
         applyTheme(systemTheme);
 
         const handleSystemThemeChange = (event) => {
-            applyTheme(event.matches ? 'dark' : 'light');
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = event.matches ? 'dark' : 'light';
+
+            if (current !== next) {
+                document.body.style.opacity = '0';
+                document.body.style.transition = 'opacity 0.15s ease';
+                setTimeout(() => window.location.reload(), 150);
+            }
         };
 
         if (typeof systemPrefersDark.addEventListener === 'function') {
