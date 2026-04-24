@@ -7,7 +7,7 @@
     <meta name="description" content="AI Engineer portfolio of Nassim Lattab — turning research into real-world deep learning applications.">
     <meta name="author" content="Nassim Lattab">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#f5f5f7" id="theme-color-meta">
+    <meta name="theme-color" content="#111111">
     <meta name="color-scheme" content="light dark">
 
     <!-- Favicons -->
@@ -44,15 +44,6 @@
 
     <script>
         document.documentElement.classList.add('js');
-    </script>
-
-    <script>
-        (() => {
-            const savedTheme = localStorage.getItem('theme');
-            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-            document.documentElement.setAttribute('data-theme', theme);
-        })();
     </script>
 
     <link rel="stylesheet" href="assets/css/style.css">
@@ -94,17 +85,6 @@
         </ul>
 
         <div class="nav-cta-wrap">
-            <button class="theme-pill" id="theme-toggle" type="button" aria-label="Toggle theme" aria-pressed="false">
-                <div class="theme-pill-thumb">
-                    <svg class="icon-moon" width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke="#1d1d1f" stroke-width="2.5" stroke-linecap="round" />
-                    </svg>
-                    <svg class="icon-sun" width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <circle cx="12" cy="12" r="4" stroke="#1d1d1f" stroke-width="2" />
-                        <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="#1d1d1f" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                </div>
-            </button>
             <a href="#contact" class="nav-cta">Contact</a>
         </div>
     </nav>
@@ -407,25 +387,13 @@
         >
             <span class="winston-pill-icon-wrap" aria-hidden="true">
                 <span class="winston-pill-icon">
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <path
-                            d="M7 17.5L3.5 20V7.75C3.5 6.23122 4.73122 5 6.25 5H17.75C19.2688 5 20.5 6.23122 20.5 7.75V14.25C20.5 15.7688 19.2688 17 17.75 17H7Z"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linejoin="round"
-                        />
-                        <circle cx="9" cy="11" r="1.1" fill="currentColor"/>
-                        <circle cx="12" cy="11" r="1.1" fill="currentColor"/>
-                        <circle cx="15" cy="11" r="1.1" fill="currentColor"/>
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 12c0 4.4-3.6 8-8 8-1.4 0-2.7-0.3-3.9-1L4 20l1.1-3.3C4.4 15.3 4 13.7 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8z" fill="currentColor"/>
                     </svg>
                 </span>
-                <span class="winston-status-dot"></span>
             </span>
 
-            <span class="winston-pill-copy">
-                <span class="winston-pill-name">Winston</span>
-                <span class="winston-pill-role">Personal Assistant</span>
-            </span>
+            <span class="winston-pill-name">Ask Winston</span>
         </button>
 
         <div id="winston-preview" hidden aria-hidden="true">
@@ -440,31 +408,11 @@
                 </svg>
             </button>
 
-            <div class="winston-preview-head">
-                <span class="winston-preview-icon-wrap" aria-hidden="true">
-                    <span class="winston-preview-icon">
-                        <svg viewBox="0 0 24 24" fill="none">
-                            <path
-                                d="M7 17.5L3.5 20V7.75C3.5 6.23122 4.73122 5 6.25 5H17.75C19.2688 5 20.5 6.23122 20.5 7.75V14.25C20.5 15.7688 19.2688 17 17.75 17H7Z"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linejoin="round"
-                            />
-                            <circle cx="9" cy="11" r="1.1" fill="currentColor"/>
-                            <circle cx="12" cy="11" r="1.1" fill="currentColor"/>
-                            <circle cx="15" cy="11" r="1.1" fill="currentColor"/>
-                        </svg>
-                    </span>
-                    <span class="winston-status-dot"></span>
-                </span>
-
-                <div class="winston-preview-copy">
-                    <h3>Need information about my profile?</h3>
-                    <p>
-                        Winston can answer questions about my background, projects,
-                        skills and current goals.
-                    </p>
-                </div>
+            <div class="winston-preview-copy">
+                <h3>Need information about my profile?</h3>
+                <p>
+                    <strong>Winston</strong> can answer questions about my background, projects, skills and current goals.
+                </p>
             </div>
 
             <button id="winston-preview-cta" type="button" class="winston-preview-cta">
@@ -480,20 +428,7 @@
             <div class="winston-chat-header">
                 <div class="winston-chat-identity">
                     <span class="winston-chat-avatar-wrap" aria-hidden="true">
-                        <span class="winston-chat-avatar">
-                            <svg viewBox="0 0 24 24" fill="none">
-                                <path
-                                    d="M7 17.5L3.5 20V7.75C3.5 6.23122 4.73122 5 6.25 5H17.75C19.2688 5 20.5 6.23122 20.5 7.75V14.25C20.5 15.7688 19.2688 17 17.75 17H7Z"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    stroke-linejoin="round"
-                                />
-                                <circle cx="9" cy="11" r="1.1" fill="currentColor"/>
-                                <circle cx="12" cy="11" r="1.1" fill="currentColor"/>
-                                <circle cx="15" cy="11" r="1.1" fill="currentColor"/>
-                            </svg>
-                        </span>
-                        <span class="winston-status-dot"></span>
+                        <span class="winston-chat-avatar">W</span>
                     </span>
 
                     <div class="winston-chat-title-wrap">

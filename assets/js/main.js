@@ -10,83 +10,13 @@ const loader = document.getElementById('loader');
 const heroContent = document.getElementById('heroContent');
 const heroScroll = document.getElementById('heroScroll');
 const backToTop = document.getElementById('back-to-top');
-const themeToggle = document.getElementById('theme-toggle');
-const themeColorMeta = document.getElementById('theme-color-meta');
 const navHomeTrigger = document.getElementById('nav-home-trigger');
-const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
 const root = document.documentElement;
 
 function setIntroState(state) {
     root.classList.remove('intro-pending', 'intro-started', 'intro-complete');
     root.classList.add(state);
-}
-
-function updateThemeColor(theme) {
-    if (!themeColorMeta) return;
-    themeColorMeta.setAttribute('content', theme === 'dark' ? '#111111' : '#f5f5f7');
-}
-
-function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    updateThemeColor(theme);
-
-    if (themeToggle) {
-        themeToggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
-    }
-}
-
-function initTheme() {
-    const isMobile = window.matchMedia('(max-width: 700px)').matches;
-
-    if (isMobile) {
-        const systemTheme = systemPrefersDark.matches ? 'dark' : 'light';
-        applyTheme(systemTheme);
-
-        const handleSystemThemeChange = (event) => {
-            const current = document.documentElement.getAttribute('data-theme');
-            const next = event.matches ? 'dark' : 'light';
-
-            if (current !== next) {
-                document.body.style.opacity = '0';
-                document.body.style.transition = 'opacity 0.15s ease';
-                setTimeout(() => window.location.reload(), 150);
-            }
-        };
-
-        if (typeof systemPrefersDark.addEventListener === 'function') {
-            systemPrefersDark.addEventListener('change', handleSystemThemeChange);
-        } else if (typeof systemPrefersDark.addListener === 'function') {
-            systemPrefersDark.addListener(handleSystemThemeChange);
-        }
-
-        return;
-    }
-
-    const savedTheme = localStorage.getItem('theme');
-    const initialTheme = savedTheme || (systemPrefersDark.matches ? 'dark' : 'light');
-
-    applyTheme(initialTheme);
-
-    themeToggle?.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('data-theme');
-        const next = current === 'dark' ? 'light' : 'dark';
-        applyTheme(next);
-        localStorage.setItem('theme', next);
-    });
-
-    const handleSystemThemeChange = (event) => {
-        const hasManualPreference = localStorage.getItem('theme');
-        if (hasManualPreference) return;
-
-        applyTheme(event.matches ? 'dark' : 'light');
-    };
-
-    if (typeof systemPrefersDark.addEventListener === 'function') {
-        systemPrefersDark.addEventListener('change', handleSystemThemeChange);
-    } else if (typeof systemPrefersDark.addListener === 'function') {
-        systemPrefersDark.addListener(handleSystemThemeChange);
-    }
 }
 
 function showCoreUi() {
@@ -359,9 +289,8 @@ function initWinston() {
 
     document.addEventListener('click', (event) => {
         const insideWinston = event.target.closest('#winston');
-        const isThemeToggle = event.target.closest('#theme-toggle');
 
-        if (!insideWinston && !isThemeToggle && state !== 'closed') {
+        if (!insideWinston && state !== 'closed') {
             state = 'closed';
             closeAll();
         }
@@ -458,7 +387,6 @@ function initWinston() {
 
 function init() {
     setIntroState('intro-pending');
-    initTheme();
     initNavReload();
     initRevealObserver();
     initBackToTop();
