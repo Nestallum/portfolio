@@ -239,10 +239,11 @@ const INTENTS = {
 
     contact: {
         patterns: [
-            /\b(location|located|based|live|lives|reside|resides|paris|france|remote|relocat(e|ion))\b/i,
-            /\bwhere\s+is\s+(he|nassim)\s+(based|located)\b/i,
-            /\bwhere\s+does\s+(he|nassim)\s+(live|reside)\b/i,
-            /\bis\s+(he|nassim)\s+(based|located)\s+in\b/i,
+            /\b(contact|reach|email|e-?mail|linkedin|github|message|write)\b/i,
+            /\bhow\s+(can|do)\s+(i|we)\s+(contact|reach|get\s+in\s+touch\s+with)\s+(him|nassim)?\b/i,
+            /\bhow\s+to\s+(contact|reach|get\s+in\s+touch\s+with)\s+(him|nassim)?\b/i,
+            /\bwhere\s+can\s+(i|we)\s+(contact|reach|message)\s+(him|nassim)?\b/i,
+            /\bcan\s+(i|we)\s+(contact|reach|message)\s+(him|nassim)?\b/i,
         ],
         weight: 1.0,
         responses: [
@@ -258,6 +259,7 @@ const INTENTS = {
             /\b(location|located|based|live|lives|reside|resides|paris|france|remote|relocat(e|ion))\b/i,
             /\bwhere\s+is\s+(he|nassim)\s+(based|located)\b/i,
             /\bwhere\s+does\s+(he|nassim)\s+(live|reside)\b/i,
+            /\bis\s+(he|nassim)\s+(based|located)\s+in\b/i,
         ],
         weight: 1.0,
         responses: [
@@ -280,7 +282,7 @@ const INTENTS = {
             "He excels, in my observation, at translating research into working systems. This is less common than the field pretends, and it is where he is most useful.",
         ],
     },
-    
+
     overview: {
         patterns: [
             /\bwho\s+is\s+(he|nassim)\b/i,
