@@ -134,9 +134,10 @@ const INTENTS = {
 
     identity: {
         patterns: [
-            /\bwho\s+(are|is)\s+you\b/i,
+            /\bwho\s+are\s+you\b/i,
+            /\bwho\s+is\s+(winston|this|the\s+assistant)\b/i,
             /\bwhat\s+are\s+you\b/i,
-            /\byour\s+(role|purpose|job)\b/i,
+            /\bwhat\s+is\s+your\s+(role|purpose|job)\b/i,
             /\bwhat\s+do\s+you\s+do\b/i,
         ],
         weight: 1.0,
@@ -150,9 +151,11 @@ const INTENTS = {
 
     education: {
         patterns: [
-            /\b(education|study|studies|studied|degree|diploma|school|university|master|msc|msci|graduat(e|ed|ion))\b/i,
+            /\b(education|study|studies|studied|degree|diploma|school|university|master'?s?|msc|graduat(e|ed|ion))\b/i,
             /\b(paris\s*cit[eé]|universit[eé])\b/i,
             /\bwhere\s+did\s+(he|nassim)\s+(study|learn)\b/i,
+            /\bwhat\s+did\s+(he|nassim)\s+study\b/i,
+            /\bwhat\s+is\s+(his|nassim'?s)\s+(degree|academic\s+background)\b/i,
         ],
         weight: 1.0,
         responses: [
@@ -165,7 +168,10 @@ const INTENTS = {
 
     experience: {
         patterns: [
-            /\b(experience|intern(ship)?|professional|career|sodern|ariane(group)?|space|embedded)\b/i,
+            /\b(experience|work(ed)?|intern(ship)?|professional|career|sodern|ariane(group)?|space|embedded)\b/i,
+            /\bwhere\s+(did|has)\s+(he|nassim)\s+work(ed)?\b/i,
+            /\bwhere\s+did\s+(he|nassim)\s+intern\b/i,
+            /\bwhat\s+(was|is)\s+(his|nassim'?s)\s+(internship|previous\s+role|professional\s+background)\b/i,
         ],
         weight: 1.0,
         responses: [
@@ -178,8 +184,9 @@ const INTENTS = {
 
     projects: {
         patterns: [
-            /\b(projects?|portfolio|built|made|created|work(ed)?\s+on|shown|repos?|chatbot|roberta|mistral|forecasting|sentiment)\b/i,
-            /\bwhat\s+has\s+(he|nassim)\s+(done|built|made)\b/i,
+            /\b(projects?|portfolio|built|made|created|developed|work(ed)?\s+on|show(case)?|repos?|repositories|github|chatbot|roberta|mistral|forecasting|sentiment)\b/i,
+            /\bwhat\s+has\s+(he|nassim)\s+(done|built|made|created|developed)\b/i,
+            /\bcan\s+you\s+(show|tell)\s+me\s+about\s+(his|nassim'?s)\s+projects?\b/i,
         ],
         weight: 1.0,
         responses: [
@@ -195,9 +202,11 @@ const INTENTS = {
 
     skills: {
         patterns: [
-            /\b(skill|stack|tool|tech(nolog(y|ies))?|framework|librar(y|ies)|language)\b/i,
-            /\b(pytorch|tensorflow|python|docker|kubernetes|cuda|onnx|c\+\+|fastapi|flask|huggingface|hugging\s*face|tflite)\b/i,
+            /\b(skills?|stack|tools?|tech(nolog(y|ies))?|frameworks?|librar(y|ies)|languages?|proficien(t|cy))\b/i,
+            /\b(pytorch|tensorflow|python|docker|kubernetes|cuda|onnx|c\+\+|fastapi|flask|huggingface|hugging\s*face|tflite|sql|linux|opencv|numpy|pandas)\b/i,
             /\bwhat\s+(does|can)\s+(he|nassim)\s+(know|use)\b/i,
+            /\bdoes\s+(he|nassim)\s+(know|use|work\s+with)\b/i,
+            /\bis\s+(he|nassim)\s+familiar\s+with\b/i,
         ],
         weight: 1.0,
         responses: [
@@ -215,9 +224,9 @@ const INTENTS = {
 
     availability: {
         patterns: [
-            /\b(avail(able|ability)|open\s+to|looking\s+for|hire|hiring|recruit|opportun(ity|ities)|seek(ing)?|job|role|position)\b/i,
-            /\bis\s+(he|nassim)\s+(available|free|open)\b/i,
-            /\bcan\s+(i|we)\s+hire\b/i,
+            /\b(avail(able|ability)|open\s+to|looking\s+for|currently\s+looking|hire|hiring|recruit|opportunit(y|ies)|seek(ing)?|job|role|position)\b/i,
+            /\bis\s+(he|nassim)\s+(available|free|open|looking)\b/i,
+            /\bcan\s+(i|we)\s+hire\s+(him|nassim)?\b/i,
         ],
         weight: 1.0,
         responses: [
@@ -230,8 +239,10 @@ const INTENTS = {
 
     contact: {
         patterns: [
-            /\b(contact|reach|email|e-?mail|linkedin|github|message|write)\b/i,
-            /\bhow\s+(can|do|to)\s+(i|we)\s+(contact|reach|get\s+in\s+touch)\b/i,
+            /\b(location|located|based|live|lives|reside|resides|paris|france|remote|relocat(e|ion))\b/i,
+            /\bwhere\s+is\s+(he|nassim)\s+(based|located)\b/i,
+            /\bwhere\s+does\s+(he|nassim)\s+(live|reside)\b/i,
+            /\bis\s+(he|nassim)\s+(based|located)\s+in\b/i,
         ],
         weight: 1.0,
         responses: [
@@ -244,8 +255,9 @@ const INTENTS = {
 
     location: {
         patterns: [
-            /\b(location|based|live|reside|paris|france|remote|relocat(e|ion))\b/i,
-            /\bwhere\s+(is|does)\s+(he|nassim)\s+(based|live|reside)\b/i,
+            /\b(location|located|based|live|lives|reside|resides|paris|france|remote|relocat(e|ion))\b/i,
+            /\bwhere\s+is\s+(he|nassim)\s+(based|located)\b/i,
+            /\bwhere\s+does\s+(he|nassim)\s+(live|reside)\b/i,
         ],
         weight: 1.0,
         responses: [
@@ -268,6 +280,25 @@ const INTENTS = {
             "He excels, in my observation, at translating research into working systems. This is less common than the field pretends, and it is where he is most useful.",
         ],
     },
+    
+    overview: {
+        patterns: [
+            /\bwho\s+is\s+(he|nassim)\b/i,
+            /\bwhat\s+does\s+(he|nassim)\s+do\b/i,
+            /\bwhat\s+did\s+(he|nassim)\s+do\b/i,
+            /\btell\s+me\s+about\s+(him|nassim)\b/i,
+            /\bgive\s+me\s+(an\s+)?overview\b/i,
+            /\bsummary\b/i,
+        ],
+        weight: 1.1,
+        responses: [
+            "Nassim is an AI engineer with a strong foundation in both research and applied machine learning. He trained at Université Paris Cité, graduating at the top of his class, and has since worked on projects spanning deep learning, NLP, and time-series modelling, as well as conducting research in space-grade embedded AI systems at Sodern.",
+            
+            "In brief, Nassim is a machine learning engineer trained in artificial intelligence, with experience ranging from academic research to real-world system deployment. His work includes LLM systems, transformer fine-tuning, and embedded AI for space applications.",
+            
+            "Nassim is a recent graduate in artificial intelligence who has already accumulated experience across several domains — from NLP and deep learning to embedded systems in the space industry. His profile sits at the intersection of research and engineering.",
+        ],
+    }
 };
 
 // ─────────────────────────────────────────────────────────
