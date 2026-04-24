@@ -1,3 +1,5 @@
+import { getWinstonReply } from './winston-engine.js';
+
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
@@ -337,32 +339,6 @@ function initWinston() {
         row.appendChild(time);
         messages.appendChild(row);
         messages.scrollTop = messages.scrollHeight;
-    };
-
-    const getWinstonReply = (question) => {
-        const q = question.toLowerCase();
-
-        if (q.includes('project')) {
-            return 'Nassim has worked on several AI-focused projects, including an LLM chatbot, RoBERTa fine-tuning, time series forecasting, and sentiment analysis.';
-        }
-
-        if (q.includes('skill') || q.includes('stack') || q.includes('tools')) {
-            return 'His stack includes PyTorch, TensorFlow, Hugging Face, OpenCV, Optuna, Python, C++, Docker, Kubernetes, CUDA, ONNX and more.';
-        }
-
-        if (q.includes('experience') || q.includes('internship') || q.includes('sodern') || q.includes('ariane')) {
-            return 'He completed an AI Research internship at Sodern, part of ArianeGroup, where he built an end-to-end deep learning pipeline for image restoration on embedded space systems.';
-        }
-
-        if (q.includes('education') || q.includes('master') || q.includes('msc')) {
-            return 'He holds an MSc in Computer Science specialized in Artificial Intelligence from Université Paris Cité, where he graduated first in class.';
-        }
-
-        if (q.includes('job') || q.includes('role') || q.includes('looking') || q.includes('open')) {
-            return 'He is currently open to full-time AI and machine learning engineering roles.';
-        }
-
-        return 'I can help with questions about Nassim’s experience, projects, skills, education, and current career goals.';
     };
 
     form?.addEventListener('submit', (event) => {
