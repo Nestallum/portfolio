@@ -7,19 +7,18 @@
 }
 
 :root {
-    --bg: #111111;
-    --bg-card: #1c1c1e;
-    --bg-card-hover: #2c2c2e;
+    --bg: #000000;
+    --bg-card: #1d1d1f;
+    --bg-card-hover: #242426;
     --text-primary: #f5f5f7;
-    --text-secondary: #a1a1a6;
+    --text-secondary: #86868b;
     --text-tertiary: #6e6e73;
     --accent: #2997ff;
-    --accent-hover: #409cff;
-    --border: rgba(255, 255, 255, 0.08);
-    --border-strong: rgba(255, 255, 255, 0.16);
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.5);
+    --accent-hover: #36a1ff;
+    --border: rgba(245, 245, 247, 0.1);
+    --nav-border: #4f4f50;
+    --nav-bg: rgba(22, 22, 23, 0.8);
+    --blue-glow: rgba(100, 180, 255, 0.026);
     --radius-sm: 12px;
     --radius-md: 18px;
     --radius-lg: 24px;
@@ -33,7 +32,7 @@ html {
     scroll-behavior: smooth;
     scrollbar-gutter: stable;
     scrollbar-width: thin;
-    scrollbar-color: var(--border-strong) transparent;
+    scrollbar-color: var(--border) transparent;
 }
 
 html::-webkit-scrollbar {
@@ -45,7 +44,7 @@ html::-webkit-scrollbar-track {
 }
 
 html::-webkit-scrollbar-thumb {
-    background: var(--border-strong);
+    background: var(--border);
     border-radius: 10px;
     border: 2px solid transparent;
     background-clip: padding-box;
@@ -63,7 +62,6 @@ body {
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     scrollbar-gutter: stable;
-    transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* ── LOADER ── */
@@ -124,7 +122,7 @@ body {
 .loader-bar-track {
     width: 140px;
     height: 1.5px;
-    background: var(--border-strong);
+    background: var(--border);
     border-radius: 2px;
     overflow: hidden;
     opacity: 0;
@@ -164,11 +162,12 @@ nav {
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
     padding: 0 50px;
-    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    background: var(--nav-bg);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-bottom: 1px solid var(--border);
-    transition: opacity 0.5s var(--ease-out), background 0.3s ease;
+    border-bottom: 1px solid var(--nav-border);
+    transition: opacity 0.5s var(--ease-out);
+    -webkit-font-smoothing: antialiased;
 }
 
 html.js nav {
@@ -210,14 +209,14 @@ html.js.intro-complete nav.visible {
 .nav-title {
     font-size: 11px;
     font-weight: 400;
-    color: var(--text-secondary);
+    color: rgba(245, 245, 247, 0.8);
     line-height: 1.2;
 }
 
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 34px;
     list-style: none;
     justify-self: center;
 }
@@ -225,9 +224,8 @@ html.js.intro-complete nav.visible {
 .nav-links a {
     font-size: 13px;
     font-weight: 400;
-    color: var(--text-secondary);
+    color: rgba(245, 245, 247, 0.8);
     text-decoration: none;
-    transition: color 0.2s;
 }
 
 .nav-links a:hover {
@@ -245,11 +243,10 @@ html.js.intro-complete nav.visible {
     font-size: 12px;
     font-weight: 500;
     color: #fff !important;
-    padding: 4px 12px;
+    padding: 5px 13px;
     border: none;
     border-radius: 980px;
     background: var(--accent);
-    transition: background 0.2s !important;
     text-decoration: none;
 }
 
@@ -258,7 +255,6 @@ html.js.intro-complete nav.visible {
 }
 
 .nav-cta:active {
-    transform: scale(0.96);
 }
 
 /* ── MAIN LAYOUT ── */
@@ -277,8 +273,8 @@ html.js.intro-complete main.visible {
 }
 
 section {
-    padding: 80px 24px;
-    max-width: 980px;
+    padding: 96px 32px;
+    max-width: 1120px;
     margin: 0 auto;
 }
 
@@ -294,7 +290,7 @@ section {
     justify-content: center;
     padding-top: 60px;
     padding-bottom: 60px;
-    max-width: 980px;
+    max-width: 1120px;
     margin: 0 auto;
 }
 
@@ -309,7 +305,7 @@ section {
 }
 
 .hero-title {
-    font-size: clamp(48px, 7vw, 88px);
+    font-size: clamp(56px, 7.4vw, 104px);
     font-weight: 600;
     letter-spacing: -0.04em;
     line-height: 1.02;
@@ -323,10 +319,10 @@ section {
 }
 
 .hero-sub {
-    font-size: 19px;
+    font-size: 23px;
     font-weight: 400;
     color: var(--text-secondary);
-    max-width: 540px;
+    max-width: 620px;
     line-height: 1.55;
     margin-bottom: 40px;
     transition: opacity 0.6s var(--ease-out) 0.3s, transform 0.6s var(--ease-out) 0.3s;
@@ -420,7 +416,8 @@ html.js.intro-complete .hero-scroll.hidden {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 10px 16px;
+    padding: 11px 18px;
+    min-height: 38px;
     background: var(--accent);
     color: #fff;
     font-size: 14px;
@@ -429,25 +426,21 @@ html.js.intro-complete .hero-scroll.hidden {
     text-decoration: none;
     border: none;
     cursor: pointer;
-    transition: background 0.2s, transform 0.15s var(--ease-spring), box-shadow 0.2s;
-    box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
 }
 
 .btn-primary:hover {
     background: var(--accent-hover);
-    transform: scale(1.02);
-    box-shadow: 0 3px 12px rgba(0, 113, 227, 0.3);
 }
 
 .btn-primary:active {
-    transform: scale(0.98);
 }
 
 .btn-secondary {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 10px 16px;
+    padding: 11px 18px;
+    min-height: 38px;
     background: var(--bg-card);
     color: var(--text-primary);
     font-size: 14px;
@@ -456,23 +449,18 @@ html.js.intro-complete .hero-scroll.hidden {
     text-decoration: none;
     border: 1px solid var(--border);
     cursor: pointer;
-    box-shadow: var(--shadow-sm);
-    transition: background 0.2s, transform 0.15s var(--ease-spring), box-shadow 0.2s;
 }
 
 .btn-secondary:hover {
     background: var(--bg-card-hover);
-    transform: scale(1.02);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .btn-secondary:active {
-    transform: scale(0.98);
 }
 
 /* ── SECTION HEADERS ── */
 .section-label {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -481,7 +469,7 @@ html.js.intro-complete .hero-scroll.hidden {
 }
 
 .section-title {
-    font-size: clamp(28px, 4vw, 40px);
+    font-size: clamp(40px, 4.6vw, 58px);
     font-weight: 600;
     letter-spacing: -0.03em;
     line-height: 1.1;
@@ -491,7 +479,7 @@ html.js.intro-complete .hero-scroll.hidden {
 
 /* ── REVEAL ANIMATION ── */
 .card {
-    transition: background 0.3s ease, box-shadow 0.3s; /* ── transition on toggle ── */
+
 }
 
 .reveal {
@@ -540,10 +528,9 @@ html.js .reveal:not(.in) {
     grid-column: 1 / -1;
     background: var(--bg-card);
     border-radius: var(--radius-lg);
-    padding: 40px;
+    padding: 48px;
     border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-    transition: box-shadow 0.3s, transform 0.3s var(--ease-out);
+    transition: transform 0.3s var(--ease-out);
     position: relative;
     overflow: hidden;
 }
@@ -559,8 +546,6 @@ html.js .reveal:not(.in) {
 }
 
 .about-card-main:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
 }
 
 .about-card-main:hover::after {
@@ -568,9 +553,9 @@ html.js .reveal:not(.in) {
 }
 
 .about-intro {
-    font-size: 21px;
+    font-size: 24px;
     font-weight: 400;
-    line-height: 1.52;
+    line-height: 1.5;
     letter-spacing: -0.02em;
     color: var(--text-primary);
     margin-bottom: 16px;
@@ -581,7 +566,7 @@ html.js .reveal:not(.in) {
 }
 
 .about-desc {
-    font-size: 15px;
+    font-size: 17px;
     color: var(--text-secondary);
     line-height: 1.65;
 }
@@ -589,15 +574,29 @@ html.js .reveal:not(.in) {
 .about-stat-card {
     background: var(--bg-card);
     border-radius: var(--radius-md);
-    padding: 28px 32px;
+    padding: 34px 38px;
     border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-    transition: box-shadow 0.3s, transform 0.3s var(--ease-out);
+    transition: transform 0.3s var(--ease-out);
+    position: relative;
+    overflow: hidden;
 }
 
+.about-stat-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(100, 180, 255, 0.05) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.about-stat-card:hover::after {
+    opacity: 1;
+}
+
+
 .about-stat-card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
 }
 
 .stat-ranking {
@@ -668,10 +667,9 @@ html.js .reveal:not(.in) {
 .exp-card {
     background: var(--bg-card);
     border-radius: var(--radius-lg);
-    padding: 36px 40px;
+    padding: 44px 48px;
     border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-    transition: box-shadow 0.3s, transform 0.3s var(--ease-out);
+    transition: transform 0.3s var(--ease-out);
     position: relative;
     overflow: hidden;
 }
@@ -687,7 +685,6 @@ html.js .reveal:not(.in) {
 }
 
 .exp-card:hover {
-    box-shadow: var(--shadow-md);
     transform: translateY(-2px);
 }
 
@@ -704,13 +701,13 @@ html.js .reveal:not(.in) {
 }
 
 .exp-role {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     letter-spacing: -0.02em;
 }
 
 .exp-company {
-    font-size: 14px;
+    font-size: 16px;
     color: var(--text-secondary);
     margin-top: 2px;
 }
@@ -734,7 +731,7 @@ html.js .reveal:not(.in) {
 }
 
 .exp-desc {
-    font-size: 14px;
+    font-size: 16px;
     color: var(--text-secondary);
     line-height: 1.65;
     margin-top: 16px;
@@ -760,7 +757,6 @@ html.js .reveal:not(.in) {
     padding: 4px 12px;
     border-radius: 980px;
     border: 1px solid var(--border);
-    transition: background 0.2s, color 0.2s;
 }
 
 /* ── PROJECTS ── */
@@ -777,15 +773,14 @@ html.js .reveal:not(.in) {
 .project-card {
     background: var(--bg-card);
     border-radius: var(--radius-lg);
-    padding: 32px;
+    padding: 38px;
     border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
     display: flex;
     flex-direction: column;
     color: inherit;
     position: relative;
     overflow: hidden;
-    transition: box-shadow 0.3s, transform 0.3s var(--ease-out);
+    transition: transform 0.3s var(--ease-out);
 }
 
 .project-card::after {
@@ -799,8 +794,7 @@ html.js .reveal:not(.in) {
 }
 
 .project-card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 }
 
 .project-card:hover::after {
@@ -817,7 +811,7 @@ html.js .reveal:not(.in) {
 }
 
 .project-title {
-    font-size: 17px;
+    font-size: 19px;
     font-weight: 600;
     letter-spacing: -0.02em;
     color: var(--text-primary);
@@ -825,9 +819,9 @@ html.js .reveal:not(.in) {
 }
 
 .project-desc {
-    font-size: 13px;
+    font-size: 15px;
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.65;
     flex: 1;
     margin-bottom: 16px;
 }
@@ -837,9 +831,9 @@ html.js .reveal:not(.in) {
     font-size: 12px;
     font-weight: 600;
     color: var(--accent);
-    background: rgba(0, 113, 227, 0.07);
+    background: rgba(59, 156, 255, 0.12);
     padding: 3px 10px;
-    border-radius: 8px;
+    border-radius: 20px;
     margin-bottom: 16px;
     align-self: flex-start;
 }
@@ -854,26 +848,22 @@ html.js .reveal:not(.in) {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 8px 16px;
+    padding: 9px 16px;
+    min-height: 34px;
     background: var(--accent);
     color: #fff;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
     border-radius: 980px;
     text-decoration: none;
     border: none;
-    box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
-    transition: background 0.2s, transform 0.15s var(--ease-spring), box-shadow 0.2s;
 }
 
 .btn-github:hover {
     background: var(--accent-hover);
-    transform: scale(1.02);
-    box-shadow: 0 3px 12px rgba(0, 113, 227, 0.3);
 }
 
 .btn-github:active {
-    transform: scale(0.98);
 }
 
 .btn-github:hover svg {
@@ -898,19 +888,16 @@ html.js .reveal:not(.in) {
 .skill-group {
     background: var(--bg-card);
     border-radius: var(--radius-md);
-    padding: 28px;
+    padding: 34px;
     border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-    transition: box-shadow 0.3s, transform 0.3s var(--ease-out);
+    transition: transform 0.3s var(--ease-out);
 }
 
 .skill-group:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
 }
 
 .skill-group-label {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -919,7 +906,7 @@ html.js .reveal:not(.in) {
 }
 
 .skill-list {
-    font-size: 13px;
+    font-size: 15px;
     color: var(--text-secondary);
     line-height: 2;
 }
@@ -938,10 +925,9 @@ html.js .reveal:not(.in) {
 .edu-card {
     background: var(--bg-card);
     border-radius: var(--radius-md);
-    padding: 32px;
+    padding: 38px;
     border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-    transition: box-shadow 0.3s, transform 0.3s var(--ease-out);
+    transition: transform 0.3s var(--ease-out);
     position: relative;
     overflow: hidden;
 }
@@ -957,7 +943,6 @@ html.js .reveal:not(.in) {
 }
 
 .edu-card:hover {
-    box-shadow: var(--shadow-md);
     transform: translateY(-2px);
 }
 
@@ -984,7 +969,7 @@ html.js .reveal:not(.in) {
 }
 
 .edu-degree {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     letter-spacing: -0.02em;
     color: var(--text-primary);
@@ -1001,7 +986,6 @@ html.js .reveal:not(.in) {
 .edu-link {
     color: var(--text-secondary);
     text-decoration: none;
-    transition: color 0.2s;
 }
 
 .edu-link:hover {
@@ -1009,9 +993,9 @@ html.js .reveal:not(.in) {
 }
 
 .edu-school {
-    font-size: 13px;
+    font-size: 15px;
     color: var(--text-secondary);
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 }
 
 .edu-rank {
@@ -1035,13 +1019,12 @@ html.js .reveal:not(.in) {
 .contact-card {
     background: var(--bg-card);
     border-radius: var(--radius-lg);
-    padding: 64px 48px 56px;
+    padding: 72px 56px 64px;
     border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
     text-align: center;
     position: relative;
     overflow: hidden;
-    transition: box-shadow 0.3s, transform 0.3s var(--ease-out);
+    transition: transform 0.3s var(--ease-out);
 }
 
 .contact-card::after {
@@ -1055,8 +1038,7 @@ html.js .reveal:not(.in) {
 }
 
 .contact-card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 }
 
 .contact-card:hover::after {
@@ -1080,9 +1062,9 @@ html.js .reveal:not(.in) {
 }
 
 .contact-sub {
-    font-size: 16px;
+    font-size: 18px;
     color: var(--text-secondary);
-    margin-bottom: 36px;
+    margin-bottom: 40px;
 }
 
 .contact-email-link {
@@ -1093,24 +1075,20 @@ html.js .reveal:not(.in) {
     font-weight: 500;
     color: #fff;
     text-decoration: none;
-    padding: 12px 20px;
+    padding: 12px 22px;
+    min-height: 42px;
     border-radius: 980px;
     border: none;
     background: var(--accent);
-    box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
-    transition: background 0.2s, transform 0.15s var(--ease-spring), box-shadow 0.2s;
     margin-bottom: 32px;
     will-change: transform;
 }
 
 .contact-email-link:hover {
     background: var(--accent-hover);
-    transform: scale(1.02);
-    box-shadow: 0 3px 12px rgba(0, 113, 227, 0.3);
 }
 
 .contact-email-link:active {
-    transform: scale(0.98);
 }
 
 .contact-meta {
@@ -1125,7 +1103,6 @@ html.js .reveal:not(.in) {
 .contact-meta a {
     color: var(--text-secondary);
     text-decoration: none;
-    transition: color 0.2s;
 }
 
 .contact-meta a:hover {
@@ -1159,7 +1136,7 @@ html.js .reveal:not(.in) {
     opacity: 0;
     pointer-events: none;
     transform: translateY(8px);
-    transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out), background 0.2s, border-color 0.2s;
+    transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out);
 }
 
 #back-to-top.visible {
@@ -1173,7 +1150,6 @@ html.js .reveal:not(.in) {
 }
 
 #back-to-top:active {
-    transform: scale(0.94);
 }
 
 /* ── WINSTON ── */
@@ -1208,7 +1184,7 @@ html.js.intro-complete #winston {
 #winston.chat-open #winston-pill {
     opacity: 0;
     pointer-events: none;
-    transform: translateY(8px) scale(0.98);
+    transform: translateY(8px);
 }
 
 /* PILULE */
@@ -1219,34 +1195,26 @@ html.js.intro-complete #winston {
     background: var(--bg-card);
     border: 1px solid var(--border);
     color: var(--text-primary);
-    padding: 6px 16px 6px 14px;
+    padding: 8px 16px 8px 14px;
+    min-height: 44px;
     border-radius: 980px;
     display: inline-flex;
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    box-shadow: var(--shadow-md);
-    transition:
-        transform 0.15s var(--ease-spring),
-        background 0.2s,
-        box-shadow 0.2s,
-        opacity 0.2s;
+    transition: opacity 0.2s var(--ease-out);
 }
 
 #winston-pill:hover {
-    transform: scale(1.02);
     background: var(--bg-card-hover);
-    box-shadow: var(--shadow-md);
 }
 
 #winston-pill:active,
 #winston-pill.is-pressed {
-    transform: scale(0.98);
 }
 
 #winston-pill.is-active {
     background: var(--bg-card-hover);
-    box-shadow: var(--shadow-lg);
 }
 
 .winston-pill-icon,
@@ -1305,12 +1273,11 @@ html.js.intro-complete #winston {
     align-items: flex-start;
     right: 32px;
     bottom: 86px;
-    width: 392px;
-    padding: 22px 20px 18px;
+    width: 420px;
+    padding: 26px 24px 22px;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 28px;
-    box-shadow: var(--shadow-lg);
     opacity: 0;
     transform: translateY(10px) scale(0.985);
     pointer-events: none;
@@ -1336,23 +1303,22 @@ html.js.intro-complete #winston {
     height: 30px;
     border-radius: 50%;
     background: var(--bg-card);
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--border);
     color: var(--text-primary);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
 }
 
 .winston-close:hover {
     background: var(--bg-card-hover);
-    border-color: var(--border-strong);
+    border-color: var(--border);
 }
 
 .winston-close:active {
     background: var(--bg-card-hover);
-    border-color: var(--border-strong);
+    border-color: var(--border);
 }
 
 .winston-close svg {
@@ -1361,9 +1327,9 @@ html.js.intro-complete #winston {
 }
 
 .winston-preview-copy h3 {
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 600;
-    line-height: 1.28;
+    line-height: 1.3;
     letter-spacing: -0.012em;
     color: var(--text-primary);
     margin-bottom: 8px;
@@ -1371,7 +1337,7 @@ html.js.intro-complete #winston {
 }
 
 .winston-preview-copy p {
-    font-size: 13px;
+    font-size: 15px;
     line-height: 1.58;
     color: var(--text-secondary);
     margin-bottom: 16px;
@@ -1388,7 +1354,8 @@ html.js.intro-complete #winston {
     align-items: center;
     justify-content: flex-start;
     gap: 8px;
-    padding: 10px 14px;
+    padding: 11px 16px;
+    min-height: 38px;
     background: var(--accent);
     color: #fff;
     border: none;
@@ -1396,8 +1363,6 @@ html.js.intro-complete #winston {
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
-    transition: background 0.2s, transform 0.15s var(--ease-spring), box-shadow 0.2s;
     text-align: left;
     width: auto;
     max-width: 100%;
@@ -1417,12 +1382,9 @@ html.js.intro-complete #winston {
 
 .winston-preview-cta:hover {
     background: var(--accent-hover);
-    transform: scale(1.01);
-    box-shadow: 0 3px 12px rgba(0, 113, 227, 0.3);
 }
 
 .winston-preview-cta:active {
-    transform: scale(0.98);
 }
 
 /* CHAT */
@@ -1430,15 +1392,14 @@ html.js.intro-complete #winston {
     position: fixed;
     right: 32px;
     bottom: 32px;
-    width: 360px;
-    height: 560px;
+    width: 390px;
+    height: 600px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 34px;
-    box-shadow: var(--shadow-lg);
     opacity: 0;
     transform: translateY(10px) scale(0.985);
     pointer-events: none;
@@ -1496,7 +1457,7 @@ html.js.intro-complete #winston {
     gap: 18px;
     background: var(--bg);
     scrollbar-width: thin;
-    scrollbar-color: var(--border-strong) transparent;
+    scrollbar-color: var(--border) transparent;
 }
 
 .winston-messages::-webkit-scrollbar {
@@ -1508,7 +1469,7 @@ html.js.intro-complete #winston {
 }
 
 .winston-messages::-webkit-scrollbar-thumb {
-    background: var(--border-strong);
+    background: var(--border);
     border-radius: 8px;
 }
 
@@ -1630,7 +1591,6 @@ html.js.intro-complete #winston {
     color: var(--text-primary);
     font: inherit;
     font-size: 13px;
-    transition: border-color 0.2s, background 0.2s;
 }
 
 #winston-input::placeholder {
@@ -1640,8 +1600,7 @@ html.js.intro-complete #winston {
 
 #winston-input:focus {
     outline: none;
-    border-color: var(--border-strong);
-    box-shadow: none;
+    border-color: var(--border);
 }
 
 #winston-send {
@@ -1655,14 +1614,11 @@ html.js.intro-complete #winston {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 6px 14px rgba(0, 113, 227, 0.18);
-    transition: background 0.2s, box-shadow 0.2s;
     flex: 0 0 auto;
 }
 
 #winston-send:hover {
     background: var(--accent-hover);
-    box-shadow: 0 8px 18px rgba(0, 113, 227, 0.22);
 }
 
 #winston-send:active {
