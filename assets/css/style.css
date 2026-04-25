@@ -1724,3 +1724,10 @@ button:focus-visible {
         left: 16px;
     }
 }
+
+@media (max-width: 520px) {
+    .degree-prefix {
+        display: block;
+    }
+}
+
