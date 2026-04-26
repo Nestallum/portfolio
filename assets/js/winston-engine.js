@@ -290,6 +290,7 @@ const INTENTS = {
             /\bwhat\s+did\s+(he|nassim)\s+do\b/i,
             /\btell\s+me\s+about\s+(him|nassim)\b/i,
             /\bgive\s+me\s+(an\s+)?overview\b/i,
+            /\b(his|nassim'?s?\s+)?profile\b/i,
             /\bsummary\b/i,
         ],
         weight: 1.1,
