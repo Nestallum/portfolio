@@ -712,7 +712,7 @@ html.js .reveal:not(.in) {
 .exp-company-link {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     color: var(--text-secondary);
     text-decoration: none;
 }
