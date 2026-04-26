@@ -78,6 +78,10 @@ body {
     scrollbar-gutter: stable;
 }
 
+a:visited {
+    color: inherit;
+}
+
 /* ── LOADER ── */
 #loader {
     position: fixed;
@@ -1658,6 +1662,7 @@ html.js.intro-complete #winston {
     #winston {
         right: 16px;
         bottom: 16px;
+        overflow: visible;
     }
 
     #winston-preview {
