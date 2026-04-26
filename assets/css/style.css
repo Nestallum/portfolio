@@ -495,8 +495,19 @@ html.js.intro-complete .hero-scroll.hidden {
 /* ── REVEAL ANIMATION ── */
 
 .reveal {
-    transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
 }
+
+.exp-card.reveal,
+.project-card.reveal,
+.edu-card.reveal,
+.skill-group.reveal,
+.about-card-main.reveal,
+.about-stat-card.reveal,
+.contact-card.reveal {
+    transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+
 
 html.js .reveal:not(.in) {
     opacity: 0;
