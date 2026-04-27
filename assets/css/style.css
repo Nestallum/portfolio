@@ -752,6 +752,13 @@ html.js .reveal:not(.in) {
     margin-top: 3px;
 }
 
+.exp-tagline {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 2rem 0 -0.75rem;;
+}
+
 .exp-period {
     font-size: 12px;
     color: var(--text-tertiary);
