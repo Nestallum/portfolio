@@ -16,14 +16,16 @@
     --text-primary: #f5f5f7;
     --text-secondary: #86868b;
     --text-tertiary: #6e6e73;
-    
-
+   
     /*
-    --accent: #24ac9d;
-    --accent-gradient: linear-gradient(90deg, #bfe1dc 0%, #587d95 100%);
-    */
     --accent: #2997ff;
     --accent-gradient: linear-gradient(90deg, #e0f0ff 0%, #84bcf0 100%);
+    */
+     
+    --accent: #00A87A;
+    --accent: #32b1a2;
+    --accent-gradient: linear-gradient(90deg, #d7efe9 0%, #4e7088 100%);
+      
     --accent-hover: color-mix(in srgb, var(--accent) 92%, white);
 
     --border: rgba(245, 245, 247, 0.1);
