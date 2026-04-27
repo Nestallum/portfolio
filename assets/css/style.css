@@ -9,12 +9,16 @@
 :root {
     --bg: #000000;
     --bg-card: #1d1d1f;
-    --bg-card-hover: #242426;
+    --bg-card-hover: color-mix(in srgb, var(--bg-card) 90%, white);
+
+    --bg-btn: #303032;
+    --bg-btn-hover: color-mix(in srgb, var(--bg-btn) 98%, white);
+
 
     --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     
     --text-primary: #f5f5f7;
-    --text-secondary: #86868b;
+    --text-secondary: #848489;
     --text-tertiary: #6e6e73;
    
     /*
@@ -24,10 +28,9 @@
      
     --accent: #32b1a2;
     --accent-gradient: linear-gradient(90deg, #d7efe9 0%, #4e7088 100%);
-      
     --accent-hover: color-mix(in srgb, var(--accent) 92%, white);
 
-    --border: rgba(245, 245, 247, 0.1);
+    --border: none;
 
     --nav-border: #4f4f50;
     --nav-bg: rgba(22, 22, 23, 0.8);
@@ -460,18 +463,18 @@ html.js.intro-complete .hero-scroll.hidden {
     gap: 6px;
     padding: 11px 18px;
     min-height: 38px;
-    background: var(--bg-card);
+    background: var(--bg-btn);
     color: var(--text-primary);
     font-size: 14px;
     font-weight: 500;
     border-radius: 980px;
     text-decoration: none;
-    border: 1px solid var(--border);
+    border: none;
     cursor: pointer;
 }
 
 .btn-secondary:hover {
-    background: var(--bg-card-hover);
+    background: var(--bg-btn-hover);
 }
 
 /* ── SECTION HEADERS ── */
@@ -1053,7 +1056,7 @@ html.js .reveal:not(.in) {
 .contact-card {
     background: var(--bg-card);
     border-radius: var(--radius-lg);
-    padding: 72px 56px 64px;
+    padding: 64px 56px 64px;
     border: 1px solid var(--border);
     text-align: center;
     position: relative;
@@ -1079,20 +1082,19 @@ html.js .reveal:not(.in) {
     opacity: 1;
 }
 
-.contact-headline {
-    font-size: clamp(28px, 4vw, 44px);
-    font-weight: 600;
-    letter-spacing: -0.04em;
-    color: var(--text-primary);
-    margin-bottom: 12px;
-}
-
 .contact-eyebrow {
     font-size: 12px;
     font-weight: 400;
     color: var(--text-tertiary);
     letter-spacing: 0.04em;
-    margin-bottom: 20px;
+}
+
+.contact-headline {
+    font-size: clamp(32px, 4vw, 44px);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    color: var(--text-primary);
+    margin-bottom: 26px;
 }
 
 .contact-sub {
@@ -1166,8 +1168,8 @@ html.js .reveal:not(.in) {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
+    background: var(--bg-btn);
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1185,7 +1187,7 @@ html.js .reveal:not(.in) {
 }
 
 #back-to-top:hover {
-    background: var(--bg-card-hover);
+    background: var(--bg-btn-hover);
 }
 
 /* ── WINSTON ── */
@@ -1228,8 +1230,8 @@ html.js.intro-complete #winston {
     font-family: var(--font);
     appearance: none;
     -webkit-appearance: none;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
+    background: var(--bg-btn);
+    border: none;
     color: var(--text-primary);
     padding: 10px 18px 10px 14px;
     border-radius: 980px;
@@ -1243,16 +1245,16 @@ html.js.intro-complete #winston {
 }
 
 #winston-pill:hover {
-    background: var(--bg-card-hover);
+    background: var(--bg-btn-hover);
 }
 
 #winston-pill:active,
 #winston-pill.is-pressed {
-    background: var(--bg-card-hover);
+    background: var(--bg-btn-hover);
 }
 
 #winston-pill.is-active {
-    background: var(--bg-card-hover);
+    background: var(--bg-btn-hover);
 }
 
 #winston-pill::after {
@@ -1453,7 +1455,7 @@ html.js.intro-complete #winston {
     display: flex;
     flex-direction: column;
     background: var(--bg-card);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(245, 245, 247, 0.1);
     border-radius: 34px;
     opacity: 0;
     transform: translateY(10px) scale(0.985);
