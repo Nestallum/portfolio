@@ -1455,7 +1455,7 @@ html.js.intro-complete #winston {
     display: flex;
     flex-direction: column;
     background: var(--bg-card);
-    border: 1px solid rgba(245, 245, 247, 0.1);
+    border: 1px solid var(--bg-card);
     border-radius: 34px;
     opacity: 0;
     transform: translateY(10px) scale(0.985);
@@ -1474,7 +1474,6 @@ html.js.intro-complete #winston {
     align-items: center;
     justify-content: space-between;
     padding: 14px 14px 12px;
-    border-bottom: 1px solid var(--border);
     background: var(--bg-card);
 }
 
@@ -1635,7 +1634,6 @@ html.js.intro-complete #winston {
     gap: 10px;
     padding: 10px 12px 12px;
     background: var(--bg-card);
-    border-top: 1px solid var(--border);
 }
 
 #winston-input {
@@ -1643,7 +1641,7 @@ html.js.intro-complete #winston {
     min-width: 0;
     padding: 6px 14px;
     border-radius: 999px;
-    border: 1px solid var(--border);
+    border: none;
     background: var(--bg);
     color: var(--text-primary);
     font: inherit;
