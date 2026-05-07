@@ -42,8 +42,8 @@ const PROFILE = {
             detail: 'a hybrid chatbot combining symbolic AI for intent matching with Mistral 7B for response generation, orchestrated by a custom message broker',
         },
         {
-            name: 'RoBERTa fine-tuning',
-            detail: 'fine-tuned RoBERTa for text classification, first with a hand-built PyTorch pipeline — custom tokenizer, DataLoader and batching — then ported to Hugging Face for comparison',
+            name: 'IMDb RoBERTa sentiment classifier',
+            detail: 'fine-tuned RoBERTa-base on the IMDb movie reviews dataset for binary sentiment classification, reaching 94.12% test accuracy and 0.9412 Macro F1, with a complete pipeline for tokenization, training, evaluation, confusion matrix generation and CLI inference',
         },
         {
             name: 'Time-series forecasting',
@@ -192,11 +192,11 @@ const INTENTS = {
         responses: [
             `Nassim has produced four works of note. A ${PROFILE.projects[0].name} — ${PROFILE.projects[0].detail}. An ${PROFILE.projects[1].name} — ${PROFILE.projects[1].detail}. A ${PROFILE.projects[2].name} project, where he ${PROFILE.projects[2].detail}. And a ${PROFILE.projects[3].name} study — ${PROFILE.projects[3].detail}.`,
 
-            `His portfolio spans four selected pieces. The most recent — a from-scratch ResNet18 for CIFAR-10 image classification, reaching 95% accuracy by methodically benchmarking against a simpler baseline CNN, with a training pipeline featuring modern augmentation and a warmup-to-cosine learning rate schedule. Alongside it: a hybrid LLM chatbot pairing symbolic AI with Mistral 7B through a custom broker he designed himself. Earlier still: RoBERTa fine-tuning for text classification, implemented first from scratch in PyTorch before being ported to Hugging Face — a deliberate pedagogical choice. And a comparative study of LSTM and GRU for temperature forecasting.`,
+            `His portfolio spans four selected pieces. A from-scratch ResNet18 for CIFAR-10 image classification, reaching 95% accuracy by methodically benchmarking against a simpler baseline CNN, with a training pipeline featuring modern augmentation and a warmup-to-cosine learning rate schedule. Alongside it: an IMDb RoBERTa sentiment classification project, fine-tuning RoBERTa-base on 50,000 movie reviews for binary sentiment analysis, reaching 94.12% accuracy on the held-out test set. Also included: a hybrid LLM chatbot pairing symbolic AI with Mistral 7B through a custom broker he designed himself. And finally, a comparative study of LSTM and GRU architectures for temperature forecasting.`,
 
             `Allow me to enumerate. First: ${PROFILE.projects[0].name} — ${PROFILE.projects[0].detail}. Second: ${PROFILE.projects[1].name} — ${PROFILE.projects[1].detail}. Third: ${PROFILE.projects[2].name} — ${PROFILE.projects[2].detail}. Fourth: ${PROFILE.projects[3].name} — ${PROFILE.projects[3].detail}.`,
 
-            `Four selected projects, each with its own lesson. The CIFAR-10 work taught him deep architectures from the ground up — implementing ResNet18 from scratch, with skip connections and a stem adapted for 32×32 inputs, then comparing it methodically against a baseline. The LLM chatbot taught him systems architecture — orchestrating symbolic intent matching with Mistral 7B through a broker of his own design. The RoBERTa work taught him the inner workings of transformer fine-tuning — first by hand in PyTorch, then with Hugging Face. And the forecasting work, a rigorous comparison of LSTM and GRU.`,
+            `Four selected projects, each with its own lesson. The CIFAR-10 work taught him deep architectures from the ground up — implementing ResNet18 from scratch, with skip connections and a stem adapted for 32×32 inputs, ultimately reaching 95% accuracy on CIFAR-10. The RoBERTa project focused on transformer fine-tuning workflows for sentiment analysis using PyTorch and Hugging Face, reaching 94.12% accuracy on the IMDb benchmark. The LLM chatbot taught him systems architecture — orchestrating symbolic intent matching with Mistral 7B through a broker of his own design. And the forecasting work, a rigorous comparison of LSTM and GRU.`,
         ],
     },
 
