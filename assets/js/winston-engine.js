@@ -46,8 +46,8 @@ const PROFILE = {
             detail: 'fine-tuned RoBERTa-base on the IMDb movie reviews dataset for binary sentiment classification, reaching 94.12% test accuracy and 0.9412 Macro F1, with a complete pipeline for tokenization, training, evaluation, confusion matrix generation and CLI inference',
         },
         {
-            name: 'Time-series forecasting',
-            detail: 'LSTM and GRU pipelines for temperature forecasting',
+            name: 'ETTh1 time-series forecasting',
+            detail: 'a multi-horizon LSTM forecasting pipeline on the ETTh1 benchmark using RevIN normalization to address distribution shift, achieving 1.63°C MAE at horizon 96 while analyzing long-horizon degradation effects',
         },
     ],
     stack: {
@@ -192,11 +192,11 @@ const INTENTS = {
         responses: [
             `Nassim has produced four works of note. A ${PROFILE.projects[0].name} — ${PROFILE.projects[0].detail}. An ${PROFILE.projects[1].name} — ${PROFILE.projects[1].detail}. A ${PROFILE.projects[2].name} project, where he ${PROFILE.projects[2].detail}. And a ${PROFILE.projects[3].name} study — ${PROFILE.projects[3].detail}.`,
 
-            `His portfolio spans four selected pieces. A from-scratch ResNet18 for CIFAR-10 image classification, reaching 95% accuracy by methodically benchmarking against a simpler baseline CNN, with a training pipeline featuring modern augmentation and a warmup-to-cosine learning rate schedule. Alongside it: an IMDb RoBERTa sentiment classification project, fine-tuning RoBERTa-base on 50,000 movie reviews for binary sentiment analysis, reaching 94.12% accuracy on the held-out test set. Also included: a hybrid LLM chatbot pairing symbolic AI with Mistral 7B through a custom broker he designed himself. And finally, a comparative study of LSTM and GRU architectures for temperature forecasting.`,
+            `His portfolio spans four selected pieces. A from-scratch ResNet18 for CIFAR-10 image classification, reaching 95% accuracy by methodically benchmarking against a simpler baseline CNN, with a training pipeline featuring modern augmentation and a warmup-to-cosine learning rate schedule. Alongside it: an IMDb RoBERTa sentiment classification project, fine-tuning RoBERTa-base on 50,000 movie reviews for binary sentiment analysis, reaching 94.12% accuracy on the held-out test set. Also included: a hybrid LLM chatbot pairing symbolic AI with Mistral 7B through a custom broker he designed himself. And finally, a multi-horizon ETTh1 forecasting project using LSTM and RevIN normalization to address distribution shift across long forecasting horizons.`,
 
             `Allow me to enumerate. First: ${PROFILE.projects[0].name} — ${PROFILE.projects[0].detail}. Second: ${PROFILE.projects[1].name} — ${PROFILE.projects[1].detail}. Third: ${PROFILE.projects[2].name} — ${PROFILE.projects[2].detail}. Fourth: ${PROFILE.projects[3].name} — ${PROFILE.projects[3].detail}.`,
 
-            `Four selected projects, each with its own lesson. The CIFAR-10 work taught him deep architectures from the ground up — implementing ResNet18 from scratch, with skip connections and a stem adapted for 32×32 inputs, ultimately reaching 95% accuracy on CIFAR-10. The RoBERTa project focused on transformer fine-tuning workflows for sentiment analysis using PyTorch and Hugging Face, reaching 94.12% accuracy on the IMDb benchmark. The LLM chatbot taught him systems architecture — orchestrating symbolic intent matching with Mistral 7B through a broker of his own design. And the forecasting work, a rigorous comparison of LSTM and GRU.`,
+            `Four selected projects, each with its own lesson. The CIFAR-10 work taught him deep architectures from the ground up — implementing ResNet18 from scratch, with skip connections and a stem adapted for 32×32 inputs, ultimately reaching 95% accuracy on CIFAR-10. The RoBERTa project focused on transformer fine-tuning workflows for sentiment analysis using PyTorch and Hugging Face, reaching 94.12% accuracy on the IMDb benchmark. The LLM chatbot taught him systems architecture — orchestrating symbolic intent matching with Mistral 7B through a broker of his own design. And the forecasting work, an exploration of multi-horizon ETTh1 time-series prediction and distribution-shift-aware normalization with RevIN.`,
         ],
     },
 
