@@ -38,8 +38,8 @@ const PROFILE = {
         detail: 'a from-scratch ResNet18 implementation (skip connections, BasicBlocks, adapted stem for 32×32 inputs) reaching 95% accuracy, benchmarked against a baseline SimpleCNN with a complete training pipeline including data augmentation, AdamW, and warmup-to-cosine annealing',
         },
         {
-            name: 'LLM-powered conversational agent',
-            detail: 'a hybrid chatbot combining symbolic AI for intent matching with Mistral 7B for response generation, orchestrated by a custom message broker',
+            name: 'image generation with diffusion models',
+            detail: 'a from-scratch implementation of DDPM and DDIM samplers in PyTorch, trained on FashionMNIST with a custom 14M-parameter U-Net and cosine noise schedule, reaching FID 10.74 with DDPM-1000 and a 20× faster sampling alternative with DDIM-50',
         },
         {
             name: 'IMDb RoBERTa sentiment classifier',
@@ -184,7 +184,7 @@ const INTENTS = {
 
     projects: {
         patterns: [
-            /\b(projects?|portfolio|built|made|created|developed|work(ed)?\s+on|show(case)?|repos?|repositories|github|chatbot|roberta|mistral|forecasting|cifar|resnet|cnn|classifier|computer\s+vision|image\s+classification)\b/i,
+            /\b(projects?|portfolio|built|made|created|developed|work(ed)?\s+on|show(case)?|repos?|repositories|github)\b/i,
             /\bwhat\s+has\s+(he|nassim)\s+(done|built|made|created|developed)\b/i,
             /\bcan\s+you\s+(show|tell)\s+me\s+about\s+(his|nassim'?s)\s+projects?\b/i,
         ],
@@ -192,11 +192,11 @@ const INTENTS = {
         responses: [
             `Nassim has produced four works of note. A ${PROFILE.projects[0].name} — ${PROFILE.projects[0].detail}. An ${PROFILE.projects[1].name} — ${PROFILE.projects[1].detail}. A ${PROFILE.projects[2].name} project, where he ${PROFILE.projects[2].detail}. And a ${PROFILE.projects[3].name} study — ${PROFILE.projects[3].detail}.`,
 
-            `His portfolio spans four selected pieces. A from-scratch ResNet18 for CIFAR-10 image classification, reaching 95% accuracy by methodically benchmarking against a simpler baseline CNN, with a training pipeline featuring modern augmentation and a warmup-to-cosine learning rate schedule. Alongside it: an IMDb RoBERTa sentiment classification project, fine-tuning RoBERTa-base on 50,000 movie reviews for binary sentiment analysis, reaching 94.12% accuracy on the held-out test set. Also included: a hybrid LLM chatbot pairing symbolic AI with Mistral 7B through a custom broker he designed himself. And finally, a multi-horizon ETTh1 forecasting project using LSTM and RevIN normalization to address distribution shift across long forecasting horizons.`,
+            `His portfolio spans four selected pieces. A from-scratch ResNet18 for CIFAR-10 image classification, reaching 95% accuracy by methodically benchmarking against a simpler baseline CNN, with a training pipeline featuring modern augmentation and a warmup-to-cosine learning rate schedule. Alongside it: an IMDb RoBERTa sentiment classification project, fine-tuning RoBERTa-base on 50,000 movie reviews for binary sentiment analysis, reaching 94.12% accuracy on the held-out test set. Also included: a from-scratch DDPM and DDIM image generation project on FashionMNIST, with a custom U-Net trained from the ground up, reaching FID 10.74 with the full 1000-step DDPM sampler and a 20× faster alternative via DDIM-50. And finally, a multi-horizon ETTh1 forecasting project using LSTM and RevIN normalization to address distribution shift across long forecasting horizons.`,
 
             `Allow me to enumerate. First: ${PROFILE.projects[0].name} — ${PROFILE.projects[0].detail}. Second: ${PROFILE.projects[1].name} — ${PROFILE.projects[1].detail}. Third: ${PROFILE.projects[2].name} — ${PROFILE.projects[2].detail}. Fourth: ${PROFILE.projects[3].name} — ${PROFILE.projects[3].detail}.`,
 
-            `Four selected projects, each with its own lesson. The CIFAR-10 work taught him deep architectures from the ground up — implementing ResNet18 from scratch, with skip connections and a stem adapted for 32×32 inputs, ultimately reaching 95% accuracy on CIFAR-10. The RoBERTa project focused on transformer fine-tuning workflows for sentiment analysis using PyTorch and Hugging Face, reaching 94.12% accuracy on the IMDb benchmark. The LLM chatbot taught him systems architecture — orchestrating symbolic intent matching with Mistral 7B through a broker of his own design. And the forecasting work, an exploration of multi-horizon ETTh1 time-series prediction and distribution-shift-aware normalization with RevIN.`,
+            `Four selected projects, each with its own lesson. The CIFAR-10 work taught him deep architectures from the ground up — implementing ResNet18 from scratch, with skip connections and a stem adapted for 32×32 inputs, ultimately reaching 95% accuracy on CIFAR-10. The RoBERTa project focused on transformer fine-tuning workflows for sentiment analysis using PyTorch and Hugging Face, reaching 94.12% accuracy on the IMDb benchmark. The DDPM project taught him the foundations of generative modeling — implementing both DDPM and DDIM samplers from scratch in PyTorch, with a custom U-Net, cosine noise schedule, and EMA-smoothed weights, reaching FID 10.74 on FashionMNIST. And the forecasting work, an exploration of multi-horizon ETTh1 time-series prediction and distribution-shift-aware normalization with RevIN.`,
         ],
     },
 
