@@ -862,6 +862,9 @@ html.js .reveal:not(.in) {
 }
 
 .project-desc {
+    hyphens: none;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
     font-size: 15px;
     color: var(--text-secondary);
     line-height: 1.65;
